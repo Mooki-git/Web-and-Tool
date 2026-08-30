@@ -80,6 +80,69 @@ body {
 .lede strong { color: var(--text); font-weight: 700; }
 .br-pc { display: none; }
 
+/* ===== 사이트 네비게이션 (모든 페이지 공통) ===== */
+.site-nav {
+  display: flex; flex-wrap: wrap; gap: 4px 2px;
+  margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.site-nav a {
+  padding: 6px 10px;
+  font-size: 13.5px; font-weight: 600; color: var(--muted);
+  text-decoration: none; border-radius: 8px;
+}
+.site-nav a:hover { color: var(--text); background: var(--bg); }
+.site-nav a.is-current { color: var(--brand-ink); background: var(--brand-bg); font-weight: 700; }
+
+/* ===== 긴 글 페이지 (About·FAQ·문의·개인정보처리방침·사용법) ===== */
+.article h1 {
+  margin: 0 0 4px; font-size: 22px; line-height: 1.35;
+  font-weight: 800; letter-spacing: -.01em;
+}
+.article .page-lede { margin: 0 0 20px; color: var(--muted); font-size: 14.5px; }
+.article h2 {
+  margin: 26px 0 10px; font-size: 16.5px; font-weight: 700;
+}
+.article h2:first-of-type { margin-top: 6px; }
+.article p { margin: 0 0 14px; }
+.article p:last-child { margin-bottom: 0; }
+.article ul, .article ol { margin: 0 0 14px; padding-left: 22px; }
+.article li { margin-bottom: 6px; }
+.article strong { font-weight: 700; }
+.article a { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
+.article .meta {
+  margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 12.5px;
+}
+
+/* 사용법 글의 단계 */
+.step { counter-increment: step; }
+.step-list { counter-reset: step; list-style: none; padding-left: 0; }
+.step-title {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 8px; font-size: 16px; font-weight: 700;
+}
+.step-title::before {
+  content: counter(step);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; width: 26px; height: 26px;
+  background: var(--brand); color: #fff;
+  border-radius: 50%; font-size: 13px; font-weight: 800;
+}
+.step-shot {
+  display: block; width: 100%; margin: 12px 0 4px;
+  border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.step-caption { margin: 0 0 20px; font-size: 12.5px; color: var(--muted); text-align: center; }
+
+/* 개인정보처리방침 이메일 표기 */
+.email-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: var(--bg); border: 1px solid var(--line);
+  padding: 2px 7px; border-radius: 6px; font-size: 13.5px;
+}
+
 /* ===== 카드 ===== */
 .card {
   background: var(--card);
@@ -318,6 +381,8 @@ body {
 /* ===== 푸터 ===== */
 .site-footer { padding: 26px 0 44px; }
 .disclaimer { margin: 0 0 6px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.disclaimer a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.disclaimer a:hover { color: var(--brand); }
 .note-2027 { margin-top: 12px; }
 
 /* ===== 태블릿 이상 ===== */
