@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>해외주식 배당소득세 계산기 | moklyun</title>
+<meta name="description" content="미국주식 배당금을 입력하면 실수령액과 원천징수 내역을 바로 계산하고, 금융소득종합과세 대상 여부까지 알려드립니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/dividend-tax.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232f6df6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='sans-serif' font-weight='700' fill='white'>₩</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow">재테크 계산기</p>
+    <h1>해외주식 배당소득세 계산기</h1>
+    <p class="lede">미국주식 배당 기준으로 계산해요. 미국은 현지에서 <strong>15%를 원천징수</strong>하는데,
+      국내 기준(14%)보다 높아서 국내에서 추가로 걷지 않아요.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="index.html">ISA 계산기</a>
+      <a href="dividend-tax.html" class="is-current" aria-current="page">배당세 계산기</a>
+      <a href="guide.html">이용법</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">소개</a>
+      <a href="contact.html">문의</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 배당금 입력 -->
+  <section class="card" aria-labelledby="q-dividend">
+    <h2 class="q-title" id="q-dividend">받은 배당금 (세전, 원화환산)</h2>
+    <p class="q-help">달러로 받으셨다면 받은 날 환율로 원화 환산해서 입력하세요.</p>
+
+    <div class="money-field">
+      <label class="sr-only" for="dividend">받은 배당금 (세전, 원화환산)</label>
+      <input id="dividend" type="text" inputmode="numeric" autocomplete="off" placeholder="세전 배당금 입력" value="">
+      <span class="unit">원</span>
+    </div>
+    <p class="field-echo" id="dividend-echo">금액을 입력하면 실수령액이 바로 계산됩니다.</p>
+  </section>
+
+  <!-- 결과 영역 -->
+  <div id="dividend-result">
+
+    <!-- 대기 상태 -->
+    <div class="card result-card" id="div-state-empty">
+      <p class="empty-msg">위에 <strong>받은 배당금</strong>을 입력하면<br>실수령액이 바로 나타납니다.</p>
+    </div>
+
+    <!-- 결과 상태 -->
+    <div class="is-hidden" id="div-state-ok">
+
+      <div class="card result-card headline-card">
+        <p class="headline-label">세전 배당금에서 미국 15% 뗀</p>
+        <p class="headline" id="div-net">0원</p>
+        <p class="headline-label">실수령액입니다</p>
+      </div>
+
+      <div class="card result-card">
+        <h2 class="section-title">원천징수 내역</h2>
+        <div class="table-scroll">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr-only">구분</span></th>
+                <th scope="col">금액</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">배당금 총액</th>
+                <td id="div-total">-</td>
+              </tr>
+              <tr>
+                <th scope="row">미국 원천징수 (15%)</th>
+                <td id="div-withheld">-</td>
+              </tr>
+              <tr>
+                <th scope="row">국내 추가 원천징수</th>
+                <td id="div-extra">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">단위: 원</p>
+
+        <p class="loss-note" style="margin-top:16px;">
+          <strong>국내 추가 징수가 0원인 이유:</strong> 국내 증권사는 현지 원천징수세율과 국내 배당소득세율(14%)을 비교해요.
+          미국은 15%로 국내 기준보다 이미 높아서 추가로 걷지 않습니다.
+          (중국 등 14%보다 낮은 나라는 차액만큼 국내에서 더 걷혀요 — 이 계산기는 <strong>미국주식 기준</strong>입니다.)
+        </p>
+      </div>
+
+      <!-- 2. 금융소득 입력 -->
+      <section class="card" aria-labelledby="q-finincome">
+        <h2 class="q-title" id="q-finincome">올해 누적 금융소득</h2>
+        <p class="q-help">이자소득 + 배당소득 합계예요. 이번 배당금도 포함해서 입력하세요.</p>
+
+        <div class="money-field">
+          <label class="sr-only" for="finincome">올해 누적 금융소득</label>
+          <input id="finincome" type="text" inputmode="numeric" autocomplete="off" placeholder="누적 금융소득 입력" value="">
+          <span class="unit">원</span>
+        </div>
+        <p class="field-echo" id="finincome-echo">금액을 입력하면 종합과세 대상 여부를 알려드립니다.</p>
+      </section>
+
+      <!-- 종합과세 판정 -->
+      <div class="card result-card is-hidden" id="div-state-verdict">
+        <span class="badge" id="div-badge">분리과세 완료</span>
+        <p id="div-verdict-msg" style="margin:0; font-size:15px; line-height:1.65;"></p>
+      </div>
+
+      <div class="card result-card actions-card">
+        <a class="btn btn-primary" href="index.html">ISA 절세 계산기 보기</a>
+        <a class="btn btn-ghost is-soon" href="#" aria-disabled="true">ISA 유형 진단하기 (준비 중)</a>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산이며 세무 조언이 아닙니다. 미국주식 배당 기준이며, 다른 나라 주식은 원천징수 구조가 다를 수 있습니다.<br>
+    세율 기준: 2026.08 국세청·한미조세조약 공개 자료.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer"><a href="privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+
+<script src="dividend-tax.js"></script>
+</body>
+</html>

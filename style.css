@@ -263,6 +263,7 @@ body {
 }
 .badge-danger { color: var(--danger); background: var(--danger-bg); }
 .badge-good   { color: var(--good);   background: var(--good-bg); }
+.badge-warn   { color: var(--warn-ink); background: var(--warn-bg); }
 
 /* 헤드라인 */
 .headline-card { text-align: center; }
