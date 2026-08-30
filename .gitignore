@@ -1,0 +1,11 @@
+# OS가 만드는 잡동사니 파일
+.DS_Store
+Thumbs.db
+
+# 편집기 설정
+.vscode/
+.idea/
+
+# 배포 도구 캐시
+.vercel/
+node_modules/
