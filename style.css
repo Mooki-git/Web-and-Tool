@@ -109,7 +109,7 @@ body {
 .article ul, .article ol { margin: 0 0 14px; padding-left: 22px; }
 .article li { margin-bottom: 6px; }
 .article strong { font-weight: 700; }
-.article a { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
+.article a:not(.btn) { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
 .article .meta {
   margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line);
   color: var(--muted); font-size: 12.5px;
