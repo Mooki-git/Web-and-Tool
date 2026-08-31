@@ -94,6 +94,27 @@ body {
 .site-nav a:hover { color: var(--text); background: var(--bg); }
 .site-nav a.is-current { color: var(--brand-ink); background: var(--brand-bg); font-weight: 700; }
 
+/* ===== 계산기 전환 뱃지 (진짜 계산기끼리만) ===== */
+.calc-switcher {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 18px;
+}
+.calc-switcher a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px;
+  font-size: 14px; font-weight: 700; color: var(--muted);
+  background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 999px; text-decoration: none;
+}
+.calc-switcher a:hover { border-color: var(--brand); color: var(--text); }
+.calc-switcher a.is-current {
+  background: var(--brand); border-color: var(--brand); color: #fff;
+}
+.calc-switcher .crumb {
+  font-size: 13px; color: var(--muted); font-weight: 600;
+  align-self: center; margin-right: -2px;
+}
+
 /* ===== 긴 글 페이지 (About·FAQ·문의·개인정보처리방침·사용법) ===== */
 .article h1 {
   margin: 0 0 4px; font-size: 22px; line-height: 1.35;
