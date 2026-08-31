@@ -318,6 +318,29 @@ body {
 .cmp .is-focus { color: var(--brand-ink); }
 .cmp thead th.is-focus { color: var(--brand-ink); }
 .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: none; }
+.cmp tbody tr.is-highlight { background: var(--brand-bg); }
+.cmp tbody tr.is-highlight th { color: var(--brand-ink); font-weight: 700; }
+
+/* ===== ISA 유형 진단 — 진단 결과 카드 (다크, 테마 고정) ===== */
+.diagnosis-card {
+  background: #14171c; color: #fff; text-align: center;
+  padding: 34px 24px;
+}
+.diagnosis-label {
+  margin: 0; font-size: 12.5px; font-weight: 700; letter-spacing: .06em;
+  color: #9aa4b8; text-transform: uppercase;
+}
+.diagnosis-type {
+  margin: 10px 0; font-size: 42px; line-height: 1.15; font-weight: 800;
+  letter-spacing: -.02em; color: #fff;
+}
+.diagnosis-sub { margin: 0; font-size: 15px; font-weight: 600; color: #c7ccd6; }
+
+/* 일임형 보수 추정 박스 */
+.fee-box { margin: 14px 0 0; padding: 14px 16px; background: var(--brand-bg); border-radius: 11px; }
+.fee-box-title { margin: 0 0 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.fee-box-amount { margin: 0 0 8px; font-size: 21px; font-weight: 800; color: var(--brand-ink); font-variant-numeric: tabular-nums; }
+.fee-box-note { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
 
 .scroll-hint {
   margin: 8px 0 0; font-size: 12px; color: var(--muted); text-align: right;
