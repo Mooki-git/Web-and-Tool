@@ -115,6 +115,20 @@ body {
   align-self: center; margin-right: -2px;
 }
 
+/* ===== 푸터 뱃지 (계산기 선택과 무관한 공용 링크) ===== */
+.footer-links {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 14px;
+}
+.footer-badge {
+  display: inline-flex; align-items: center;
+  padding: 7px 14px;
+  font-size: 13px; font-weight: 700; color: var(--muted);
+  background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 999px; text-decoration: none;
+}
+.footer-badge:hover { border-color: var(--brand); color: var(--text); }
+
 /* ===== 긴 글 페이지 (About·FAQ·문의·개인정보처리방침·사용법) ===== */
 .article h1 {
   margin: 0 0 4px; font-size: 22px; line-height: 1.35;
