@@ -97,7 +97,7 @@ body {
 /* ===== 계산기 전환 뱃지 (진짜 계산기끼리만) ===== */
 .calc-switcher {
   display: flex; flex-wrap: wrap; gap: 8px;
-  margin-top: 18px;
+  margin: 8px 0 16px;
 }
 .calc-switcher a {
   display: inline-flex; align-items: center; gap: 6px;
