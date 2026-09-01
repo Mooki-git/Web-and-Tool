@@ -521,10 +521,10 @@ overLimit                = annualFinancialIncome > 20,000,000
 **남은 작업**
 - [x] `stock-tax.html`/`.js` 구현 + 계산 로직 검증 (node 6케이스 + Playwright 대조)
 - [x] 375px 모바일 검증 + JS 오류 없음 확인
-- [ ] 전용 이용법·FAQ·소개 3종 작성 (`stock-guide.html`/`stock-faq.html`/`stock-about.html`)
+- [x] 전용 이용법·FAQ·소개 3종 작성 완료 (`stock-guide.html`/`stock-faq.html`/`stock-about.html`) — 이용법 페이지에는 실제 계산기 화면 스크린샷 4장(`stock-guide-1~4-*.png`) 포함
 - [ ] 기존 페이지들(`isa.html`·`dividend-tax.html`·`isa-type.html`·각 이용법/FAQ/소개)의 `.calc-switcher`에 "양도세 계산기" 3번째 항목 추가
 - [ ] 허브 `index.html`에 `.tool-card` 추가 (절세·세금 카테고리, 3번째) — 카운트 뱃지도 "3종"으로 갱신
-- [ ] `sitemap.xml`에 `stock-tax.html` 등 신규 URL 추가
+- [ ] `sitemap.xml`에 `stock-tax.html`·`stock-guide.html`·`stock-faq.html`·`stock-about.html` 신규 URL 추가
 - [ ] 서치콘솔·네이버 색인 요청
 
 ---
