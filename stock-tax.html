@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>주식 양도소득세 계산기 | moklyun</title>
+<meta name="description" content="국내 상장주식과 해외주식의 양도소득세를 순이익만 넣으면 바로 계산합니다. 국내는 대주주만 과세, 해외는 22% 단일세율입니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/stock-tax.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232f6df6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='sans-serif' font-weight='700' fill='white'>₩</text></svg>">
+<link rel="stylesheet" href="style.css">
+<style>
+  .market-seg { margin-bottom: 16px; }
+  .market-seg .seg-item span { padding: 14px 8px; font-size: 15px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">재테크 계산기</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택">
+      <a href="isa.html">ISA 절세 계산기</a>
+      <a href="dividend-tax.html">배당세 계산기</a>
+      <a href="stock-tax.html" class="is-current" aria-current="page">양도세 계산기</a>
+    </div>
+    <h1>주식 양도소득세 계산기</h1>
+    <p class="lede">국내 상장주식은 <strong>대주주만</strong> 세금이 붙고, 해외주식은 <strong>22% 단일세율</strong>입니다.
+      어느 쪽인지 고르면 그에 맞는 항목만 보여드려요.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="stock-tax.html" class="is-current" aria-current="page">계산기</a>
+      <a href="stock-guide.html">이용법</a>
+      <a href="stock-faq.html">FAQ</a>
+      <a href="stock-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 0. 시장 선택 -->
+  <div class="seg market-seg" role="radiogroup" aria-label="계산할 시장 선택">
+    <label class="seg-item">
+      <input type="radio" name="market" value="domestic" checked>
+      <span>🇰🇷 국내 상장주식</span>
+    </label>
+    <label class="seg-item">
+      <input type="radio" name="market" value="overseas">
+      <span>🌎 해외주식</span>
+    </label>
+  </div>
+
+  <!-- ══════════ 국내 상장주식 패널 ══════════ -->
+  <div id="panel-domestic">
+
+    <section class="card" aria-labelledby="q-major">
+      <h2 class="q-title" id="q-major">국내 상장주식 대주주이신가요?</h2>
+      <p class="q-help">코스피 지분 1%·코스닥 2%·코넥스 4% 이상, 또는 종목당 시가 <strong>50억원 이상</strong> 보유 시 대주주입니다.
+        매년 12월 31일 기준으로 판정하며, <strong>대부분의 개인 투자자는 해당하지 않습니다.</strong></p>
+
+      <div class="seg" role="radiogroup" aria-label="대주주 여부">
+        <label class="seg-item">
+          <input type="radio" name="isMajor" value="no" checked>
+          <span>아니오</span>
+        </label>
+        <label class="seg-item">
+          <input type="radio" name="isMajor" value="yes">
+          <span>예</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- 대주주 "예"일 때만 나타나는 추가 입력 -->
+    <section class="card is-hidden" id="major-fields" aria-labelledby="q-company">
+      <h2 class="q-title" id="q-company">보유한 회사가 중소기업인가요?</h2>
+      <div class="seg" role="radiogroup" aria-label="기업 구분">
+        <label class="seg-item">
+          <input type="radio" name="companySize" value="sme">
+          <span>중소기업</span>
+        </label>
+        <label class="seg-item">
+          <input type="radio" name="companySize" value="general" checked>
+          <span>그 외(대기업·중견)</span>
+        </label>
+      </div>
+
+      <h3 class="q-sub" id="q-hold">1년 이상 보유했나요?</h3>
+      <p class="q-help">중소기업이 아닌 주식을 1년 미만 보유하고 팔면 세율이 33%로 높아져요.</p>
+      <div class="seg" role="radiogroup" aria-labelledby="q-hold">
+        <label class="seg-item">
+          <input type="radio" name="holdPeriod" value="over1y" checked>
+          <span>1년 이상</span>
+        </label>
+        <label class="seg-item">
+          <input type="radio" name="holdPeriod" value="under1y">
+          <span>1년 미만</span>
+        </label>
+      </div>
+
+      <h3 class="q-sub" id="q-dom-profit">국내 상장주식 양도차익은 얼마인가요?</h3>
+      <p class="q-help">여러 종목의 이익과 손실을 합친 순이익을 넣어주세요.</p>
+      <div class="money-field">
+        <label class="sr-only" for="domestic-profit">국내 상장주식 양도차익</label>
+        <input id="domestic-profit" type="text" inputmode="numeric" autocomplete="off" placeholder="양도차익 입력" value="">
+        <span class="unit">원</span>
+      </div>
+      <p class="field-echo" id="domestic-profit-echo">금액을 입력하면 결과가 바로 계산됩니다.</p>
+    </section>
+
+    <!-- 결과: 대주주 아님 → 비과세 -->
+    <div class="card result-card" id="dom-state-none">
+      <span class="badge badge-good">비과세</span>
+      <p style="margin:12px 0 0; font-size:14.5px; line-height:1.7;">
+        대주주가 아니라면 국내 상장주식은 <strong>양도소득세가 없습니다.</strong> 매도할 때 <strong>증권거래세</strong>만 부담합니다
+        (코스피 0.20% · 코스닥 0.20% · 코넥스 0.10%, 2026.1.1부터 적용).
+      </p>
+    </div>
+
+    <!-- 결과: 대주주인데 아직 금액 미입력 -->
+    <div class="card result-card state is-hidden" id="dom-state-empty">
+      <p class="empty-msg">위에 <strong>국내 양도차익</strong>을 입력하면<br>납부세액이 바로 나타납니다.</p>
+    </div>
+
+    <!-- 결과: 대주주 + 금액 입력됨 -->
+    <div class="is-hidden" id="dom-state-ok">
+      <div class="card result-card headline-card">
+        <p class="headline-label">국내주식 예상 납부세액</p>
+        <p class="headline" id="dom-tax-headline">0원</p>
+        <p class="headline-label" id="dom-rate-label">-</p>
+      </div>
+      <div class="card result-card">
+        <div class="table-scroll">
+          <table class="cmp">
+            <thead><tr><th scope="col"><span class="sr-only">구분</span></th><th scope="col">금액</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">양도차익</th><td id="dom-profit-cell">-</td></tr>
+              <tr><th scope="row">기본공제</th><td id="dom-deduct-cell">-</td></tr>
+              <tr><th scope="row">과세표준</th><td id="dom-base-cell">-</td></tr>
+              <tr><th scope="row">세율</th><td id="dom-rate-cell">-</td></tr>
+              <tr><th scope="row">납부세액</th><td><strong id="dom-tax-cell">-</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">단위: 원. 기본공제 250만원은 국내·해외 합산 연 1회만 적용됩니다 — 해외주식도 함께 있다면 아래 안내를 참고하세요.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ 해외주식 패널 ══════════ -->
+  <div id="panel-overseas" class="is-hidden">
+
+    <section class="card" aria-labelledby="q-overseas">
+      <h2 class="q-title" id="q-overseas">올해 해외주식 양도차익이 얼마인가요?</h2>
+      <p class="q-help">여러 종목의 이익과 손실을 합친 <strong>순이익</strong>을 넣어주세요. 손실이 더 크면 0으로 두시면 됩니다.</p>
+
+      <div class="chips" role="group" aria-label="빠른 금액 선택">
+        <button type="button" class="chip" data-amount="3000000">300만원</button>
+        <button type="button" class="chip" data-amount="5000000">500만원</button>
+        <button type="button" class="chip" data-amount="10000000">1,000만원</button>
+        <button type="button" class="chip" data-amount="20000000">2,000만원</button>
+      </div>
+
+      <div class="money-field">
+        <label class="sr-only" for="overseas-profit">해외주식 양도차익</label>
+        <input id="overseas-profit" type="text" inputmode="numeric" autocomplete="off" placeholder="직접 입력" value="">
+        <span class="unit">원</span>
+      </div>
+      <p class="field-echo" id="overseas-profit-echo">금액을 입력하면 결과가 바로 계산됩니다.</p>
+    </section>
+
+    <!-- 결과: 미입력 -->
+    <div class="card result-card state" id="ovs-state-empty">
+      <p class="empty-msg">위에 <strong>해외주식 양도차익</strong>을 입력하면<br>납부세액이 바로 나타납니다.</p>
+    </div>
+
+    <!-- 결과: 입력됨 -->
+    <div class="is-hidden" id="ovs-state-ok">
+      <div class="card result-card headline-card">
+        <p class="headline-label">해외주식 예상 납부세액</p>
+        <p class="headline" id="ovs-tax-headline">0원</p>
+        <p class="headline-label">세율 22%</p>
+      </div>
+      <div class="card result-card">
+        <div class="table-scroll">
+          <table class="cmp">
+            <thead><tr><th scope="col"><span class="sr-only">구분</span></th><th scope="col">금액</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">양도차익</th><td id="ovs-profit-cell">-</td></tr>
+              <tr><th scope="row">기본공제</th><td id="ovs-deduct-cell">-</td></tr>
+              <tr><th scope="row">과세표준</th><td id="ovs-base-cell">-</td></tr>
+              <tr><th scope="row">세율</th><td>22%</td></tr>
+              <tr><th scope="row">납부세액</th><td><strong id="ovs-tax-cell">-</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">단위: 원. 기본공제 250만원은 국내 대주주분과 합산 연 1회만 적용됩니다 — 국내주식도 함께 있다면 아래 안내를 참고하세요.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 공통: 국내+해외 동시 보유 시 주의 -->
+  <div class="card result-card">
+    <h2 class="section-title">국내·해외 양쪽에 모두 해당된다면</h2>
+    <p style="margin:0; font-size:14.5px; line-height:1.7;">
+      기본공제 250만원은 국내 대주주분과 해외주식분을 <strong>합쳐서 연 1회만</strong> 적용됩니다.
+      이 계산기는 두 시장을 각각 따로 계산하기 때문에, <strong>두 결과를 그대로 더하면 공제가 두 번 반영되어 실제보다 적게 나옵니다.</strong>
+      두 시장에 모두 순이익이 있으시다면, 둘 중 하나에서만 250만원을 적용하고 나머지는 공제 없이 계산한 값을 참고하시거나
+      국세청 홈택스·세무사를 통해 정확한 합산 신고를 확인하세요.
+    </p>
+  </div>
+
+  <div class="card result-card">
+    <h2 class="section-title">신고 안내</h2>
+    <p style="margin:0; font-size:14.5px; line-height:1.7;">
+      올해 양도분은 <strong>다음 해 5월 1일~31일</strong>에 확정신고합니다.
+      같은 시장 안에서 이익과 손실이 섞여 있다면 손익통산으로 순이익만 과세됩니다.
+    </p>
+  </div>
+
+  <div class="card result-card actions-card">
+    <a class="btn btn-primary" href="stock-guide.html">이용법 자세히 보기 →</a>
+  </div>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산이며 투자·세무 조언이 아닙니다. 대주주 특수관계인 합산 등 예외 규정은 반영하지 않았습니다.<br>
+    세율 기준: 2026.09 소득세법·조세금융신문 등 공개 자료 교차검증. 금융투자소득세(금투세)는 2024.12 폐지되어 반영하지 않았습니다.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 투자 조언이 아닙니다.</p>
+  </div>
+</footer>
+
+<script src="stock-tax.js"></script>
+</body>
+</html>
