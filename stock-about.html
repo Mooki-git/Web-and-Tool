@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소개 | 주식 양도소득세 계산기</title>
+<meta name="description" content="이 계산기를 만든 이유와, 세율을 검증한 과정을 소개합니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/stock-about.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232f6df6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='sans-serif' font-weight='700' fill='white'>₩</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">재테크 계산기</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택">
+      <a href="isa.html">ISA 절세 계산기</a>
+      <a href="dividend-tax.html">배당세 계산기</a>
+      <a href="stock-tax.html" class="is-current" aria-current="page">양도세 계산기</a>
+    </div>
+    <h1>이 계산기를 만든 이유</h1>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="stock-tax.html">계산기</a>
+      <a href="stock-guide.html">이용법</a>
+      <a href="stock-faq.html">FAQ</a>
+      <a href="stock-about.html" class="is-current" aria-current="page">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="card article">
+
+    <p>안녕하세요, Mooki입니다.</p>
+
+    <p><a href="isa.html">ISA 절세 효과 계산기</a>와 <a href="dividend-tax.html">해외주식 배당소득세 계산기</a>에 이어 세 번째로 만든 계산기입니다. 주식 양도소득세를 검색해보면 "국내 주식은 세금이 없다"는 말과 "대주주는 세금이 붙는다"는 말이 같이 나와서 헷갈렸고, 해외주식은 "22%"라는 숫자만 있지 정확히 얼마를 떼는지 바로 알려주는 곳은 찾기 어려웠습니다.</p>
+
+    <p>처음엔 해외주식 계산을 메인 화면에 두고 국내 대주주 항목을 접어두는 구조로 만들었는데, 만들면서 국내와 해외를 먼저 확실히 나누는 게 더 헷갈리지 않겠다는 생각이 들어서, <strong>국내·해외를 먼저 고르고 그에 맞는 질문만 보여주는</strong> 지금 구조로 다시 만들었습니다.</p>
+
+    <p>세율을 조사하면서 국세청 원문 페이지에 직접 접근하지 못하는 상황이 있었습니다. 그래서 여러 세무 관련 자료를 교차검증해서 확정했고, 확신이 서지 않는 부분(국내·해외 소득이 함께 있을 때 기본공제 250만원을 정확히 어떻게 나누는지)은 억지로 답을 만들어내지 않고, <strong>계산기가 두 시장을 독립적으로만 계산하고 그 사실을 화면에 그대로 안내</strong>하는 방식을 택했습니다.</p>
+
+    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
+    <ul>
+      <li>저는 세무사나 금융 전문가가 아닙니다. 이 계산기는 공개된 세법과 세율을 기준으로 만든 <strong>참고용 도구</strong>이며, 투자 조언이나 세무 자문이 아닙니다. 정확한 세액은 국세청 홈택스나 세무사를 통해 다시 확인해 주세요.</li>
+      <li>대주주 특수관계인 합산 등 <strong>세부 예외 규정은 반영하지 않았습니다.</strong> 일반적인 기준만 다룹니다.</li>
+      <li>국내 대주주 소득과 해외주식 소득이 같은 해에 함께 있는 경우, 정확한 합산 세액은 계산하지 않습니다. 위에서 말씀드린 이유 때문입니다.</li>
+      <li>세율이나 제도가 바뀌면 계산기도 함께 고칩니다. 마지막으로 검토한 날짜는 각 페이지 하단에 적어둡니다.</li>
+      <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
+    </ul>
+
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 필요한 계산을 빠르게 끝내는 데 도움이 되었으면 합니다.</p>
+
+    <p class="meta">최종 검토: 2026년 9월</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 투자·세무 조언이 아닙니다. 세율 기준: 2026.09 소득세법 등 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+</body>
+</html>
