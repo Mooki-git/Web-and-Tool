@@ -232,12 +232,13 @@ function renderRaise(salary, family, meal, before) {
     '그중 <strong>' + readable(netGain) + '</strong>이 실제로 손에 들어옵니다.';
 
   var monthGrossGap = afterCalc.grossMonthly - before.grossMonthly;
+  var monthNetGap   = afterCalc.netMonthly - before.netMonthly;
 
   el.rGross.textContent = '+' + comma(raise);
   el.rMonthGross.textContent = '+' + comma(monthGrossGap);
   el.rCost.textContent  = '-' + comma(cost);
   el.rNet.textContent   = '+' + comma(netGain);
-  el.rMonth.textContent = comma(before.netMonthly) + ' → ' + comma(afterCalc.netMonthly);
+  el.rMonth.textContent = '+' + comma(monthNetGap);
 }
 
 /* =========================================================
