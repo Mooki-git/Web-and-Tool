@@ -42,6 +42,7 @@ var el = {
   raisePct:  $('raise-pct'),
   raiseSub:  $('raise-sub'),
   rGross: $('r-gross'),
+  rMonthGross: $('r-month-gross'),
   rCost:  $('r-cost'),
   rNet:   $('r-net'),
   rMonth: $('r-month')
@@ -214,6 +215,7 @@ function renderRaise(salary, family, meal, before) {
     el.raisePct.textContent = '-';
     el.raiseSub.textContent = '현재 연봉보다 높은 금액을 넣어보세요.';
     el.rGross.textContent = '-';
+    el.rMonthGross.textContent = '-';
     el.rCost.textContent = '-';
     el.rNet.textContent = '-';
     el.rMonth.textContent = '-';
@@ -230,6 +232,7 @@ function renderRaise(salary, family, meal, before) {
     '그중 <strong>' + readable(netGain) + '</strong>이 실제로 손에 들어옵니다.';
 
   el.rGross.textContent = '+' + comma(raise);
+  el.rMonthGross.textContent = comma(before.grossMonthly) + ' → ' + comma(afterCalc.grossMonthly);
   el.rCost.textContent  = '-' + comma(cost);
   el.rNet.textContent   = '+' + comma(netGain);
   el.rMonth.textContent = comma(before.netMonthly) + ' → ' + comma(afterCalc.netMonthly);
