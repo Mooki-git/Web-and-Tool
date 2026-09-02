@@ -231,8 +231,10 @@ function renderRaise(salary, family, meal, before) {
   el.raiseSub.innerHTML = '연봉을 <strong>' + readable(raise) + '</strong> 올리면<br>' +
     '그중 <strong>' + readable(netGain) + '</strong>이 실제로 손에 들어옵니다.';
 
+  var monthGrossGap = afterCalc.grossMonthly - before.grossMonthly;
+
   el.rGross.textContent = '+' + comma(raise);
-  el.rMonthGross.textContent = comma(before.grossMonthly) + ' → ' + comma(afterCalc.grossMonthly);
+  el.rMonthGross.textContent = '+' + comma(monthGrossGap);
   el.rCost.textContent  = '-' + comma(cost);
   el.rNet.textContent   = '+' + comma(netGain);
   el.rMonth.textContent = comma(before.netMonthly) + ' → ' + comma(afterCalc.netMonthly);
