@@ -92,8 +92,8 @@ moklyun.com에 아래 17개 페이지가 배포되어 있고, 실제 브라우�
 
 **인프라 상태**
 - `sitemap.xml` / `robots.txt` 배포 완료, **17개 URL 등록** (양도세 계산기 4종 URL 추가)
-- **Google Search Console — 전 페이지 색인 생성 요청 완료** (2026.08.31, 허브 개편분 포함). **양도세 계산기 4종(`stock-tax.html`·`stock-guide.html`·`stock-faq.html`·`stock-about.html`)은 아직 요청 안 함**
-- **네이버 서치어드바이저 — 전 페이지 웹페이지 수집 요청 완료** (2026.08.31, 허브 개편분 포함). **양도세 계산기 4종은 아직 요청 안 함**
+- **Google Search Console — 전 페이지(양도세 계산기 4종 포함) 색인 생성 요청 완료** (2026.09.01)
+- **네이버 서치어드바이저 — 전 페이지(양도세 계산기 4종 포함) 웹페이지 수집 요청 완료** (2026.09.01)
   - ⚠️ **네이버 수집 요청 시 주의**: 입력창에 `isa.html` 처럼 뒷부분만 넣으면 "올바른 형식이 아닙니다" 오류가 납니다. **`https://moklyun.com/isa.html` 전체 주소를 그대로 넣어야** 합니다. (구글 서치콘솔 URL 검사도 동일하게 전체 주소)
 - `www.moklyun.com` → `moklyun.com` 리다이렉트 정상 (중복 콘텐츠 문제 없음)
 - 전 페이지 title / meta description 검색어 반영해 작성 완료
@@ -108,7 +108,6 @@ moklyun.com에 아래 17개 페이지가 배포되어 있고, 실제 브라우�
 
 ### 아직 시작 안 한 것
 
-- **`stock-tax.html`·`stock-guide.html`·`stock-faq.html`·`stock-about.html`** Google Search Console URL 검사·색인 요청 + 네이버 웹페이지 수집 요청
 - 양도세 계산기 블로그 글 3편 실제 게시 (초안 작성 완료, 링크: https://claude.ai/code/artifact/37db4917-2504-46a7-b5d9-42f4f4a9759d)
 - 제휴 프로그램(쿠팡파트너스·증권사) 신청
 - **애드센스 신청** — 신청 전 `privacy.html` 쿠키 문단 복원 필요 (아래 5.4)
