@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연봉 실수령액 계산기 | moklyun</title>
+<meta name="description" content="연봉을 넣으면 4대보험과 소득세를 뺀 월 실수령액을 바로 계산합니다. 연봉이 오르면 실수령이 얼마나 늘어나는지도 함께 확인하세요.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/salary-tax.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232f6df6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='sans-serif' font-weight='700' fill='white'>₩</text></svg>">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 공제 내역 표에서 항목명은 왼쪽, 금액은 오른쪽 정렬 */
+  .cmp td { text-align: right; font-variant-numeric: tabular-nums; }
+  .cmp th[scope="row"] { font-weight: 500; }
+  .cmp tr.sum th, .cmp tr.sum td { border-top: 2px solid var(--line); font-weight: 700; }
+  /* 인상 시뮬레이션 강조 박스 */
+  .raise-box { margin-top: 14px; padding: 16px; background: var(--brand-bg); border-radius: 11px; }
+  .raise-line { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; margin-bottom: 8px; }
+  .raise-line:last-child { margin-bottom: 0; }
+  .raise-line .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .raise-hero { margin: 0 0 4px; font-size: 26px; font-weight: 800; color: var(--brand-ink); text-align: center; font-variant-numeric: tabular-nums; }
+  .raise-sub { margin: 0; font-size: 13px; color: var(--muted); text-align: center; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">재테크 계산기</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택">
+      <a href="isa.html">ISA 절세 계산기</a>
+      <a href="dividend-tax.html">배당세 계산기</a>
+      <a href="stock-tax.html">주식 양도세 계산기</a>
+      <a href="salary-tax.html" class="is-current" aria-current="page">연봉 실수령액 계산기</a>
+    </div>
+    <h1>연봉 실수령액 계산기</h1>
+    <p class="lede">연봉만 넣으면 <strong>4대보험과 세금을 뺀 월 실수령액</strong>이 바로 나옵니다.
+      2026년 인상된 국민연금·건강보험 요율을 반영했어요.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="salary-tax.html" class="is-current" aria-current="page">계산기</a>
+      <a href="salary-guide.html">이용법</a>
+      <a href="salary-faq.html">FAQ</a>
+      <a href="salary-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 연봉 입력 -->
+  <section class="card" aria-labelledby="q-salary">
+    <h2 class="q-title" id="q-salary">연봉이 얼마인가요?</h2>
+    <p class="q-help">세전 연봉(계약 연봉)을 넣어주세요. 퇴직금이 연봉에 포함된 경우라면 빼고 넣으셔야 정확합니다.</p>
+
+    <div class="chips" role="group" aria-label="빠른 금액 선택">
+      <button type="button" class="chip" data-amount="30000000">3,000만원</button>
+      <button type="button" class="chip" data-amount="40000000">4,000만원</button>
+      <button type="button" class="chip is-active" data-amount="50000000">5,000만원</button>
+      <button type="button" class="chip" data-amount="70000000">7,000만원</button>
+    </div>
+
+    <div class="money-field">
+      <label class="sr-only" for="salary">연봉</label>
+      <input id="salary" type="text" inputmode="numeric" autocomplete="off" placeholder="연봉 입력" value="50,000,000">
+      <span class="unit">원</span>
+    </div>
+    <p class="field-echo" id="salary-echo"><strong>5,000만원</strong></p>
+  </section>
+
+  <!-- 2. 부양가족 / 식대 -->
+  <section class="card" aria-labelledby="q-family">
+    <h2 class="q-title" id="q-family">부양가족은 몇 명인가요?</h2>
+    <p class="q-help">본인 포함입니다. 배우자·부모님·자녀 중 소득이 거의 없어 부양하는 분을 더해주세요.</p>
+    <div class="seg" role="radiogroup" aria-label="부양가족 수">
+      <label class="seg-item"><input type="radio" name="family" value="1" checked><span>본인만</span></label>
+      <label class="seg-item"><input type="radio" name="family" value="2"><span>2명</span></label>
+      <label class="seg-item"><input type="radio" name="family" value="3"><span>3명</span></label>
+      <label class="seg-item"><input type="radio" name="family" value="4"><span>4명</span></label>
+    </div>
+
+    <h3 class="q-sub" id="q-meal">식대를 비과세로 받고 있나요?</h3>
+    <p class="q-help">월 20만원까지는 세금도, 4대보험료도 붙지 않습니다. 대부분의 회사가 적용하고 있어요.</p>
+    <div class="seg" role="radiogroup" aria-labelledby="q-meal">
+      <label class="seg-item"><input type="radio" name="meal" value="200000" checked><span>월 20만원</span></label>
+      <label class="seg-item"><input type="radio" name="meal" value="0"><span>없음</span></label>
+    </div>
+  </section>
+
+  <!-- 3. 결과 -->
+  <div id="result">
+    <div class="card result-card headline-card">
+      <p class="headline-label">매달 통장에 들어오는 돈</p>
+      <p class="headline" id="net-monthly">0원</p>
+      <p class="headline-label" id="net-sub">-</p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">월급에서 빠져나가는 것</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead><tr><th scope="col">항목</th><th scope="col">금액</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">세전 월급</th><td id="c-gross">-</td></tr>
+            <tr><th scope="row">국민연금 (4.75%)</th><td id="c-pension">-</td></tr>
+            <tr><th scope="row">건강보험 (3.595%)</th><td id="c-health">-</td></tr>
+            <tr><th scope="row">장기요양 (건보료의 13.14%)</th><td id="c-care">-</td></tr>
+            <tr><th scope="row">고용보험 (0.9%)</th><td id="c-employ">-</td></tr>
+            <tr><th scope="row">소득세</th><td id="c-tax">-</td></tr>
+            <tr><th scope="row">지방소득세 (소득세의 10%)</th><td id="c-local">-</td></tr>
+            <tr class="sum"><th scope="row">실수령액</th><td id="c-net">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">단위: 원 · 실효 공제율 <strong id="c-rate">-</strong> (연봉 대비 실제로 빠지는 비율)</p>
+    </div>
+
+    <!-- 차별화: 연봉 인상 시뮬레이션 -->
+    <div class="card result-card">
+      <h2 class="section-title">연봉이 오르면 실수령은 얼마나 늘까?</h2>
+      <p class="q-help">인상된 연봉을 넣어보세요. 세금 구간이 올라가면 인상분을 다 가져가지 못합니다.</p>
+
+      <div class="chips" role="group" aria-label="인상액 빠른 선택">
+        <button type="button" class="chip raise-chip" data-raise="2000000">+200만</button>
+        <button type="button" class="chip raise-chip is-active" data-raise="5000000">+500만</button>
+        <button type="button" class="chip raise-chip" data-raise="10000000">+1,000만</button>
+      </div>
+
+      <div class="money-field">
+        <label class="sr-only" for="salary-after">인상 후 연봉</label>
+        <input id="salary-after" type="text" inputmode="numeric" autocomplete="off" placeholder="인상 후 연봉" value="55,000,000">
+        <span class="unit">원</span>
+      </div>
+
+      <div class="raise-box" id="raise-box">
+        <p class="raise-hero" id="raise-pct">-</p>
+        <p class="raise-sub" id="raise-sub">-</p>
+      </div>
+
+      <div class="raise-box" style="background:var(--card); border:1px solid var(--line);">
+        <div class="raise-line"><span>연봉 인상액</span><span class="v" id="r-gross">-</span></div>
+        <div class="raise-line"><span>늘어나는 4대보험·세금</span><span class="v" id="r-cost">-</span></div>
+        <div class="raise-line"><span>실제 늘어나는 연 실수령</span><span class="v" id="r-net">-</span></div>
+        <div class="raise-line"><span>월 실수령 변화</span><span class="v" id="r-month">-</span></div>
+      </div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        <strong>매달 급여명세서에 찍히는 소득세와는 다를 수 있습니다.</strong> 회사가 매달 떼는 세금은 국세청 간이세액표를 따르는
+        <strong>임시 금액</strong>이고, 최종 세금은 연말정산에서 정해집니다. 이 계산기는 그 <strong>연말정산 기준</strong>으로
+        근로소득공제 → 인적공제 → 과세표준 → 세율 → 근로소득세액공제까지 정식으로 계산합니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        <strong>실제 세금은 이보다 줄어들 가능성이 큽니다.</strong> 자녀세액공제, 신용카드·의료비·교육비 공제,
+        연금저축·IRP 세액공제, 중소기업 취업자 감면 등은 사람마다 달라서 반영하지 않았습니다.
+      </p>
+    </div>
+  </div>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산이며 세무 조언이 아닙니다. 경로우대·장애인 추가공제 등 개인별 공제 항목은 반영하지 않았습니다.<br>
+    기준: 2026년 4대보험 요율(국민연금 9.5%·건강보험 7.19%·장기요양 13.14%·고용보험 0.9%) 및 소득세법 공개 자료.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 세무 조언이 아닙니다.</p>
+  </div>
+</footer>
+
+<script src="salary-tax.js"></script>
+</body>
+</html>
