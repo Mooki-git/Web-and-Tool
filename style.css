@@ -437,6 +437,18 @@ body {
 .faq-body { padding: 0 0 16px; }
 .faq-todo { margin: 0; font-size: 14px; color: var(--muted); }
 
+/* ===== 관련 계산기 (계산기 결과 화면 하단 "함께 보면 좋아요") ===== */
+.related { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.related a {
+  display: block; padding: 13px 15px; border-radius: 11px;
+  border: 1px solid var(--line); background: var(--card);
+  text-decoration: none; color: var(--ink);
+  transition: border-color .15s;
+}
+.related a:hover { border-color: var(--brand); }
+.related .r-name { display: block; font-size: 14.5px; font-weight: 700; margin-bottom: 2px; }
+.related .r-why { display: block; font-size: 13px; color: var(--muted); line-height: 1.55; }
+
 /* ===== 푸터 ===== */
 .site-footer { padding: 26px 0 44px; }
 .disclaimer { margin: 0 0 6px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
