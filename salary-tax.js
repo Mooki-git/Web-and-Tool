@@ -48,6 +48,12 @@ var el = {
   rMonth: $('r-month')
 };
 
+/* ---------- 계산 보조 ----------
+   부동소수점 오차 제거: 0.001원 단위로 반올림한 뒤 절사한다.
+   (예: 3,966,666.666… × 0.9% = 35,699.99999…원 → 35,700원)
+   이 보정이 없으면 10원 미만 절사 단계에서 10원이 깎인다. */
+function floorTo(n, unit) { return Math.floor(Math.round(n * 1000) / 1000 / unit) * unit; }
+
 /* ---------- 숫자 포맷 ---------- */
 function onlyDigits(s) { return String(s).replace(/[^0-9]/g, ''); }
 function comma(n) { return Number(n).toLocaleString('ko-KR'); }
@@ -136,10 +142,10 @@ function calculate(annualSalary, family, monthlyMeal) {
 
   // 4대보험 (월, 10원 미만 절사)
   var pensionBase = Math.min(Math.max(monthlyTaxable, RULES.PENSION_MIN), RULES.PENSION_MAX);
-  var pension = Math.floor(pensionBase * RULES.PENSION_RATE / 10) * 10;
-  var health  = Math.floor(monthlyTaxable * RULES.HEALTH_RATE / 10) * 10;
-  var care    = Math.floor(health * RULES.CARE_RATE / 10) * 10;
-  var employ  = Math.floor(monthlyTaxable * RULES.EMPLOY_RATE / 10) * 10;
+  var pension = floorTo(pensionBase * RULES.PENSION_RATE, 10);
+  var health  = floorTo(monthlyTaxable * RULES.HEALTH_RATE, 10);
+  var care    = floorTo(health * RULES.CARE_RATE, 10);
+  var employ  = floorTo(monthlyTaxable * RULES.EMPLOY_RATE, 10);
   var insurance = pension + health + care + employ;
 
   // 소득세 (연말정산 기준)
@@ -150,10 +156,10 @@ function calculate(annualSalary, family, monthlyMeal) {
   var taxBase = Math.max(0, incomeAmount - deductions);
   var calcTax = progressiveTax(taxBase);
   var incomeTax = Math.max(0, calcTax - earnedTaxCredit(calcTax, gross));
-  var localTax = Math.floor(incomeTax * 0.1);
+  var localTax = floorTo(incomeTax * 0.1, 1);
 
-  var taxMonthly = Math.floor(incomeTax / 12 / 10) * 10;
-  var localMonthly = Math.floor(localTax / 12 / 10) * 10;
+  var taxMonthly = floorTo(incomeTax / 12, 10);
+  var localMonthly = floorTo(localTax / 12, 10);
 
   var grossMonthly = Math.round(annualSalary / 12);
   var netMonthly = grossMonthly - insurance - taxMonthly - localMonthly;
