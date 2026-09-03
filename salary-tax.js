@@ -42,6 +42,7 @@ var el = {
   raisePct:  $('raise-pct'),
   raiseSub:  $('raise-sub'),
   rGross: $('r-gross'),
+  rMonthGross: $('r-month-gross'),
   rCost:  $('r-cost'),
   rNet:   $('r-net'),
   rMonth: $('r-month')
@@ -214,6 +215,7 @@ function renderRaise(salary, family, meal, before) {
     el.raisePct.textContent = '-';
     el.raiseSub.textContent = '현재 연봉보다 높은 금액을 넣어보세요.';
     el.rGross.textContent = '-';
+    el.rMonthGross.textContent = '-';
     el.rCost.textContent = '-';
     el.rNet.textContent = '-';
     el.rMonth.textContent = '-';
@@ -224,15 +226,19 @@ function renderRaise(salary, family, meal, before) {
   var netGain = afterCalc.netAnnual - before.netAnnual;
   var cost = raise - netGain;
   var keepPct = raise > 0 ? (netGain / raise * 100) : 0;
+  var monthGrossGap = afterCalc.grossMonthly - before.grossMonthly;
+  var monthNetGap   = afterCalc.netMonthly - before.netMonthly;
 
   el.raisePct.textContent = keepPct.toFixed(1) + '%';
   el.raiseSub.innerHTML = '연봉을 <strong>' + readable(raise) + '</strong> 올리면<br>' +
-    '그중 <strong>' + readable(netGain) + '</strong>이 실제로 손에 들어옵니다.';
+    '그중 <strong>' + readable(netGain) + '</strong>이 실제로 손에 들어옵니다.<br>' +
+    '월급으로는 매달 <strong>+' + comma(monthNetGap) + '원</strong>이 더 들어옵니다.';
 
   el.rGross.textContent = '+' + comma(raise);
+  el.rMonthGross.textContent = '+' + comma(monthGrossGap);
   el.rCost.textContent  = '-' + comma(cost);
   el.rNet.textContent   = '+' + comma(netGain);
-  el.rMonth.textContent = comma(before.netMonthly) + ' → ' + comma(afterCalc.netMonthly);
+  el.rMonth.textContent = '+' + comma(monthNetGap);
 }
 
 /* =========================================================
