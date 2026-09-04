@@ -181,6 +181,30 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://moklyun.com/unemployment.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://moklyun.com/unemployment-guide.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moklyun.com/unemployment-faq.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moklyun.com/unemployment-about.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://moklyun.com/site-about.html</loc>
     <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
