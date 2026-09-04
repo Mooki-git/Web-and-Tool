@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연금저축·IRP 세액공제 계산기 | 얼마 환급받는지 바로 확인</title>
+<meta name="description" content="연금저축과 IRP에 넣은 금액으로 세액공제·환급액을 계산합니다. 600만원·900만원 한도와 소득에 따른 공제율(16.5%/13.2%)을 반영하고, 추가 납입 시뮬레이션까지 보여줍니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/pension.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moklyun.com/pension.html">
+<meta property="og:title" content="연금저축·IRP 세액공제 계산기 | moklyun">
+<meta property="og:description" content="연금저축·IRP 납입액으로 세액공제와 환급액을 계산하고, 추가 납입 시뮬레이션까지 확인하세요.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232f6df6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='sans-serif' font-weight='700' fill='white'>₩</text></svg>">
+<link rel="stylesheet" href="style.css">
+<style>
+  .cmp td { text-align: right; font-variant-numeric: tabular-nums; }
+  .cmp th[scope="row"] { font-weight: 500; }
+
+  .warn-box {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff4e5; color: #7a4a12; font-size: 14px; line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
+  }
+  .warn-box[hidden] { display: none; }
+
+  .kv-line { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; margin-top: 10px; }
+  .kv-line .v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; flex: none; }
+
+  .sim-box {
+    margin-top: 14px; padding: 14px; border-radius: 12px;
+    background: var(--brand-bg); text-align: center;
+  }
+  .sim-box .sim-pct { margin: 0; font-size: 26px; font-weight: 800; color: var(--brand-ink); font-variant-numeric: tabular-nums; }
+  .sim-box .sim-sub { margin: 6px 0 0; font-size: 14px; color: var(--ink); line-height: 1.6; }
+  .sim-before-after { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+  .sim-before-after .arrow { color: var(--muted); }
+  .sim-before-after .after-v { font-weight: 700; color: var(--ink); }
+  .sim-gain { display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 700; color: #1a8a4a; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .sim-gain { color: #6fd394; }
+  }
+
+  .q-sub { margin: 18px 0 4px; font-size: 15px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">재테크 계산기</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택">
+      <a href="isa.html">ISA 절세 계산기</a>
+      <a href="dividend-tax.html">배당세 계산기</a>
+      <a href="stock-tax.html">주식 양도세 계산기</a>
+      <a href="salary-tax.html">연봉 실수령액 계산기</a>
+      <a href="insurance.html">4대보험 계산기</a>
+      <a href="severance.html">퇴직금 계산기</a>
+      <a href="pension.html" class="is-current" aria-current="page">연금저축·IRP 계산기</a>
+    </div>
+    <h1>연금저축·IRP 세액공제 계산기</h1>
+    <p class="lede">올해 넣은 금액으로 <strong>얼마나 환급받는지</strong> 바로 계산하고, <strong>더 넣으면 얼마나 늘어나는지</strong>까지 확인해보세요.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="pension.html" class="is-current" aria-current="page">계산기</a>
+      <a href="pension-guide.html">이용법</a>
+      <a href="pension-faq.html">FAQ</a>
+      <a href="pension-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 소득 -->
+  <section class="card" aria-labelledby="q-income">
+    <h2 class="q-title" id="q-income">올해 총급여(또는 종합소득금액)가 얼마인가요?</h2>
+    <p class="q-help">근로자는 <strong>총급여</strong>, 자영업자 등은 <strong>종합소득금액</strong> 기준입니다. 이 금액에 따라 공제율이 달라집니다.</p>
+
+    <div class="chips income-chips" role="group" aria-label="빠른 금액 선택">
+      <button type="button" class="chip" data-amount="35000000">3,500만원</button>
+      <button type="button" class="chip is-active" data-amount="50000000">5,000만원</button>
+      <button type="button" class="chip" data-amount="60000000">6,000만원</button>
+      <button type="button" class="chip" data-amount="80000000">8,000만원</button>
+    </div>
+
+    <div class="money-field">
+      <label class="sr-only" for="income">총급여</label>
+      <input id="income" type="text" inputmode="numeric" autocomplete="off" placeholder="총급여 입력" value="50,000,000">
+      <span class="unit">원</span>
+    </div>
+    <p class="field-echo" id="income-echo"><strong>5,000만원</strong></p>
+  </section>
+
+  <!-- 2. 연금저축 -->
+  <section class="card" aria-labelledby="q-saving">
+    <h2 class="q-title" id="q-saving">연금저축에 올해 얼마 넣으셨나요(넣을 예정인가요)?</h2>
+    <p class="q-help">연금저축 <strong>단독으로는 연 600만원까지만</strong> 세액공제 대상으로 인정됩니다.</p>
+
+    <div class="chips saving-chips" role="group" aria-label="빠른 금액 선택">
+      <button type="button" class="chip" data-amount="2000000">200만원</button>
+      <button type="button" class="chip is-active" data-amount="4000000">400만원</button>
+      <button type="button" class="chip" data-amount="6000000">600만원</button>
+      <button type="button" class="chip" data-amount="9000000">900만원</button>
+    </div>
+
+    <div class="money-field">
+      <label class="sr-only" for="saving">연금저축 납입액</label>
+      <input id="saving" type="text" inputmode="numeric" autocomplete="off" placeholder="연금저축 납입액" value="4,000,000">
+      <span class="unit">원</span>
+    </div>
+  </section>
+
+  <!-- 3. IRP -->
+  <section class="card" aria-labelledby="q-irp">
+    <h2 class="q-title" id="q-irp">IRP(개인형퇴직연금)에는 얼마 넣으셨나요?</h2>
+    <p class="q-help">연금저축과 IRP를 <strong>합쳐서 연 900만원까지</strong> 인정됩니다. IRP는 단독으로 900만원까지도 가능합니다.</p>
+
+    <div class="chips irp-chips" role="group" aria-label="빠른 금액 선택">
+      <button type="button" class="chip is-active" data-amount="0">0원</button>
+      <button type="button" class="chip" data-amount="1000000">100만원</button>
+      <button type="button" class="chip" data-amount="3000000">300만원</button>
+      <button type="button" class="chip" data-amount="9000000">900만원</button>
+    </div>
+
+    <div class="money-field">
+      <label class="sr-only" for="irp">IRP 납입액</label>
+      <input id="irp" type="text" inputmode="numeric" autocomplete="off" placeholder="IRP 납입액" value="0">
+      <span class="unit">원</span>
+    </div>
+  </section>
+
+  <!-- 4. 결과 -->
+  <div id="result">
+    <div class="card result-card headline-card">
+      <p class="headline-label">예상 환급액(세액공제액)</p>
+      <p class="headline" id="headline">0원</p>
+      <p class="headline-label" id="head-sub">-</p>
+      <p class="warn-box" id="warn" hidden></p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">공제 내역</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead><tr><th scope="col">항목</th><th scope="col">금액</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">연금저축 인정액</th><td><span id="r-saving">-</span>원</td></tr>
+            <tr><th scope="row">IRP 인정액</th><td><span id="r-irp">-</span>원</td></tr>
+            <tr class="sum"><th scope="row">공제대상액 합계</th><td><span id="r-eligible">-</span>원</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kv-line"><span>공제율</span><span class="v" id="r-rate">-</span></div>
+      <div class="kv-line"><span>세액공제액(환급 예상액)</span><span class="v"><span id="r-refund">-</span>원</span></div>
+      <div class="kv-line"><span>남은 한도</span><span class="v" id="r-room">-</span></div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">더 넣으면 얼마나 늘어날까요?</h2>
+      <p class="q-help">어디에 얼마를 더 넣을지 골라보세요. 한도를 이미 채운 쪽에 더 넣으면 <strong>환급이 늘지 않을 수 있습니다.</strong></p>
+
+      <div class="seg" role="radiogroup" aria-label="추가로 넣을 계좌">
+        <label class="seg-item"><input type="radio" name="sim-target" value="saving" checked><span>연금저축에 추가</span></label>
+        <label class="seg-item"><input type="radio" name="sim-target" value="irp"><span>IRP에 추가</span></label>
+      </div>
+
+      <h3 class="q-sub" id="q-sim-amount">얼마나 더 넣어볼까요?</h3>
+      <div class="chips sim-chips" role="group" aria-label="빠른 금액 선택">
+        <button type="button" class="chip" data-amount="500000">50만원</button>
+        <button type="button" class="chip is-active" data-amount="1000000">100만원</button>
+        <button type="button" class="chip" data-amount="2000000">200만원</button>
+        <button type="button" class="chip" data-amount="3000000">300만원</button>
+      </div>
+      <div class="money-field">
+        <label class="sr-only" for="sim-amount">추가 납입액</label>
+        <input id="sim-amount" type="text" inputmode="numeric" autocomplete="off" placeholder="추가 납입액" value="1,000,000">
+        <span class="unit">원</span>
+      </div>
+
+      <div class="sim-box">
+        <p class="sim-pct" id="sim-pct">-</p>
+        <p class="sim-sub" id="sim-sub">-</p>
+        <div class="sim-before-after">
+          <span>환급 <span id="s-before">-</span>원</span>
+          <span class="arrow">→</span>
+          <span class="after-v"><span id="s-after">-</span>원</span>
+        </div>
+        <span class="sim-gain" id="s-gain">-</span>
+      </div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        <strong>연금저축은 단독으로 600만원까지만 인정됩니다.</strong> 600만원을 넘겨서 연금저축에만 계속 넣어도 세액공제는 더 늘지 않습니다.
+        추가 900만원 한도를 채우려면 <strong>나머지는 IRP로</strong> 넣어야 합니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        2023년 세법 개정으로 50세 이상 추가공제(200만원)와 고소득자 한도 축소 규정이 <strong>모두 폐지</strong>되어,
+        현재는 나이·소득과 관계없이 600만원/900만원 한도만 적용됩니다. 소득은 공제율(16.5%/13.2%)에만 영향을 줍니다.
+      </p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">함께 보면 좋아요</h2>
+      <div class="related">
+        <a href="salary-tax.html">
+          <span class="r-name">연봉 실수령액 계산기</span>
+          <span class="r-why">총급여가 정확히 얼마인지 모른다면, 여기서 연봉으로 실수령액과 함께 총급여를 확인해보세요.</span>
+        </a>
+        <a href="isa.html">
+          <span class="r-name">ISA 절세 계산기</span>
+          <span class="r-why">연금저축·IRP와 함께 대표적인 절세 계좌인 ISA는 세금을 얼마나 아껴주는지 비교해보세요.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산이며 세무 조언이 아닙니다. 연금 수령 시 과세(연금소득세) 등 인출 단계의 세금은 반영하지 않았습니다.<br>
+    기준: 소득세법 제59조의3 및 조세특례제한법, 2026년 공개 자료 교차검증.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 세무 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="pension.js"></script>
+</body>
+</html>
