@@ -15,7 +15,8 @@ var RULES = {
   EMPLOY_RATE:   0.009,       // 고용보험 근로자 부담(실업급여분)
   PERSONAL:      1500000,     // 인적공제 1인당
   MEAL_MAX:      200000,      // 비과세 식대 월 한도
-  EARNED_DEDUCT_MAX: 20000000 // 근로소득공제 한도
+  EARNED_DEDUCT_MAX: 20000000, // 근로소득공제 한도
+  STANDARD_CREDIT: 130000     // 표준세액공제(특별소득공제·특별세액공제 미신청 근로자)
 };
 
 var $ = function (id) { return document.getElementById(id); };
@@ -155,7 +156,7 @@ function calculate(annualSalary, family, monthlyMeal) {
                  + (health + care + employ) * 12; // 보험료 특별소득공제
   var taxBase = Math.max(0, incomeAmount - deductions);
   var calcTax = progressiveTax(taxBase);
-  var incomeTax = Math.max(0, calcTax - earnedTaxCredit(calcTax, gross));
+  var incomeTax = Math.max(0, calcTax - earnedTaxCredit(calcTax, gross) - RULES.STANDARD_CREDIT);
   var localTax = floorTo(incomeTax * 0.1, 1);
 
   var taxMonthly = floorTo(incomeTax / 12, 10);
