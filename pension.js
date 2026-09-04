@@ -138,8 +138,13 @@ function renderSim(income, saving, irp, before) {
     el.simSub.textContent = '추가로 넣을 금액을 선택해보세요.';
   } else if (gain === 0) {
     el.simPct.textContent = '0%';
-    el.simSub.innerHTML = '이미 한도를 다 채우셔서 <strong>추가 납입해도 환급이 늘지 않습니다.</strong>' +
-      (target === 'saving' ? ' IRP 계좌로 넣어보세요.' : '');
+    if (before.atCap) {
+      el.simSub.innerHTML = '이미 연금저축+IRP 합산 한도(900만원)를 다 채우셔서 <strong>추가 납입해도 환급이 늘지 않습니다.</strong>';
+    } else if (target === 'saving') {
+      el.simSub.innerHTML = '연금저축은 이미 600만원 한도를 채우셔서 <strong>추가 납입해도 환급이 늘지 않습니다.</strong> IRP 계좌로 넣어보세요.';
+    } else {
+      el.simSub.innerHTML = '이미 한도를 다 채우셔서 <strong>추가 납입해도 환급이 늘지 않습니다.</strong>';
+    }
   } else {
     el.simPct.textContent = (after.rate * 100).toFixed(1) + '%';
     el.simSub.innerHTML = readable(addAmount) + ' 추가 납입하면<br>환급이 <strong>' + readable(gain) + '</strong> 늘어납니다.';
