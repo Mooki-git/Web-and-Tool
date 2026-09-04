@@ -161,7 +161,12 @@ function calculate(o) {
     calcTax = calcTaxB;
   }
 
-  var earnedCredit = hasWage ? earnedTaxCredit(progressiveTax(taxBase), wage) : 0;
+  // 근로소득세액공제는 "근로소득에 대한 종합소득산출세액"에만 적용된다(소득세법 제59조).
+  // 근로소득에 대한 산출세액 = 종합소득산출세액 × (근로소득금액 ÷ 종합소득금액)
+  var totalGrossForRatio = baseWithoutFin + (useComprehensive && finOverLimit ? finIncomeForBase : 0);
+  var wageRatio = totalGrossForRatio > 0 ? wageIncome / totalGrossForRatio : 0;
+  var wageAttributableTax = progressiveTax(taxBase) * wageRatio;
+  var earnedCredit = hasWage ? earnedTaxCredit(wageAttributableTax, wage) : 0;
   var dividendCredit = (finOverLimit && useComprehensive) ? grossUp : 0;
 
   var medicalCred = hasWage ? medicalCredit(wage, medicalExpense) : 0;
@@ -172,8 +177,8 @@ function calculate(o) {
   var chosenStandardOrItemized = Math.max(standardCredit, itemizedCredit);
 
   var totalCredit = earnedCredit + dividendCredit + chosenStandardOrItemized;
-  var determinedIncomeTax = Math.max(0, calcTax - totalCredit);
-  var localTax = Math.round(determinedIncomeTax * 0.1);
+  var determinedIncomeTax = floorTo(Math.max(0, calcTax - totalCredit), 1);
+  var localTax = floorTo(determinedIncomeTax * 0.1, 1);
   var totalTax = determinedIncomeTax + localTax;
 
   var prepaidFinancial = financialTotal * FIN_FLAT_RATE;
