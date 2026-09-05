@@ -67,65 +67,63 @@ function calculate(o) {
 
 /* ---------- 숫자 포맷 ---------- */
 function comma(n) { return Number(n).toLocaleString('ko-KR'); }
+function formatKoreanDate(y, m, d) { return y + '년 ' + m + '월 ' + d + '일'; }
 
 var $ = function (id) { return document.getElementById(id); };
 
 var el = {
-  birth: $('birth'), ref: $('ref'), warn: $('warn'),
+  birthY: $('birth-y'), birthM: $('birth-m'), birthD: $('birth-d'),
+  refY: $('ref-y'), refM: $('ref-m'), refD: $('ref-d'),
+  warn: $('warn'),
   headLabel: $('head-label'), headline: $('headline'), headSub: $('head-sub'),
   fMan: $('f-man'), fYeon: $('f-yeon'), fSenun: $('f-senun'),
   nextBdayLabel: $('next-bday-label'), dNextBday: $('d-nextbday'), dTotalDays: $('d-totaldays')
 };
 
-function pad2(n) { return n < 10 ? '0' + n : String(n); }
-function todaySlashDate() {
-  var d = new Date();
-  return d.getFullYear() + '/' + pad2(d.getMonth() + 1) + '/' + pad2(d.getDate());
-}
+/* ---------- 년/월/일 드롭다운 ---------- */
+var CURRENT_YEAR = new Date().getFullYear();
+var YEAR_MIN = 1900, YEAR_MAX = CURRENT_YEAR + 10;
 
-/* 입력창에 숫자를 치면 YYYY/MM/DD 형태로 슬래시를 자동으로 넣어준다 */
-function attachDateFormat(input, onChange) {
-  input.addEventListener('input', function () {
-    var caretFromEnd = input.value.length - input.selectionStart;
-    var digits = input.value.replace(/[^0-9]/g, '').slice(0, 8);
-    var formatted = digits;
-    if (digits.length > 4) formatted = digits.slice(0, 4) + '/' + digits.slice(4);
-    if (digits.length > 6) formatted = digits.slice(0, 4) + '/' + digits.slice(4, 6) + '/' + digits.slice(6);
-    input.value = formatted;
-    var pos = Math.max(0, input.value.length - caretFromEnd);
-    input.setSelectionRange(pos, pos);
-    onChange();
-  });
-}
+function daysInMonth(y, m) { return new Date(y, m, 0).getDate(); }
 
-/* "YYYY/MM/DD" 형태의 문자열을 파싱한다 */
-function parseSlashDate(s) {
-  var m = String(s || '').match(/^(\d{4})\/(\d{2})\/(\d{2})$/);
-  if (!m) return null;
-  var y = +m[1], mo = +m[2], d = +m[3];
-  if (!y || !mo || !d) return null;
-  return { y: y, m: mo, d: d };
+function buildOptions(from, to, selected) {
+  var html = '';
+  for (var v = from; v <= to; v++) {
+    html += '<option value="' + v + '"' + (v === selected ? ' selected' : '') + '>' + v + '</option>';
+  }
+  return html;
 }
-function formatKoreanDate(y, m, d) { return y + '년 ' + m + '월 ' + d + '일'; }
+function populateYearSelect(select, selected) {
+  var html = '';
+  for (var y = YEAR_MAX; y >= YEAR_MIN; y--) {
+    html += '<option value="' + y + '"' + (y === selected ? ' selected' : '') + '>' + y + '</option>';
+  }
+  select.innerHTML = html;
+}
+function populateMonthSelect(select, selected) { select.innerHTML = buildOptions(1, 12, selected); }
+function populateDaySelect(select, maxDay, selected) { select.innerHTML = buildOptions(1, maxDay, selected); }
+
+/* 연도/월이 바뀌면 그 달의 실제 일수에 맞춰 "일" 옵션을 다시 만든다 */
+function wireDateField(ySel, mSel, dSel, onChange) {
+  function syncDays() {
+    var y = +ySel.value, m = +mSel.value;
+    var max = daysInMonth(y, m);
+    var wanted = Math.min(+dSel.value || 1, max);
+    populateDaySelect(dSel, max, wanted);
+  }
+  ySel.addEventListener('change', function () { syncDays(); onChange(); });
+  mSel.addEventListener('change', function () { syncDays(); onChange(); });
+  dSel.addEventListener('change', onChange);
+}
 
 function render() {
-  var b = parseSlashDate(el.birth.value);
-  var r = parseSlashDate(el.ref.value);
+  var birthY = +el.birthY.value, birthM = +el.birthM.value, birthD = +el.birthD.value;
+  var refY = +el.refY.value, refM = +el.refM.value, refD = +el.refD.value;
 
-  if (!b || !r) {
-    el.warn.textContent = '생년월일과 기준일을 모두 입력해주세요.';
-    el.warn.hidden = false;
-    return;
-  }
-
-  var result = calculate({ birthY: b.y, birthM: b.m, birthD: b.d, refY: r.y, refM: r.m, refD: r.d });
+  var result = calculate({ birthY: birthY, birthM: birthM, birthD: birthD, refY: refY, refM: refM, refD: refD });
 
   if (!result.valid) {
-    var msg = '';
-    if (!result.birthValid) msg = '생년월일이 올바르지 않습니다. 날짜를 다시 확인해주세요.';
-    else if (!result.refValid) msg = '기준일이 올바르지 않습니다. 날짜를 다시 확인해주세요.';
-    else if (result.isFuture) msg = '기준일이 생년월일보다 앞설 수 없습니다.';
-    el.warn.textContent = msg;
+    el.warn.textContent = '기준일이 생년월일보다 앞설 수 없습니다.';
     el.warn.hidden = false;
     el.headline.textContent = '-';
     el.headSub.textContent = '-';
@@ -156,9 +154,17 @@ function render() {
 }
 
 /* ---------- 시작 ---------- */
-if (!el.ref.value) el.ref.value = todaySlashDate();
+var today = new Date();
 
-attachDateFormat(el.birth, render);
-attachDateFormat(el.ref, render);
+populateYearSelect(el.birthY, 1990);
+populateMonthSelect(el.birthM, 5);
+populateDaySelect(el.birthD, daysInMonth(1990, 5), 15);
+
+populateYearSelect(el.refY, today.getFullYear());
+populateMonthSelect(el.refM, today.getMonth() + 1);
+populateDaySelect(el.refD, daysInMonth(today.getFullYear(), today.getMonth() + 1), today.getDate());
+
+wireDateField(el.birthY, el.birthM, el.birthD, render);
+wireDateField(el.refY, el.refM, el.refD, render);
 
 render();
