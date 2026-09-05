@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>만 나이 계산기 | 만 나이·연 나이·세는 나이 한번에 확인</title>
+<meta name="description" content="생년월일만 넣으면 만 나이·연 나이·세는 나이를 한 번에 계산합니다. 2023년 만 나이 통일법 기준, 다음 생일까지 남은 날짜와 태어난 지 며칠째인지도 함께 확인하세요.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/age-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moklyun.com/age-calculator.html">
+<meta property="og:title" content="만 나이 계산기 | moklyun">
+<meta property="og:description" content="생년월일만 넣으면 만 나이·연 나이·세는 나이를 한 번에 계산합니다.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .date-field label { display: block; font-size: 12.5px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+  .date-field input {
+    width: 100%; padding: 12px 12px; font-size: 15.5px; font-weight: 600;
+    color: var(--ink); background: var(--card);
+    border: 1.5px solid var(--line); border-radius: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .date-field input:focus { outline: none; border-color: var(--brand); }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .fact {
+    flex: 1; min-width: 92px; padding: 12px 8px; border-radius: 10px;
+    background: var(--brand-bg); text-align: center;
+  }
+  .fact-label { margin: 0 0 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
+  .fact-value { margin: 0; font-size: 20px; font-weight: 800; color: var(--brand-ink); font-variant-numeric: tabular-nums; }
+  .fact-sub { margin: 2px 0 0; font-size: 11px; color: var(--muted); }
+
+  .kv-line { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; margin-top: 10px; }
+  .kv-line .v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .warn-box {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff4e5; color: #7a4a12; font-size: 14px; line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
+  }
+  .warn-box[hidden] { display: none; }
+  .warn-box p { margin: 0; }
+
+  .fold { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }
+  .fold summary { cursor: pointer; padding: 10px 0; font-size: 14.5px; font-weight: 700; color: var(--brand); list-style: none; }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary::after { content: ' ▾'; font-size: 12px; }
+  .fold[open] summary::after { content: ' ▴'; }
+  .fold-body { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 6px; }
+  .fold-body p { margin: 0 0 10px; }
+  .fold-body p:last-child { margin-bottom: 0; }
+  .fold-body strong { color: var(--ink); }
+  .fold-body table.cmp th, .fold-body table.cmp td { font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">moklyun 도구 모음</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="날짜 도구 선택">
+      <a href="age-calculator.html" class="is-current" aria-current="page">만 나이 계산기</a>
+    </div>
+    <h1>만 나이 계산기</h1>
+    <p class="lede">생년월일만 넣으면 <strong>만 나이·연 나이·세는 나이</strong>를 한 번에 계산해드립니다.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="age-calculator.html" class="is-current" aria-current="page">계산기</a>
+      <a href="age-calculator-guide.html">이용법</a>
+      <a href="age-calculator-faq.html">FAQ</a>
+      <a href="age-calculator-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 생년월일 / 기준일 -->
+  <section class="card" aria-labelledby="q-birth">
+    <h2 class="q-title" id="q-birth">생년월일이 언제인가요?</h2>
+    <div class="date-row">
+      <div class="date-field">
+        <label for="birth">생년월일</label>
+        <input id="birth" type="date" value="1990-05-15" min="1900-01-01" max="2099-12-31">
+      </div>
+      <div class="date-field">
+        <label for="ref">기준일</label>
+        <input id="ref" type="date" min="1900-01-01" max="2099-12-31">
+      </div>
+    </div>
+    <p class="q-help">기준일은 오늘 날짜가 기본으로 들어가 있습니다. 특정 날짜 기준 나이가 궁금하면 바꿔보세요.</p>
+    <div class="warn-box" id="warn" hidden></div>
+  </section>
+
+  <!-- 2. 결과 -->
+  <div id="result">
+    <div class="card result-card headline-card">
+      <p class="headline-label" id="head-label">만 나이</p>
+      <p class="headline" id="headline">0세</p>
+      <p class="headline-label" id="head-sub">-</p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">나이 계산법 3가지</h2>
+      <div class="facts">
+        <div class="fact">
+          <p class="fact-label">만 나이</p>
+          <p class="fact-value" id="f-man">-</p>
+          <p class="fact-sub">공식 나이</p>
+        </div>
+        <div class="fact">
+          <p class="fact-label">연 나이</p>
+          <p class="fact-value" id="f-yeon">-</p>
+          <p class="fact-sub">병역법 등</p>
+        </div>
+        <div class="fact">
+          <p class="fact-label">세는 나이</p>
+          <p class="fact-value" id="f-senun">-</p>
+          <p class="fact-sub">일상 관습</p>
+        </div>
+      </div>
+      <div class="kv-line"><span id="next-bday-label">다음 생일까지</span><span class="v" id="d-nextbday">-</span></div>
+      <div class="kv-line"><span>태어난 지</span><span class="v" id="d-totaldays">-</span></div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        2023년 6월 28일부터 시행된 <strong>"만 나이 통일법"</strong>에 따라 법적·행정적 나이는 원칙적으로 <strong>만 나이</strong>로 통일됐습니다. 다만 <strong>병역법·청소년보호법</strong> 등 일부 법률은 취지상 <strong>연 나이</strong>(현재 연도 - 출생 연도)를 그대로 유지하고 있습니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        <strong>세는 나이</strong>는 태어난 해를 1살로 치고 해가 바뀔 때마다 한 살씩 더하는 옛 관습적 계산법으로, 법적 효력은 없지만 일상 대화에서는 여전히 쓰이는 경우가 많습니다.
+      </p>
+
+      <details class="fold">
+        <summary>세 가지 나이, 예시로 비교해보기</summary>
+        <div class="fold-body">
+          <p>2000년 12월 31일생이 2026년 1월 1일 기준으로 나이를 계산하면:</p>
+          <div class="table-scroll">
+            <table class="cmp">
+              <thead><tr><th scope="col">계산법</th><th scope="col">나이</th><th scope="col">계산 방법</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">만 나이</th><td>25세</td><td>생일(12/31) 전이므로 -1</td></tr>
+                <tr><th scope="row">연 나이</th><td>26세</td><td>2026 − 2000</td></tr>
+                <tr><th scope="row">세는 나이</th><td>27세</td><td>2026 − 2000 + 1</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>태어난 지 하루밖에 안 지났는데도 세는 나이로는 2살이 되는, 흔히 말하는 "연말 출생아" 사례입니다.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산이며 법률 자문이 아닙니다. 기준: 만 나이 통일법(2023.6.28 시행), 2026년 기준 정리.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 법률 자문이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="age-calculator.js"></script>
+</body>
+</html>
