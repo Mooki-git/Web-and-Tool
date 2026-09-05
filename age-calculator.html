@@ -16,15 +16,18 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
 <style>
-  .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .date-row { display: flex; flex-direction: column; gap: 16px; }
   .date-field label { display: block; font-size: 12.5px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
-  .date-field input {
-    width: 100%; padding: 12px 12px; font-size: 15.5px; font-weight: 600;
-    color: var(--ink); background: var(--card);
+  .ymd-select { display: flex; align-items: center; gap: 4px; }
+  .ymd-select select {
+    flex: 1 1 0; min-width: 0; padding: 11px 4px; font-size: 15px; font-weight: 600;
+    text-align: center; color: var(--ink); background: var(--card);
     border: 1.5px solid var(--line); border-radius: 11px;
     font-variant-numeric: tabular-nums;
   }
-  .date-field input:focus { outline: none; border-color: var(--brand); }
+  .ymd-select select:first-child { flex: 1.3 1 0; }
+  .ymd-select select:focus { outline: none; border-color: var(--brand); }
+  .ymd-unit { flex: none; font-size: 13px; color: var(--muted); }
 
   .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .fact {
@@ -86,15 +89,29 @@
     <h2 class="q-title" id="q-birth">생년월일이 언제인가요?</h2>
     <div class="date-row">
       <div class="date-field">
-        <label for="birth">생년월일</label>
-        <input id="birth" type="text" inputmode="numeric" autocomplete="off" placeholder="1991/06/10" value="1990/05/15" maxlength="10">
+        <label id="birth-label">생년월일</label>
+        <div class="ymd-select" role="group" aria-labelledby="birth-label">
+          <select id="birth-y" aria-label="생년월일 연도"></select>
+          <span class="ymd-unit">년</span>
+          <select id="birth-m" aria-label="생년월일 월"></select>
+          <span class="ymd-unit">월</span>
+          <select id="birth-d" aria-label="생년월일 일"></select>
+          <span class="ymd-unit">일</span>
+        </div>
       </div>
       <div class="date-field">
-        <label for="ref">기준일</label>
-        <input id="ref" type="text" inputmode="numeric" autocomplete="off" placeholder="1991/06/10" maxlength="10">
+        <label id="ref-label">기준일</label>
+        <div class="ymd-select" role="group" aria-labelledby="ref-label">
+          <select id="ref-y" aria-label="기준일 연도"></select>
+          <span class="ymd-unit">년</span>
+          <select id="ref-m" aria-label="기준일 월"></select>
+          <span class="ymd-unit">월</span>
+          <select id="ref-d" aria-label="기준일 일"></select>
+          <span class="ymd-unit">일</span>
+        </div>
       </div>
     </div>
-    <p class="q-help">날짜는 연도/월/일 순서로 입력합니다 (예: 1991/06/10). 기준일은 오늘 날짜가 기본으로 들어가 있고, 특정 날짜 기준 나이가 궁금하면 바꿔보세요.</p>
+    <p class="q-help">기준일은 오늘 날짜가 기본으로 들어가 있습니다. 특정 날짜 기준 나이가 궁금하면 바꿔보세요.</p>
     <div class="warn-box" id="warn" hidden></div>
   </section>
 
