@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소개 | 양음력 계산기</title>
+<meta name="description" content="양음력 계산기를 만든 이유와, 한국천문연구원(KASI) 표준 데이터를 검증한 과정을 소개합니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/lunar-calendar-about.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">moklyun 도구 모음</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="날짜 도구 선택">
+      <a href="age-calculator.html">만 나이 계산기</a>
+      <a href="lunar-calendar.html" class="is-current" aria-current="page">양음력 계산기</a>
+    </div>
+    <h1>이 계산기를 만든 이유</h1>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="lunar-calendar.html">계산기</a>
+      <a href="lunar-calendar-guide.html">이용법</a>
+      <a href="lunar-calendar-faq.html">FAQ</a>
+      <a href="lunar-calendar-about.html" class="is-current" aria-current="page">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="card article">
+
+    <p>안녕하세요, Mooki입니다.</p>
+
+    <p>날짜 도구 카테고리의 두 번째 계산기입니다. <a href="age-calculator.html">만 나이 계산기</a>를 만들면서 "생일"을 다루다 보니, 자연스럽게 음력 생일·제사·차례 날짜를 양력으로 헷갈려 하는 분들이 많다는 걸 다시 떠올리게 됐습니다.</p>
+
+    <h2>이 계산기는 직접 계산하지 않았습니다 — 그리고 그게 맞다고 생각했습니다</h2>
+
+    <p>음력 변환은 다른 계산기들과 근본적으로 다릅니다. 세금·나이 계산은 공식만 정확하면 되지만, <strong>음력은 실제 달의 움직임(천문 관측)을 기준으로 정해지기 때문에 공식만으로는 계산할 수 없고, 정부 기관이 매년 확정해서 발표하는 데이터가 필요합니다.</strong> 그래서 이 계산기는 제가 직접 알고리즘을 설계하는 대신, <strong>한국천문연구원(KASI) 표준을 따르는 오픈소스 변환 데이터</strong>(<a href="https://github.com/usingsky/korean_lunar_calendar_js" target="_blank" rel="noopener">korean-lunar-calendar</a>, Jinil Lee, MIT 라이선스)를 가져와 사이트에 맞게 이식했습니다. 검증되지 않은 자체 로직보다, 이미 검증된 공개 표준 데이터를 쓰는 게 훨씬 안전하다고 판단했습니다.</p>
+
+    <h2>그래도 직접 검증한 부분</h2>
+
+    <p>가져온 데이터를 그대로 믿지 않고, 여러 방법으로 직접 대조했습니다. <strong>2024~2026년 설날·추석의 실제 양력 날짜</strong>, <strong>2020·2023·2025·2028년 윤달이 있는 달</strong>을 공개된 정보와 하나하나 대조해서 전부 정확히 일치하는 것을 확인했습니다. 또 <strong>1950년부터 2050년까지 100년간 4,848개 날짜</strong>를 양력→음력→양력으로 왕복 변환해서 원래 날짜로 정확히 돌아오는지도 전수 검증했습니다.</p>
+
+    <p><strong>윤달 처리</strong>도 신경 쓴 부분입니다. 같은 달(예: 6월)이 그 해에 두 번 있을 수 있어서, 음력을 양력으로 바꿀 때 "평달 6월"과 "윤달 6월"을 구분하지 않으면 완전히 다른 양력 날짜가 나옵니다. 그래서 이 계산기는 선택한 연도·월이 실제로 윤달에 해당할 때만 "윤달입니다" 체크박스를 보여주고, 체크 여부에 따라 완전히 다른 날짜를 계산하도록 만들었습니다.</p>
+
+    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
+    <ul>
+      <li>이 계산기는 <strong>1900년~2050년</strong> 범위만 지원합니다. 원본 데이터는 더 넓은 범위(1000~2050년)를 지원하지만, 실용적인 범위로 제한했습니다.</li>
+      <li><strong>한국(KASI) 기준</strong>입니다. 중국·대만 등 다른 나라의 음력과는 극히 드물게 하루 차이가 날 수 있습니다.</li>
+      <li>간지(干支)는 참고용 정보이며, 사주·풍수 등에 대한 해석이나 조언이 아닙니다.</li>
+      <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
+    </ul>
+
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 필요한 계산을 빠르게 끝내는 데 도움이 되었으면 합니다.</p>
+
+    <p class="meta">최종 검토: 2026년 9월</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산입니다. 기준: 한국천문연구원(KASI) 표준 교차검증</p>
+  </div>
+</footer>
+
+</body>
+</html>
