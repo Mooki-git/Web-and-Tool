@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소개 | 대출 상환 계산기</title>
+<meta name="description" content="대출 상환 계산기를 만든 이유와, 원리금균등·원금균등·만기일시상환 공식을 검증한 과정을 소개합니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/loan-repayment-about.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232f6df6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='sans-serif' font-weight='700' fill='white'>₩</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">재테크 계산기</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택">
+      <a href="isa.html">ISA 절세 계산기</a>
+      <a href="dividend-tax.html">배당세 계산기</a>
+      <a href="stock-tax.html">주식 양도세 계산기</a>
+      <a href="salary-tax.html">연봉 실수령액 계산기</a>
+      <a href="insurance.html">4대보험 계산기</a>
+      <a href="severance.html">퇴직금 계산기</a>
+      <a href="pension.html">연금저축·IRP 계산기</a>
+      <a href="unemployment.html">실업급여 계산기</a>
+      <a href="comprehensive-tax.html">종합소득세 계산기</a>
+      <a href="loan-repayment.html" class="is-current" aria-current="page">대출 상환 계산기</a>
+    </div>
+    <h1>이 계산기를 만든 이유</h1>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="loan-repayment.html">계산기</a>
+      <a href="loan-repayment-guide.html">이용법</a>
+      <a href="loan-repayment-faq.html">FAQ</a>
+      <a href="loan-repayment-about.html" class="is-current" aria-current="page">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="card article">
+
+    <p>안녕하세요, Mooki입니다.</p>
+
+    <p>이 사이트의 열 번째 계산기입니다. 지금까지는 절세·급여처럼 "재테크"에 가까운 계산기만 만들어왔는데, 이번엔 조금 방향을 넓혀서 <strong>대출 상환</strong>을 다뤄봤습니다. 은행에서 대출을 받아본 분이라면 "원리금균등이요, 원금균등이요?"라는 질문을 한 번쯤 들어보셨을 텐데, 정작 그 차이를 숫자로 직접 비교해볼 수 있는 곳은 많지 않았습니다.</p>
+
+    <h2>가장 신경 쓴 부분 — 세 가지를 한 화면에서 비교하는 것</h2>
+
+    <p>대출 상환 계산기 자체는 검색하면 많이 나옵니다. 그런데 대부분 <strong>한 번에 한 가지 상환방식</strong>만 계산해주고, 다른 방식과 비교하려면 다시 입력해야 하는 경우가 많았습니다. 그래서 이 계산기는 대출원금·이자율·기간을 한 번만 넣으면 <strong>원리금균등·원금균등·만기일시상환 세 가지를 동시에</strong> 계산해서 표로 바로 비교할 수 있게 만들었습니다. 어느 방식이 총이자가 가장 적은지도 바로 표시됩니다.</p>
+
+    <p>또 하나 신경 쓴 부분은 <strong>거치기간</strong>입니다. 거치기간은 초반에 이자만 내고 원금은 갚지 않는 기간인데, 이걸 반영하지 않는 계산기가 많았습니다. 실제로는 거치기간이 길수록 원금을 갚는 실제 기간이 짧아지면서 그 이후 상환액이 커지고, 총이자도 늘어납니다. 이 계산기는 거치기간을 넣으면 그 효과가 연도별 스케줄 표에 그대로 반영됩니다.</p>
+
+    <h2>수치를 확정하면서 있었던 일</h2>
+
+    <p>세 가지 상환방식의 계산 공식 자체는 널리 알려진 표준 공식이지만, 방식마다 <strong>마지막 회차에서 반올림 오차로 잔액이 정확히 0이 되지 않는 문제</strong>가 있었습니다. 매달 이자를 잔액에 곱하는 계산을 반복하다 보면 소수점 아래 오차가 누적되어서, 마지막 회차에 1원 안팎의 잔액이 남는 경우가 생깁니다. 그래서 <strong>마지막 회차의 원금상환액은 공식으로 계산하지 않고, 그 시점의 남은 잔액 전액으로 강제</strong>하도록 만들어서 대출기간이 끝나면 잔액이 정확히 0원이 되도록 맞췄습니다.</p>
+
+    <p>세 가지 방식의 총이자 크기 순서(<strong>만기일시 &gt; 원리금균등 &gt; 원금균등</strong>)도 여러 원금·이자율·기간 조합으로 직접 계산해서 항상 같은 순서로 나오는지 검증했습니다.</p>
+
+    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
+    <ul>
+      <li>저는 금융 전문가가 아닙니다. 이 계산기는 표준 상환 공식을 기준으로 만든 <strong>참고용 도구</strong>이며, 금융 자문이 아닙니다. 실제 대출 조건은 대출 실행 은행에서 확인해 주세요.</li>
+      <li><strong>중도상환수수료, 인지세, 변동금리에 따른 금리 변동</strong>은 반영하지 않았습니다. 처음 약정한 이자율이 대출기간 내내 그대로 유지된다고 가정한 계산입니다.</li>
+      <li><strong>마이너스통장(한도대출)</strong>처럼 매일 실제로 빌린 금액에만 이자가 붙는 방식은 이 계산기가 다루는 방식과 계산 구조 자체가 달라서, 별도 계산기로 준비할 계획입니다.</li>
+      <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
+    </ul>
+
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 필요한 계산을 빠르게 끝내는 데 도움이 되었으면 합니다.</p>
+
+    <p class="meta">최종 검토: 2026년 9월</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 금융 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+</body>
+</html>
