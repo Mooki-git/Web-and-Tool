@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소개 | 출산예정일 계산기</title>
+<meta name="description" content="출산예정일 계산기를 만든 이유와, 네겔레 법칙과 생리주기 보정 계산을 검증한 과정을 소개합니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/due-date-about.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">moklyun 도구 모음</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="날짜 도구 선택">
+      <a href="age-calculator.html">만 나이 계산기</a>
+      <a href="lunar-calendar.html">양음력 계산기</a>
+      <a href="due-date.html" class="is-current" aria-current="page">출산예정일 계산기</a>
+    </div>
+    <h1>이 계산기를 만든 이유</h1>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="due-date.html">계산기</a>
+      <a href="due-date-guide.html">이용법</a>
+      <a href="due-date-faq.html">FAQ</a>
+      <a href="due-date-about.html" class="is-current" aria-current="page">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="card article">
+
+    <p>안녕하세요, Mooki입니다.</p>
+
+    <p>날짜 도구 카테고리의 세 번째 계산기입니다. 만 나이·음력 변환에 이어, 이번엔 <strong>출산예정일</strong>을 다뤄봤습니다. 재테크와는 완전히 무관하지만, 인생에서 가장 궁금한 날짜 중 하나라고 생각해서 골랐습니다.</p>
+
+    <h2>가장 신경 쓴 부분 — 생리주기 보정을 "일관되게" 적용하는 것</h2>
+
+    <p>출산예정일 계산기도 검색하면 많이 나옵니다. 대부분 <strong>기본 28일 주기</strong>로만 계산하거나, 생리주기를 입력받더라도 예정일만 보정하고 <strong>정작 "지금 몇 주째인지"는 보정 없이</strong> 그대로 계산하는 경우가 많았습니다. 그러면 예정일 당일에 임신주수를 확인했을 때 정확히 "40주 0일"이 아니라 "40주 3일"처럼 어긋나는 이상한 결과가 나옵니다.</p>
+
+    <p>그래서 이 계산기는 생리주기 보정을 <strong>예정일과 임신주수 양쪽에 동일하게</strong> 적용했습니다. 내부적으로 "보정된 마지막 생리일"을 한 번 계산해두고, 예정일도 임신주수도 전부 그 기준으로 계산해서 예정일 당일에는 주기와 상관없이 항상 정확히 40주 0일이 나오도록 만들었습니다.</p>
+
+    <h2>수치를 확정하면서 있었던 일</h2>
+
+    <p>네겔레 법칙을 조사하면서, 흔히 알려진 <strong>"마지막 생리일에서 3개월 빼고 7일 더하기"라는 암산용 공식</strong>이 실제로는 "280일을 더한다"는 정확한 정의와 며칠씩 어긋날 수 있다는 걸 직접 계산해보고 확인했습니다. 예를 들어 5월 10일 기준으로 암산 공식은 다음해 2월 17일을 주지만, 정확히 280일을 더하면 2월 14일이 나옵니다. 걸치는 달의 일수(28~31일)에 따라 암산 공식에 오차가 생기기 때문입니다. 이 계산기는 암산용 근사식이 아니라, <strong>"40주=280일"이라는 원래 정의를 그대로 날짜 계산으로 구현</strong>해서 이런 오차가 없습니다.</p>
+
+    <p>삼분기 경계(13주6일→14주0일, 27주6일→28주0일)도 여러 날짜로 직접 계산해서 정확히 그 경계에서 구간이 바뀌는지 확인했습니다.</p>
+
+    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
+    <ul>
+      <li>저는 의료 전문가가 아닙니다. 이 계산기는 널리 알려진 네겔레 법칙을 기준으로 만든 <strong>참고용 도구</strong>이며, 의학적 진단이나 조언이 아닙니다.</li>
+      <li><strong>초음파 기준 예정일 재설정 기능은 포함하지 않았습니다.</strong> 생리주기가 불규칙하거나 초음파 소견과 차이가 있다면, 산부인과에서 확인한 예정일을 우선해 주세요.</li>
+      <li>실제 출산은 예정일 전후 1~2주(37~42주) 사이에 이루어지는 게 정상입니다. 예정일을 너무 정확한 날짜로 받아들이지 않으셨으면 합니다.</li>
+      <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
+    </ul>
+
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 필요한 계산을 빠르게 끝내는 데 도움이 되었으면 합니다.</p>
+
+    <p class="meta">최종 검토: 2026년 9월</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 의학적 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+</body>
+</html>
