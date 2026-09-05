@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소개 | 만 나이 계산기</title>
+<meta name="description" content="만 나이 계산기를 만든 이유와, 만 나이·연 나이·세는 나이 계산 방식을 검증한 과정을 소개합니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/age-calculator-about.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">moklyun 도구 모음</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="날짜 도구 선택">
+      <a href="age-calculator.html" class="is-current" aria-current="page">만 나이 계산기</a>
+    </div>
+    <h1>이 계산기를 만든 이유</h1>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="age-calculator.html">계산기</a>
+      <a href="age-calculator-guide.html">이용법</a>
+      <a href="age-calculator-faq.html">FAQ</a>
+      <a href="age-calculator-about.html" class="is-current" aria-current="page">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="card article">
+
+    <p>안녕하세요, Mooki입니다.</p>
+
+    <p>지금까지는 ISA·연봉·퇴직금처럼 "재테크"에 가까운 계산기만 만들어왔는데, 이번엔 조금 다른 방향으로 <strong>날짜 도구</strong> 카테고리를 새로 시작했습니다. 그 첫 번째로 <strong>만 나이 계산기</strong>를 만들었습니다. 재테크와는 무관하지만, 2023년 만 나이 통일법 이후로 여전히 헷갈려하는 분들이 많은 주제라서 첫 도구로 골랐습니다.</p>
+
+    <h2>가장 신경 쓴 부분 — 세 가지 나이를 동시에 보여주는 것</h2>
+
+    <p>만 나이 계산기는 검색하면 정말 많이 나옵니다. 그런데 대부분 <strong>만 나이 하나만</strong> 계산해주고, 정작 "그럼 병역법상 내 나이는?", "옛날 기준으로는 몇 살이었지?"라는 질문에는 답을 안 해줬습니다. 그래서 이 계산기는 <strong>만 나이·연 나이·세는 나이</strong>를 한 화면에서 동시에 비교할 수 있게 만들었습니다.</p>
+
+    <p>또 하나 신경 쓴 부분은 <strong>다음 생일까지 며칠 남았는지</strong>와 <strong>정확한 나이(년/월/일 단위)</strong>를 함께 보여주는 것입니다. "36세"라는 뭉뚱그린 숫자보다 "36년 3개월 21일"이라는 정확한 수치가 더 유용한 경우가 있다고 생각했습니다.</p>
+
+    <h2>수치를 확정하면서 있었던 일</h2>
+
+    <p>가장 신경 쓴 부분은 <strong>2월 29일(윤년) 생일 처리</strong>였습니다. 평년에는 2월 29일이 없기 때문에, 이런 분들의 생일을 언제로 봐야 하는지 계산 방식마다 조금씩 다릅니다. 이 계산기는 평년에는 <strong>3월 1일을 생일로 취급</strong>하는 방식을 택했고, 이 경계 조건을 여러 날짜 조합으로 직접 계산해서 검증했습니다.</p>
+
+    <p>정확한 나이(년/월/일)를 계산하는 부분도 까다로웠습니다. 예를 들어 생일이 기준일보다 "일" 단위로 더 늦은 경우 월을 하나 빌려와야 하는데, 이때 <strong>빌려오는 달의 실제 일수</strong>(28일/30일/31일)를 정확히 반영해야 합니다. 여러 날짜 조합으로 직접 계산해서 만 나이의 "년" 수치와 항상 일치하는지 검증했습니다.</p>
+
+    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
+    <ul>
+      <li>저는 법률 전문가가 아닙니다. 이 계산기는 공개된 법령을 기준으로 만든 <strong>참고용 도구</strong>이며, 법률 자문이 아닙니다.</li>
+      <li><strong>병역법·청소년보호법 외에 연 나이를 쓰는 다른 개별 법률</strong>이 있을 수 있습니다. 정확한 법적 나이 기준은 해당 법령이나 관련 기관에 확인해 주세요.</li>
+      <li>날짜 도구는 앞으로 하나씩 더 늘려갈 계획입니다. 계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
+    </ul>
+
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 필요한 계산을 빠르게 끝내는 데 도움이 되었으면 합니다.</p>
+
+    <p class="meta">최종 검토: 2026년 9월</p>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 법률 자문이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+</body>
+</html>
