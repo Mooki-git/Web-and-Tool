@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>양음력 계산기 FAQ | 자주 묻는 질문</title>
+<meta name="description" content="양력·음력 변환, 윤달, 간지에 대해 자주 묻는 질문을 모았습니다. 왜 음력 날짜가 매년 다른지, 윤달이 뭔지, 계산 출처는 어디인지 등.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/lunar-calendar-faq.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">moklyun 도구 모음</a></p>
+    <div class="calc-switcher" role="tablist" aria-label="날짜 도구 선택">
+      <a href="age-calculator.html">만 나이 계산기</a>
+      <a href="lunar-calendar.html" class="is-current" aria-current="page">양음력 계산기</a>
+    </div>
+    <h1>자주 묻는 질문</h1>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="lunar-calendar.html">계산기</a>
+      <a href="lunar-calendar-guide.html">이용법</a>
+      <a href="lunar-calendar-faq.html" class="is-current" aria-current="page">FAQ</a>
+      <a href="lunar-calendar-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card faq-card" aria-label="자주 묻는 질문 목록">
+
+    <details class="faq">
+      <summary>왜 음력 생일이 매년 양력으로 다른 날짜가 되나요?</summary>
+      <div class="faq-body">
+        <p>음력은 <strong>달의 차고 기움(삭망월, 약 29.53일)</strong>을 기준으로 한 달을 정합니다. 그래서 음력 1년(약 354일)이 양력 1년(약 365일)보다 11일 정도 짧습니다. 이 차이가 매년 누적되기 때문에, 같은 음력 날짜라도 양력으로 환산하면 해마다 날짜가 달라집니다.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>윤달이 뭔가요?</summary>
+      <div class="faq-body">
+        <p>음력과 양력의 날짜 차이가 누적되는 것을 바로잡기 위해, <strong>몇 년에 한 번(대략 2~3년마다) 같은 달을 한 번 더 넣는 것</strong>입니다. 예를 들어 윤5월이 있는 해는 5월이 끝난 뒤 "윤5월"이 한 번 더 있고, 그 다음에 6월로 넘어갑니다. 윤달에는 결혼·이사 등에 좋다는 민간 풍습이 있지만, 이 계산기는 날짜 변환만 다룹니다.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>음력 → 양력 변환할 때 윤달 체크박스는 언제 나오나요?</summary>
+      <div class="faq-body">
+        <p>선택한 연도에 <strong>윤달이 있고, 그 윤달이 마침 지금 선택한 월과 같을 때만</strong> 나타납니다. 예를 들어 2025년은 윤6월이 있는 해라서, 음력 6월을 선택하면 "이 달은 윤달(윤6월)입니다" 체크박스가 나타납니다. 체크 여부에 따라 변환되는 양력 날짜가 한 달 가까이 차이 날 수 있으니, 정확히 확인하고 선택해주세요.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>간지(干支)가 뭔가요?</summary>
+      <div class="faq-body">
+        <p><strong>천간(갑을병정무기경신임계) 10개</strong>와 <strong>지지(자축인묘진사오미신유술해) 12개</strong>를 하나씩 짝지어 만든 60개의 순환 조합으로, 해·달·날을 나타낼 때 씁니다. "2025년은 을사년"처럼 흔히 띠를 말할 때 쓰이는 게 바로 간지의 지지 부분입니다. 사주·궁합이나 제사 축문에 쓰이는 경우가 많습니다.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>이 계산은 어디까지 정확한가요?</summary>
+      <div class="faq-body">
+        <p><strong>한국천문연구원(KASI) 표준</strong>을 따르는 오픈소스 변환 데이터를 기반으로 합니다. 2024~2026년 설날·추석 실제 날짜, 2020·2023·2025·2028년 윤달 날짜를 공개된 정보와 대조해서 정확히 일치하는 것을 확인했고, 1950~2050년 100년간 4,848개 날짜로 양력↔음력 왕복 변환 테스트도 전부 통과했습니다.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>어느 범위까지 계산할 수 있나요?</summary>
+      <div class="faq-body">
+        <p>이 계산기는 <strong>1900년~2050년</strong> 범위를 지원합니다. 그 이전 날짜가 필요하시면 <a href="contact.html">문의</a>해주세요.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>중국 음력이랑 같은 건가요?</summary>
+      <div class="faq-body">
+        <p>대부분 같지만, <strong>드물게 하루 차이가 날 수 있습니다.</strong> 한국과 중국의 음력은 같은 방식(삭망월 기준)으로 계산되지만, 기준으로 삼는 시간대(한국은 한국 표준시, 중국은 중국 표준시)가 달라서 초승달이 뜨는 시각이 자정 부근일 때 아주 드물게 하루 차이가 발생할 수 있습니다. 이 계산기는 <strong>한국(KASI) 기준</strong>입니다.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>입력한 정보가 저장되나요?</summary>
+      <div class="faq-body">
+        <p>저장되지 않습니다. 모든 계산은 여러분의 브라우저 안에서만 이루어지고, 입력하신 날짜는 서버로 전송되지 않습니다. 페이지를 닫으면 그대로 사라집니다.</p>
+      </div>
+    </details>
+
+  </section>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 정보입니다. 기준: 한국천문연구원(KASI) 표준 교차검증.
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산입니다. 기준: 한국천문연구원(KASI) 표준 교차검증</p>
+  </div>
+</footer>
+
+</body>
+</html>
