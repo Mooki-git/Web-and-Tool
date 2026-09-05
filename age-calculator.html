@@ -87,14 +87,14 @@
     <div class="date-row">
       <div class="date-field">
         <label for="birth">생년월일</label>
-        <input id="birth" type="date" value="1990-05-15" min="1900-01-01" max="2099-12-31">
+        <input id="birth" type="text" inputmode="numeric" autocomplete="off" placeholder="1991/06/10" value="1990/05/15" maxlength="10">
       </div>
       <div class="date-field">
         <label for="ref">기준일</label>
-        <input id="ref" type="date" min="1900-01-01" max="2099-12-31">
+        <input id="ref" type="text" inputmode="numeric" autocomplete="off" placeholder="1991/06/10" maxlength="10">
       </div>
     </div>
-    <p class="q-help">기준일은 오늘 날짜가 기본으로 들어가 있습니다. 특정 날짜 기준 나이가 궁금하면 바꿔보세요.</p>
+    <p class="q-help">날짜는 연도/월/일 순서로 입력합니다 (예: 1991/06/10). 기준일은 오늘 날짜가 기본으로 들어가 있고, 특정 날짜 기준 나이가 궁금하면 바꿔보세요.</p>
     <div class="warn-box" id="warn" hidden></div>
   </section>
 

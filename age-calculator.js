@@ -78,22 +78,39 @@ var el = {
 };
 
 function pad2(n) { return n < 10 ? '0' + n : String(n); }
-function todayISODate() {
+function todaySlashDate() {
   var d = new Date();
-  return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  return d.getFullYear() + '/' + pad2(d.getMonth() + 1) + '/' + pad2(d.getDate());
 }
-function parseISODate(s) {
-  var p = String(s || '').split('-');
-  if (p.length !== 3) return null;
-  var y = +p[0], m = +p[1], d = +p[2];
-  if (!y || !m || !d) return null;
-  return { y: y, m: m, d: d };
+
+/* 입력창에 숫자를 치면 YYYY/MM/DD 형태로 슬래시를 자동으로 넣어준다 */
+function attachDateFormat(input, onChange) {
+  input.addEventListener('input', function () {
+    var caretFromEnd = input.value.length - input.selectionStart;
+    var digits = input.value.replace(/[^0-9]/g, '').slice(0, 8);
+    var formatted = digits;
+    if (digits.length > 4) formatted = digits.slice(0, 4) + '/' + digits.slice(4);
+    if (digits.length > 6) formatted = digits.slice(0, 4) + '/' + digits.slice(4, 6) + '/' + digits.slice(6);
+    input.value = formatted;
+    var pos = Math.max(0, input.value.length - caretFromEnd);
+    input.setSelectionRange(pos, pos);
+    onChange();
+  });
+}
+
+/* "YYYY/MM/DD" 형태의 문자열을 파싱한다 */
+function parseSlashDate(s) {
+  var m = String(s || '').match(/^(\d{4})\/(\d{2})\/(\d{2})$/);
+  if (!m) return null;
+  var y = +m[1], mo = +m[2], d = +m[3];
+  if (!y || !mo || !d) return null;
+  return { y: y, m: mo, d: d };
 }
 function formatKoreanDate(y, m, d) { return y + '년 ' + m + '월 ' + d + '일'; }
 
 function render() {
-  var b = parseISODate(el.birth.value);
-  var r = parseISODate(el.ref.value);
+  var b = parseSlashDate(el.birth.value);
+  var r = parseSlashDate(el.ref.value);
 
   if (!b || !r) {
     el.warn.textContent = '생년월일과 기준일을 모두 입력해주세요.';
@@ -139,11 +156,9 @@ function render() {
 }
 
 /* ---------- 시작 ---------- */
-if (!el.ref.value) el.ref.value = todayISODate();
+if (!el.ref.value) el.ref.value = todaySlashDate();
 
-el.birth.addEventListener('input', render);
-el.birth.addEventListener('change', render);
-el.ref.addEventListener('input', render);
-el.ref.addEventListener('change', render);
+attachDateFormat(el.birth, render);
+attachDateFormat(el.ref, render);
 
 render();
