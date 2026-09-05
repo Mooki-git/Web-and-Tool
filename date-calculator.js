@@ -50,9 +50,7 @@ var el = {
   addN: $('add-n'), addChips: document.querySelectorAll('#panel-add .chips .chip'),
   warn: $('warn'),
   headLabel: $('head-label'), headline: $('headline'), headSub: $('head-sub'),
-  detailCard: $('detail-card'), detailTitle: $('detail-title'),
-  factsDiff: $('facts-diff'), fStartWeekday: $('f-start-weekday'), fEndWeekday: $('f-end-weekday'),
-  dWeeks: $('d-weeks')
+  weeksLine: $('weeks-line'), dWeeks: $('d-weeks')
 };
 
 function daysInMonth(y, m) { return new Date(y, m, 0).getDate(); }
@@ -100,6 +98,7 @@ function readN() {
 }
 
 function formatDate(y, m, d) { return y + '년 ' + m + '월 ' + d + '일'; }
+function formatDateW(y, m, d, weekday) { return formatDate(y, m, d) + ' (' + weekday + '요일)'; }
 
 function renderDiff() {
   var y1 = +el.diffStartY.value, m1 = +el.diffStartM.value, d1 = +el.diffStartD.value;
@@ -107,23 +106,19 @@ function renderDiff() {
   var r = daysDiff(y1, m1, d1, y2, m2, d2);
 
   el.warn.hidden = true;
-  el.detailCard.hidden = false;
-  el.factsDiff.hidden = false;
-  el.detailTitle.textContent = '상세 정보';
+  el.weeksLine.hidden = false;
 
   el.headLabel.textContent = '일수 차이';
   if (r.isSameDay) {
     el.headline.textContent = '같은 날짜';
-    el.headSub.textContent = formatDate(y1, m1, d1) + ' (' + r.startWeekday + ')';
+    el.headSub.textContent = formatDateW(y1, m1, d1, r.startWeekday);
   } else {
     el.headline.textContent = comma(r.absDays) + '일';
-    var earlier = r.diffDays > 0 ? formatDate(y1, m1, d1) : formatDate(y2, m2, d2);
-    var later = r.diffDays > 0 ? formatDate(y2, m2, d2) : formatDate(y1, m1, d1);
+    var earlier = r.diffDays > 0 ? formatDateW(y1, m1, d1, r.startWeekday) : formatDateW(y2, m2, d2, r.endWeekday);
+    var later = r.diffDays > 0 ? formatDateW(y2, m2, d2, r.endWeekday) : formatDateW(y1, m1, d1, r.startWeekday);
     el.headSub.textContent = earlier + ' → ' + later;
   }
 
-  el.fStartWeekday.textContent = r.startWeekday + '요일';
-  el.fEndWeekday.textContent = r.endWeekday + '요일';
   el.dWeeks.textContent = r.weeks + '주 ' + r.remDays + '일';
 }
 
@@ -135,7 +130,7 @@ function renderAdd() {
   var r = addDays(y, m, d, signedN);
 
   el.warn.hidden = true;
-  el.detailCard.hidden = true;
+  el.weeksLine.hidden = true;
 
   el.headLabel.textContent = direction === 'after' ? (comma(n) + '일 후') : (comma(n) + '일 전');
   el.headline.textContent = formatDate(r.year, r.month, r.day) + ' (' + r.weekday + ')';

@@ -47,6 +47,7 @@
   .fact-value { margin: 0; font-size: 18px; font-weight: 800; color: var(--brand-ink); font-variant-numeric: tabular-nums; }
 
   .kv-line { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; margin-top: 10px; }
+  .kv-line[hidden] { display: none; }
   .kv-line .v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
   .warn-box {
@@ -177,21 +178,9 @@
       <p class="headline-label" id="head-label">일수 차이</p>
       <p class="headline" id="headline">-</p>
       <p class="headline-label" id="head-sub">-</p>
-    </div>
-
-    <div class="card result-card" id="detail-card">
-      <h2 class="section-title" id="detail-title">상세 정보</h2>
-      <div class="facts" id="facts-diff">
-        <div class="fact">
-          <p class="fact-label">시작일 요일</p>
-          <p class="fact-value" id="f-start-weekday">-</p>
-        </div>
-        <div class="fact">
-          <p class="fact-label">끝일 요일</p>
-          <p class="fact-value" id="f-end-weekday">-</p>
-        </div>
+      <div class="kv-line" id="weeks-line" style="border-top:1px solid var(--line); margin-top:16px; padding-top:14px; text-align:left;">
+        <span>주 단위로 환산하면</span><span class="v" id="d-weeks">-</span>
       </div>
-      <div class="kv-line"><span>주 단위로 환산하면</span><span class="v" id="d-weeks">-</span></div>
     </div>
 
     <div class="card result-card">
