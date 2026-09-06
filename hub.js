@@ -1,20 +1,22 @@
 (function () {
   var input = document.getElementById('tool-search');
-  if (!input) return;
-
   var sections = Array.prototype.slice.call(document.querySelectorAll('.tool-section'));
   var empty = document.getElementById('tool-empty');
+  var catButtons = Array.prototype.slice.call(document.querySelectorAll('.hub-cat'));
+  var activeCat = 'all';
 
   function normalize(s) {
     return (s || '').toLowerCase().replace(/\s+/g, '');
   }
 
   function filter() {
-    var q = normalize(input.value);
+    var q = input ? normalize(input.value) : '';
     var anyVisible = false;
 
     sections.forEach(function (section) {
+      var catMatch = activeCat === 'all' || section.getAttribute('data-cat') === activeCat;
       var sectionMatch = false;
+
       var cards = section.querySelectorAll('.tool-card');
       Array.prototype.forEach.call(cards, function (card) {
         var haystack = normalize(card.getAttribute('data-search') || card.textContent);
@@ -22,14 +24,26 @@
         card.classList.toggle('is-hidden', !match);
         if (match) sectionMatch = true;
       });
-      // 검색 중(q가 있을 때)에만 매치가 하나도 없는 카테고리 자체를 숨김.
-      // 검색어가 비어 있으면 카테고리는 항상 그대로 노출.
-      section.classList.toggle('is-hidden', Boolean(q) && !sectionMatch);
-      if (sectionMatch) anyVisible = true;
+
+      // 카테고리가 선택돼 있으면 그 카테고리가 아닌 섹션은 무조건 숨김.
+      // 검색어가 있을 때는 그 안에서도 매치가 없는 섹션을 추가로 숨김.
+      var visible = catMatch && (!q || sectionMatch);
+      section.classList.toggle('is-hidden', !visible);
+      if (visible) anyVisible = true;
     });
 
     if (empty) empty.classList.toggle('is-hidden', anyVisible);
   }
 
-  input.addEventListener('input', filter);
+  if (input) input.addEventListener('input', filter);
+
+  catButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      activeCat = btn.getAttribute('data-cat');
+      catButtons.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+      filter();
+    });
+  });
+
+  filter();
 })();

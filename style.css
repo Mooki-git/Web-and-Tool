@@ -492,6 +492,35 @@ body {
 .tool-search::placeholder { color: var(--muted); }
 .tool-search:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-bg); }
 
+/* ===== 허브 카테고리 사이드바 (도구 10개 이상 구간) ===== */
+.hub-layout { display: flex; flex-direction: column; gap: 18px; }
+.hub-sidebar {
+  display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px; scrollbar-width: none; flex: none;
+}
+.hub-sidebar::-webkit-scrollbar { display: none; }
+.hub-cat {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; font-size: 14px; font-weight: 700; color: var(--muted);
+  background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 999px; cursor: pointer; white-space: nowrap;
+  font-family: inherit;
+}
+.hub-cat:hover { border-color: var(--brand); color: var(--text); }
+.hub-cat.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
+.hub-content { min-width: 0; }
+
+@media (min-width: 860px) {
+  .hub-main.wrap { max-width: 900px; }
+  .hub-layout { flex-direction: row; align-items: flex-start; gap: 32px; }
+  .hub-sidebar {
+    flex-direction: column; overflow-x: visible; position: sticky; top: 20px;
+    width: 190px; gap: 6px;
+  }
+  .hub-cat { justify-content: flex-start; width: 100%; }
+  .hub-content { flex: 1; }
+}
+
 .tool-section { margin-bottom: 30px; }
 .tool-section-title {
   display: flex; align-items: center; gap: 8px;
