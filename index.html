@@ -34,9 +34,19 @@
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap hub-main">
 
-  <section class="tool-section" aria-labelledby="cat-tax">
+<div class="hub-layout">
+  <nav class="hub-sidebar" aria-label="카테고리 선택">
+    <button type="button" class="hub-cat is-active" data-cat="all">전체</button>
+    <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+    <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
+    <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+  </nav>
+
+  <div class="hub-content">
+
+  <section class="tool-section" data-cat="tax" aria-labelledby="cat-tax">
     <h2 class="tool-section-title" id="cat-tax">절세 · 세금 <span class="tool-count">5종</span></h2>
     <p class="tool-section-desc">세금을 얼마나 내고, 얼마나 아끼는지 계산합니다.</p>
 
@@ -92,7 +102,7 @@
     </div>
   </section>
 
-  <section class="tool-section" aria-labelledby="cat-salary">
+  <section class="tool-section" data-cat="salary" aria-labelledby="cat-salary">
     <h2 class="tool-section-title" id="cat-salary">급여 · 소득 <span class="tool-count">5종</span></h2>
     <p class="tool-section-desc">연봉·월급에서 실제로 얼마를 받고, 얼마가 빠져나가는지 계산합니다.</p>
 
@@ -147,7 +157,7 @@
     </div>
   </section>
 
-  <section class="tool-section" aria-labelledby="cat-date">
+  <section class="tool-section" data-cat="date" aria-labelledby="cat-date">
     <h2 class="tool-section-title" id="cat-date">날짜 도구 <span class="tool-count">5종</span></h2>
     <p class="tool-section-desc">재테크와는 무관하지만, 생활에서 자주 찾는 날짜 계산을 모았습니다.</p>
 
@@ -203,6 +213,9 @@
   </section>
 
   <p class="tool-empty is-hidden" id="tool-empty">검색 결과가 없습니다. 다른 검색어로 찾아보세요.</p>
+
+  </div>
+</div>
 
 </main>
 

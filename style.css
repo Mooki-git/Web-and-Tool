@@ -492,6 +492,36 @@ body {
 .tool-search::placeholder { color: var(--muted); }
 .tool-search:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-bg); }
 
+/* ===== 허브 카테고리 사이드바 (도구 10개 이상 구간) ===== */
+.hub-layout { display: flex; flex-direction: column; gap: 18px; }
+.hub-sidebar {
+  display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px; scrollbar-width: none; flex: none;
+}
+.hub-sidebar::-webkit-scrollbar { display: none; }
+.hub-cat {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; font-size: 14px; font-weight: 700; color: var(--muted);
+  background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 999px; cursor: pointer; white-space: nowrap;
+  font-family: inherit;
+}
+.hub-cat:hover { border-color: var(--brand); color: var(--text); }
+.hub-cat.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
+.hub-content { min-width: 0; }
+
+/* 데스크톱: 기존 620px 중앙 컬럼은 그대로 두고, 사이드바만 그 왼쪽 여백에
+   고정 배치로 "얹는다". 사이드바가 들어갈 공간이 없으면(좁은 창) 그냥
+   모바일과 같은 가로 칩 바로 남아있는다. */
+@media (min-width: 1180px) {
+  .hub-sidebar {
+    position: fixed; top: 110px;
+    left: calc(50% - 310px - 24px - 190px);
+    width: 190px; flex-direction: column; overflow-x: visible; gap: 6px;
+  }
+  .hub-cat { justify-content: flex-start; width: 100%; }
+}
+
 .tool-section { margin-bottom: 30px; }
 .tool-section-title {
   display: flex; align-items: center; gap: 8px;
