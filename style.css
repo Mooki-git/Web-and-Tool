@@ -510,15 +510,16 @@ body {
 .hub-cat.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
 .hub-content { min-width: 0; }
 
-@media (min-width: 860px) {
-  .hub-main.wrap { max-width: 900px; }
-  .hub-layout { flex-direction: row; align-items: flex-start; gap: 32px; }
+/* 데스크톱: 기존 620px 중앙 컬럼은 그대로 두고, 사이드바만 그 왼쪽 여백에
+   고정 배치로 "얹는다". 사이드바가 들어갈 공간이 없으면(좁은 창) 그냥
+   모바일과 같은 가로 칩 바로 남아있는다. */
+@media (min-width: 1180px) {
   .hub-sidebar {
-    flex-direction: column; overflow-x: visible; position: sticky; top: 20px;
-    width: 190px; gap: 6px;
+    position: fixed; top: 110px;
+    left: calc(50% - 310px - 24px - 190px);
+    width: 190px; flex-direction: column; overflow-x: visible; gap: 6px;
   }
   .hub-cat { justify-content: flex-start; width: 100%; }
-  .hub-content { flex: 1; }
 }
 
 .tool-section { margin-bottom: 30px; }
