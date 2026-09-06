@@ -519,7 +519,8 @@ body {
     width: 190px;
   }
   .hub-cat-list { flex-direction: column; overflow-x: visible; gap: 6px; }
-  .hub-cat { justify-content: flex-start; width: 100%; }
+  .hub-cat { justify-content: center; width: 100%; }
+  .hub-sidebar .tool-search { text-align: center; }
 }
 
 .tool-section { margin-bottom: 30px; }
