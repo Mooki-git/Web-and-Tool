@@ -115,20 +115,6 @@ body {
   align-self: center; margin-right: -2px;
 }
 
-/* 데스크톱(1180px 이상): 계산기 전환 뱃지를 홈페이지 사이드바와 같은
-   방식으로 왼쪽 고정 사이드바로 전환. 기존 620px 중앙 컬럼은 그대로
-   두고, 사이드바만 그 왼쪽 여백에 얹는다. */
-@media (min-width: 1180px) {
-  .calc-switcher {
-    position: fixed; top: 110px;
-    left: calc(50% - 310px - 24px - 190px);
-    width: 190px;
-    flex-direction: column; flex-wrap: nowrap; gap: 6px;
-  }
-  .calc-switcher a { justify-content: center; width: 100%; text-align: center; }
-  .calc-switcher .crumb { align-self: flex-start; margin: 0 0 2px; }
-}
-
 /* ===== 푸터 뱃지 (계산기 선택과 무관한 공용 링크) ===== */
 .footer-links {
   display: flex; flex-wrap: wrap; gap: 8px;
