@@ -24,13 +24,6 @@
   <div class="wrap">
     <p class="eyebrow">moklyun.com</p>
     <h1>Mook 계산기 &amp; Tool</h1>
-    <p class="hub-lede">계산기부터 다양한 생활 도구까지, <strong>필요한 건 다 여기서 빠르게 끝내도록</strong> 만들었습니다.
-      새로운 도구는 계속 추가됩니다. 모든 계산은 공개된 법령·공식 자료를 근거로 하고, 근거와 기준 시점을 화면에 항상 함께 표시합니다.</p>
-
-    <div class="tool-search-wrap">
-      <label class="sr-only" for="tool-search">도구 검색</label>
-      <input id="tool-search" class="tool-search" type="text" inputmode="search" autocomplete="off" placeholder="도구 검색 (예: ISA, 만나이)">
-    </div>
   </div>
 </header>
 
@@ -38,10 +31,16 @@
 
 <div class="hub-layout">
   <nav class="hub-sidebar" aria-label="카테고리 선택">
-    <button type="button" class="hub-cat is-active" data-cat="all">전체</button>
-    <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
-    <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
-    <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+    <div class="tool-search-wrap">
+      <label class="sr-only" for="tool-search">도구 검색</label>
+      <input id="tool-search" class="tool-search" type="text" inputmode="search" autocomplete="off" placeholder="도구 검색 (예: ISA, 만나이)">
+    </div>
+    <div class="hub-cat-list">
+      <button type="button" class="hub-cat is-active" data-cat="all">전체</button>
+      <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+      <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
+      <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+    </div>
   </nav>
 
   <div class="hub-content">
