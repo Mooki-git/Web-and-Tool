@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>양력 음력 변환 계산기 | 간지·윤달까지 한 번에</title>
-<meta name="description" content="양력을 음력으로, 음력을 양력으로 바로 변환합니다. 윤달 여부와 간지(년·월·일)까지 함께 보여드립니다. 한국천문연구원(KASI) 표준 기준.">
+<title>배란일 계산기 | 가임기·다음 생리예정일까지 3개월치 한 번에</title>
+<meta name="description" content="마지막 생리 시작일과 생리주기만 넣으면 배란일·가임기·다음 생리예정일을 이번 주기부터 3개월치 표로 계산합니다.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/lunar-calendar.html">
+<link rel="canonical" href="https://moklyun.com/ovulation.html">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://moklyun.com/lunar-calendar.html">
-<meta property="og:title" content="양력 음력 변환 계산기 | moklyun">
-<meta property="og:description" content="양력↔음력 변환, 윤달·간지까지 한 번에 확인하세요.">
+<meta property="og:url" content="https://moklyun.com/ovulation.html">
+<meta property="og:title" content="배란일 계산기 | moklyun">
+<meta property="og:description" content="마지막 생리 시작일로 배란일과 가임기를 바로 계산합니다.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -29,18 +29,14 @@
   .ymd-select select:focus { outline: none; border-color: var(--brand); }
   .ymd-unit { flex: none; font-size: 13px; color: var(--muted); }
 
-  .leap-wrap { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--brand-bg); }
-  .leap-wrap[hidden] { display: none; }
-  .leap-wrap label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--brand-ink); cursor: pointer; }
-  .leap-wrap input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--brand); }
-
-  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .fact {
-    flex: 1; min-width: 92px; padding: 12px 8px; border-radius: 10px;
-    background: var(--brand-bg); text-align: center;
+  .year-field { position: relative; }
+  .year-field input {
+    width: 100%; padding: 12px 44px 12px 12px; font-size: 15.5px; font-weight: 600;
+    color: var(--ink); background: var(--card); border: 1.5px solid var(--line); border-radius: 11px;
+    font-variant-numeric: tabular-nums;
   }
-  .fact-label { margin: 0 0 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
-  .fact-value { margin: 0; font-size: 18px; font-weight: 800; color: var(--brand-ink); }
+  .year-field input:focus { outline: none; border-color: var(--brand); }
+  .year-field .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--muted); }
 
   .warn-box {
     margin-top: 12px; padding: 12px 14px; border-radius: 10px;
@@ -50,7 +46,10 @@
     :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
   }
   .warn-box[hidden] { display: none; }
-  .warn-box p { margin: 0; }
+  .warn-box p { margin: 0 0 6px; }
+  .warn-box p:last-child { margin-bottom: 0; }
+
+  table.cmp td.hi { font-weight: 700; color: var(--brand-ink); }
 
   .fold { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }
   .fold summary { cursor: pointer; padding: 10px 0; font-size: 14.5px; font-weight: 700; color: var(--brand); list-style: none; }
@@ -89,96 +88,94 @@
       <a href="loan-repayment.html" data-cat="salary">대출 상환 계산기</a>
       <a href="parental-leave.html" data-cat="salary">육아휴직급여 계산기</a>
       <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
-      <a href="lunar-calendar.html" data-cat="date" class="is-current" aria-current="page">양음력 계산기</a>
+      <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
       <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
       <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
       <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
-      <a href="ovulation.html" data-cat="date">배란일 계산기</a>
+      <a href="ovulation.html" data-cat="date" class="is-current" aria-current="page">배란일 계산기</a>
     </div>
-    <h1>양력 음력 변환 계산기</h1>
-    <p class="lede">양력↔음력을 바로 변환하고, <strong>윤달 여부·간지</strong>까지 함께 확인하세요.</p>
+    <h1>배란일 계산기</h1>
+    <p class="lede">마지막 생리 시작일만 넣으면 <strong>배란일·가임기·다음 생리예정일</strong>을 3개월치 표로 계산해드립니다.</p>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="lunar-calendar.html" class="is-current" aria-current="page">계산기</a>
-      <a href="lunar-calendar-guide.html">이용법</a>
-      <a href="lunar-calendar-faq.html">FAQ</a>
-      <a href="lunar-calendar-about.html">소개</a>
+      <a href="ovulation.html" class="is-current" aria-current="page">계산기</a>
+      <a href="ovulation-guide.html">이용법</a>
+      <a href="ovulation-faq.html">FAQ</a>
+      <a href="ovulation-about.html">소개</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- 1. 변환 방향 -->
-  <section class="card" aria-labelledby="q-mode">
-    <h2 class="q-title" id="q-mode">어느 방향으로 변환할까요?</h2>
-    <div class="seg" role="radiogroup" aria-label="변환 방향 선택">
-      <label class="seg-item"><input type="radio" name="mode" value="s2l" checked><span>양력 → 음력</span></label>
-      <label class="seg-item"><input type="radio" name="mode" value="l2s"><span>음력 → 양력</span></label>
-    </div>
-  </section>
-
-  <!-- 2. 날짜 입력 -->
-  <section class="card" aria-labelledby="q-date">
-    <h2 class="q-title" id="q-date"><span id="date-title">양력 날짜가 언제인가요?</span></h2>
+  <!-- 1. 마지막 생리 시작일 -->
+  <section class="card" aria-labelledby="q-lmp">
+    <h2 class="q-title" id="q-lmp">마지막 생리 시작일이 언제인가요?</h2>
+    <p class="q-help">가장 최근 생리가 <strong>시작된 날짜</strong>를 넣어주세요.</p>
     <div class="date-row">
       <div class="date-field">
-        <label id="date-label">양력 날짜</label>
-        <div class="ymd-select" role="group" aria-labelledby="date-label">
-          <select id="date-y" aria-label="연도"></select>
+        <label id="lmp-label">마지막 생리 시작일</label>
+        <div class="ymd-select" role="group" aria-labelledby="lmp-label">
+          <select id="lmp-y" aria-label="연도"></select>
           <span class="ymd-unit">년</span>
-          <select id="date-m" aria-label="월"></select>
+          <select id="lmp-m" aria-label="월"></select>
           <span class="ymd-unit">월</span>
-          <select id="date-d" aria-label="일"></select>
+          <select id="lmp-d" aria-label="일"></select>
           <span class="ymd-unit">일</span>
         </div>
       </div>
     </div>
-    <div class="leap-wrap" id="leap-wrap" hidden>
-      <label><input type="checkbox" id="leap-check"><span>이 달은 윤달(윤<span id="leap-month-num">-</span>월)입니다</span></label>
+
+    <h3 class="q-sub" id="q-cycle">평소 생리주기가 며칠인가요?</h3>
+    <p class="q-help">보통 28일이 기준입니다. 잘 모르면 그대로 두세요.</p>
+    <div class="chips" role="group" aria-label="빠른 주기 선택">
+      <button type="button" class="chip" data-amount="21">21일</button>
+      <button type="button" class="chip" data-amount="25">25일</button>
+      <button type="button" class="chip is-active" data-amount="28">28일</button>
+      <button type="button" class="chip" data-amount="30">30일</button>
+      <button type="button" class="chip" data-amount="35">35일</button>
+    </div>
+    <div class="year-field">
+      <label class="sr-only" for="cycle">생리주기</label>
+      <input id="cycle" type="text" inputmode="numeric" autocomplete="off" value="28">
+      <span class="unit">일</span>
     </div>
     <div class="warn-box" id="warn" hidden></div>
   </section>
 
-  <!-- 3. 결과 -->
+  <!-- 2. 결과 -->
   <div id="result">
     <div class="card result-card headline-card">
-      <p class="headline-label" id="head-label">음력</p>
+      <p class="headline-label">가장 가까운 배란일</p>
       <p class="headline" id="headline">-</p>
       <p class="headline-label" id="head-sub">-</p>
     </div>
 
     <div class="card result-card">
-      <h2 class="section-title">간지(干支)</h2>
-      <div class="facts">
-        <div class="fact">
-          <p class="fact-label">년주</p>
-          <p class="fact-value" id="f-year">-</p>
-        </div>
-        <div class="fact">
-          <p class="fact-label">월주</p>
-          <p class="fact-value" id="f-month">-</p>
-        </div>
-        <div class="fact">
-          <p class="fact-label">일주</p>
-          <p class="fact-value" id="f-day">-</p>
-        </div>
+      <h2 class="section-title">이번 주기부터 3개월치</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead>
+            <tr><th scope="col">생리 시작일</th><th scope="col">배란일</th><th scope="col">가임기</th><th scope="col">다음 생리예정일</th></tr>
+          </thead>
+          <tbody id="cycle-rows"></tbody>
+        </table>
       </div>
+      <p class="table-note">가임기는 배란일 5일 전 ~ 배란일 1일 후 기준입니다.</p>
     </div>
 
     <div class="card result-card">
       <h2 class="section-title">이 계산에 대해</h2>
       <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
-        음력은 달의 차고 기움을 기준으로 한 달을 정하기 때문에, 매달 29일 또는 30일이 되고 <strong>양력과의 날짜 차이가 매년 달라집니다.</strong> 이 계산은 <strong>한국천문연구원(KASI) 표준</strong>을 따르는 변환 데이터를 기준으로 합니다.
+        <strong>배란일</strong>은 생리 시작일에 (생리주기 − 14일)을 더해 계산합니다. 배란 후 다음 생리까지의 기간(황체기)은 사람마다 큰 차이 없이 대부분 <strong>14일 전후로 일정</strong>하기 때문에, 생리주기가 길든 짧든 배란일은 항상 다음 생리 예정일의 14일 전으로 계산합니다.
       </p>
       <p style="margin:0; font-size:14.5px; line-height:1.7;">
-        <strong>윤달(閏月)</strong>은 태양력과 태음력의 차이를 맞추기 위해 몇 년에 한 번 끼워 넣는 달로, 같은 달이 그 해에 두 번 있게 됩니다. 윤달이 있는 해에 그 달을 변환할 때는 평달인지 윤달인지 구분해서 입력해야 정확합니다.
+        <strong>가임기</strong>는 정자의 여성 체내 생존 기간(3~5일)과 난자의 생존 기간(약 24시간)을 감안해 배란일 5일 전부터 배란일 1일 후까지로 계산합니다. 임신 확률은 배란일 1~2일 전이 가장 높습니다.
       </p>
 
       <details class="fold">
-        <summary>간지(干支)가 뭔가요</summary>
+        <summary>생리주기가 매달 다른데, 어떤 값을 넣어야 하나요?</summary>
         <div class="fold-body">
-          <p>간지는 <strong>천간(갑을병정무기경신임계, 10개)</strong>과 <strong>지지(자축인묘진사오미신유술해, 12개)</strong>를 하나씩 짝지어 만든 60개의 순환 조합입니다. "2025년은 을사년(乙巳年)"처럼 해·달·날을 표현할 때 쓰이고, 사주·제사·궁합 등에서 참고됩니다.</p>
-          <p>지지 12개는 각각 띠 동물과 연결됩니다(자=쥐, 축=소, 인=호랑이, 묘=토끼, 진=용, 사=뱀, 오=말, 미=양, 신=원숭이, 유=닭, 술=개, 해=돼지). 예를 들어 "을사년"은 지지가 "사"이므로 뱀띠 해입니다.</p>
+          <p>최근 3~6개월 정도의 생리 시작일 간격을 기록해서 <strong>평균값</strong>을 넣는 것이 가장 정확합니다. 주기가 21~35일 범위를 벗어나거나 매달 편차가 7일 이상이라면, 이 계산의 정확도가 낮아지니 참고용으로만 봐주세요.</p>
         </div>
       </details>
     </div>
@@ -186,9 +183,9 @@
     <div class="card result-card">
       <h2 class="section-title">함께 보면 좋아요</h2>
       <div class="related">
-        <a href="age-calculator.html">
-          <span class="r-name">만 나이 계산기</span>
-          <span class="r-why">생년월일을 넣으면 만 나이·연 나이·세는 나이를 함께 확인할 수 있습니다.</span>
+        <a href="due-date.html">
+          <span class="r-name">출산예정일 계산기</span>
+          <span class="r-why">임신이 확인됐다면, 마지막 생리 시작일로 출산예정일과 임신주수를 계산해보세요.</span>
         </a>
       </div>
     </div>
@@ -199,8 +196,8 @@
   </p>
 
   <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
-    * 참고용 계산입니다. 기준: 한국천문연구원(KASI) 표준, 오픈소스 변환 데이터 교차검증(1950~2050년 왕복 변환 전수 검증).<br>
-    지원 범위: 음력 1900~2050년(양력 1900~2050년).
+    * 참고용 계산이며 의학적 진단·조언이 아니고, 피임·임신 계획의 근거로 사용할 수 없습니다. 정확한 배란일은 산부인과 초음파나 배란테스트기로 확인하세요.<br>
+    기준: 황체기 14일 기준 배란일 추정 공식, 2026년 기준 정리.
   </p>
 
 </main>
@@ -212,11 +209,11 @@
       <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
       <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
     </div>
-    <p class="disclaimer">참고용 계산입니다. 기준: 한국천문연구원(KASI) 표준 교차검증</p>
+    <p class="disclaimer">참고용 계산입니다. 기준: 2026년 공개 자료 교차검증</p>
   </div>
 </footer>
 
-<script src="lunar-calendar.js"></script>
+<script src="ovulation.js"></script>
 <script src="page-switcher.js"></script>
 </body>
 </html>
