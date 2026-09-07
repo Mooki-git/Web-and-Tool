@@ -65,7 +65,6 @@ var $ = function (id) { return document.getElementById(id); };
 
 var el = {
   type: document.querySelectorAll('input[name="type"]'),
-  typeHelp: $('type-help'),
   wage: $('wage'), wageEcho: $('wage-echo'),
   wageChips: document.querySelectorAll('.chips[role="group"][aria-label="빠른 금액 선택"] .chip'),
   months: $('months'),
@@ -80,6 +79,15 @@ function attachMoneyFormat(input, onChange) {
     var caretFromEnd = input.value.length - input.selectionStart;
     var digits = onlyDigits(input.value);
     input.value = digits ? comma(digits) : '';
+    var pos = Math.max(0, input.value.length - caretFromEnd);
+    input.setSelectionRange(pos, pos);
+    onChange();
+  });
+}
+function attachIntegerFormat(input, onChange) {
+  input.addEventListener('input', function () {
+    var caretFromEnd = input.value.length - input.selectionStart;
+    input.value = onlyDigits(input.value);
     var pos = Math.max(0, input.value.length - caretFromEnd);
     input.setSelectionRange(pos, pos);
     onChange();
@@ -103,8 +111,6 @@ function render() {
   var monthsRaw = readMonths(el.months);
   var type = currentType();
 
-  el.typeHelp.style.display = type === 'sixsix' ? 'block' : 'none';
-
   el.wageEcho.innerHTML = wage > 0 ? '<strong>' + readable(wage) + '</strong>' : '';
 
   var warnParts = [];
@@ -120,9 +126,11 @@ function render() {
     el.headline.textContent = '0원';
     el.headSub.textContent = '-';
     el.rows.innerHTML = '';
+    if (!(wage > 0)) warnParts.push('통상임금을 입력해주세요.');
+    if (!(monthsRaw >= 1)) warnParts.push('육아휴직 기간(개월)을 입력해주세요.');
   } else {
     el.headline.textContent = comma(r.total) + '원';
-    el.headSub.textContent = comma(Math.round(r.total / months)) + '원 평균 · 총 ' + months + '개월분';
+    el.headSub.textContent = '월평균 ' + comma(Math.round(r.total / months)) + '원 × ' + months + '개월';
 
     el.rows.innerHTML = r.rows.map(function (row) {
       return '<tr><td>' + row.month + '개월차</td><td>' + Math.round(row.rate * 100) + '%</td><td class="pay">' + comma(row.pay) + '원</td></tr>';
@@ -135,7 +143,7 @@ function render() {
 
 /* ---------- 시작 ---------- */
 attachMoneyFormat(el.wage, render);
-el.months.addEventListener('input', render);
+attachIntegerFormat(el.months, render);
 Array.prototype.forEach.call(el.type, function (radio) {
   radio.addEventListener('change', render);
 });
