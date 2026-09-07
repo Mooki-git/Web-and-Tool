@@ -105,15 +105,15 @@ function wireDateField(ySel, mSel, dSel, onChange) {
   dSel.addEventListener('change', onChange);
 }
 
-function readCycle() {
+function readCycleRaw() {
   var d = onlyDigits(el.cycle.value);
-  var n = d ? Number(d) : 28;
-  return Math.max(CYCLE_MIN, Math.min(CYCLE_MAX, n));
+  return d ? Number(d) : 28;
 }
 
 function render() {
   var lmpY = +el.lmpY.value, lmpM = +el.lmpM.value, lmpD = +el.lmpD.value;
-  var cycleLength = readCycle();
+  var rawCycle = readCycleRaw();
+  var cycleLength = Math.max(CYCLE_MIN, Math.min(CYCLE_MAX, rawCycle));
   var today = new Date();
   today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -132,7 +132,9 @@ function render() {
   }
 
   var warnParts = [];
-  if (result.irregularCycle) {
+  if (rawCycle !== cycleLength) {
+    warnParts.push('생리주기는 ' + CYCLE_MIN + '~' + CYCLE_MAX + '일 범위로만 계산할 수 있어, <strong>' + cycleLength + '일</strong> 기준으로 계산했습니다.');
+  } else if (result.irregularCycle) {
     warnParts.push('생리주기가 21~35일 범위를 벗어나 <strong>불규칙한 주기</strong>입니다. 이런 경우 계산의 정확도가 낮아질 수 있어, 산부인과 진료나 배란테스트기로 확인하는 것이 좋습니다.');
   }
   el.warn.innerHTML = warnParts.map(function (t) { return '<p>' + t + '</p>'; }).join('');
