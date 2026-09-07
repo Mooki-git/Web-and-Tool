@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>소개 | 육아휴직급여 계산기</title>
+<meta name="description" content="육아휴직급여 계산기를 만든 이유와, 2025년 사후지급금 폐지 개편과 6+6 부모육아휴직제 상한액 기준을 검증한 과정을 소개합니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/parental-leave-about.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">Mook 계산기 &amp; Tool</a></p>
+    <nav class="hub-sidebar" aria-label="카테고리 선택">
+      <div class="hub-cat-list">
+        <button type="button" class="hub-cat" data-cat="all">전체</button>
+        <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+        <button type="button" class="hub-cat is-active" data-cat="salary">급여 · 소득</button>
+        <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+      </div>
+    </nav>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="salary">
+      <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
+      <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
+      <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
+      <a href="pension.html" data-cat="tax">연금저축·IRP 계산기</a>
+      <a href="comprehensive-tax.html" data-cat="tax">종합소득세 계산기</a>
+      <a href="salary-tax.html" data-cat="salary">연봉 실수령액 계산기</a>
+      <a href="insurance.html" data-cat="salary">4대보험 계산기</a>
+      <a href="severance.html" data-cat="salary">퇴직금 계산기</a>
+      <a href="unemployment.html" data-cat="salary">실업급여 계산기</a>
+      <a href="loan-repayment.html" data-cat="salary">대출 상환 계산기</a>
+      <a href="parental-leave.html" data-cat="salary" class="is-current" aria-current="page">육아휴직급여 계산기</a>
+      <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
+      <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
+      <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
+      <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
+      <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
+    </div>
+    <h1>이 계산기를 만든 이유</h1>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="parental-leave.html">계산기</a>
+      <a href="parental-leave-guide.html">이용법</a>
+      <a href="parental-leave-faq.html">FAQ</a>
+      <a href="parental-leave-about.html" class="is-current" aria-current="page">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="card article">
+
+    <p>안녕하세요, Mooki입니다.</p>
+
+    <p>급여·소득 카테고리의 여섯 번째 계산기입니다. 연봉 실수령액, 4대보험, 퇴직금, 실업급여, 대출 상환에 이어 이번엔 <strong>육아휴직급여</strong>를 다뤄봤습니다. 육아휴직을 앞두고 "그래서 매달 얼마씩 받는 건지"가 가장 궁금하실 텐데, 정작 정부 자료는 요건과 제도 설명 위주라 직접 계산해보기 번거롭다고 생각했습니다.</p>
+
+    <h2>가장 신경 쓴 부분 — 2025년 개편을 정확히 반영하는 것</h2>
+
+    <p>육아휴직급여는 2025년 1월 1일 이후 육아휴직을 시작한 경우부터 <strong>사후지급금 제도가 폐지</strong>됐습니다. 예전에는 지급액의 일부(통상 25%)를 복직 후 6개월 이상 근무해야 나중에 받을 수 있었는데, 이 개편으로 복직 조건 없이 휴직 기간 중 매달 전액을 받게 됐습니다. 오래된 자료를 그대로 참고하면 이 부분이 빠져있는 경우가 많아서, <strong>개편 이후 기준</strong>으로만 계산기를 만들었습니다.</p>
+
+    <p><strong>6+6 부모육아휴직제</strong>의 상한액 계단식 인상(1~2개월 250만원, 3개월 300만원, 4개월 350만원, 5개월 400만원, 6개월 450만원)도 여러 자료를 교차 검증했습니다. 특히 1인당 6개월 합산 상한이 정확히 <strong>2,000만원</strong>(250+250+300+350+400+450만원)이 되는지 직접 더해서 확인했고, 이 값이 여러 자료에서 공통적으로 언급되는 "1인당 최대 2천만원"이라는 수치와 일치하는 것을 확인한 뒤에야 계산기에 반영했습니다.</p>
+
+    <h2>수치를 확정하면서 있었던 일</h2>
+
+    <p>일부 자료에서 정부 사이트 접근이 원활하지 않은 상황이 있어, 여러 출처의 설명을 서로 비교하면서 <strong>일치하지 않는 부분이 있는지</strong> 꼼꼼히 대조했습니다. 통상임금이 하한액(70만원)보다 낮은 극단적인 경우, 통상임금 전액만 지급되고 하한액까지 올려주지는 않는다는 점처럼 헷갈리기 쉬운 예외 조건도 별도로 테스트 케이스를 만들어 검증했습니다.</p>
+
+    <p>6+6 부모육아휴직제는 <strong>부모가 모두 육아휴직을 사용해야</strong> 적용되고, 혼자 신청하면 자동으로 일반 육아휴직급여로 계산된다는 점도 화면에 명확히 안내하도록 만들었습니다.</p>
+
+    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
+    <ul>
+      <li>이 계산기는 <strong>노무 자문이 아닙니다.</strong> 실제 지급액은 신청 시점의 제도와 개인별 자격 요건(고용보험 가입기간 등)에 따라 달라질 수 있습니다.</li>
+      <li>한부모 근로자, 중증장애아동의 부모 등 <strong>특례로 지급 기간이 늘어나는 경우는 반영하지 않았습니다.</strong> 이런 경우는 고용센터를 통해 정확한 내용을 확인해 주세요.</li>
+      <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
+    </ul>
+
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 필요한 계산을 빠르게 끝내는 데 도움이 되었으면 합니다.</p>
+
+    <p class="meta">최종 검토: 2026년 9월</p>
+  </article>
+  <p class="back-home" style="text-align:center; margin: 20px 0 0;">
+    <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산입니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="page-switcher.js"></script>
+</body>
+</html>

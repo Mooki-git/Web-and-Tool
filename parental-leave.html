@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>육아휴직급여 계산기 | 월별 지급액·총 합계 한 번에</title>
+<meta name="description" content="통상임금만 넣으면 육아휴직급여 월별 지급액과 총 합계를 계산합니다. 일반 육아휴직급여와 6+6 부모육아휴직제(상한 250만~450만원) 모두 지원합니다. 2025년 사후지급금 폐지 개편 반영.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/parental-leave.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moklyun.com/parental-leave.html">
+<meta property="og:title" content="육아휴직급여 계산기 | moklyun">
+<meta property="og:description" content="통상임금으로 육아휴직급여 월별 지급액과 총액을 바로 계산합니다.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .year-field { position: relative; }
+  .year-field input {
+    width: 100%; padding: 12px 44px 12px 12px; font-size: 15.5px; font-weight: 600;
+    color: var(--ink); background: var(--card); border: 1.5px solid var(--line); border-radius: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .year-field input:focus { outline: none; border-color: var(--brand); }
+  .year-field .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--muted); }
+
+  .headline-card .headline-note { margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+
+  table.cmp td.pay { font-weight: 700; color: var(--brand-ink); }
+  table.cmp tr.sum th, table.cmp tr.sum td { border-top: 2px solid var(--line); font-weight: 700; }
+
+  .warn-box {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff4e5; color: #7a4a12; font-size: 14px; line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
+  }
+  .warn-box[hidden] { display: none; }
+  .warn-box p { margin: 0; }
+
+  .fold { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }
+  .fold summary { cursor: pointer; padding: 10px 0; font-size: 14.5px; font-weight: 700; color: var(--brand); list-style: none; }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary::after { content: ' ▾'; font-size: 12px; }
+  .fold[open] summary::after { content: ' ▴'; }
+  .fold-body { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 6px; }
+  .fold-body p { margin: 0 0 10px; }
+  .fold-body p:last-child { margin-bottom: 0; }
+  .fold-body strong { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">Mook 계산기 &amp; Tool</a></p>
+    <nav class="hub-sidebar" aria-label="카테고리 선택">
+      <div class="hub-cat-list">
+        <button type="button" class="hub-cat" data-cat="all">전체</button>
+        <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+        <button type="button" class="hub-cat is-active" data-cat="salary">급여 · 소득</button>
+        <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+      </div>
+    </nav>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="salary">
+      <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
+      <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
+      <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
+      <a href="pension.html" data-cat="tax">연금저축·IRP 계산기</a>
+      <a href="comprehensive-tax.html" data-cat="tax">종합소득세 계산기</a>
+      <a href="salary-tax.html" data-cat="salary">연봉 실수령액 계산기</a>
+      <a href="insurance.html" data-cat="salary">4대보험 계산기</a>
+      <a href="severance.html" data-cat="salary">퇴직금 계산기</a>
+      <a href="unemployment.html" data-cat="salary">실업급여 계산기</a>
+      <a href="loan-repayment.html" data-cat="salary">대출 상환 계산기</a>
+      <a href="parental-leave.html" data-cat="salary" class="is-current" aria-current="page">육아휴직급여 계산기</a>
+      <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
+      <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
+      <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
+      <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
+      <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
+    </div>
+    <h1>육아휴직급여 계산기</h1>
+    <p class="lede">통상임금만 넣으면 <strong>월별 지급액과 총 합계</strong>를 한 번에 계산해드립니다.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="parental-leave.html" class="is-current" aria-current="page">계산기</a>
+      <a href="parental-leave-guide.html">이용법</a>
+      <a href="parental-leave-faq.html">FAQ</a>
+      <a href="parental-leave-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 육아휴직 형태 -->
+  <section class="card" aria-labelledby="q-type">
+    <h2 class="q-title" id="q-type">어떤 육아휴직 형태인가요?</h2>
+    <div class="seg" role="radiogroup" aria-label="육아휴직 형태 선택">
+      <label class="seg-item"><input type="radio" name="type" value="general" checked><span>일반 육아휴직</span></label>
+      <label class="seg-item"><input type="radio" name="type" value="sixsix"><span>6+6 부모육아휴직</span></label>
+    </div>
+    <p class="q-help" id="type-help">부모 중 한 명만 사용하거나, 자녀가 생후 18개월을 넘긴 경우 일반 육아휴직급여가 적용됩니다.</p>
+  </section>
+
+  <!-- 2. 통상임금 -->
+  <section class="card" aria-labelledby="q-wage">
+    <h2 class="q-title" id="q-wage">통상임금이 얼마인가요?</h2>
+    <p class="q-help">보통 <strong>세전 월급여</strong>와 비슷합니다. 정확한 통상임금은 급여명세서나 회사 담당자에게 확인해보세요.</p>
+
+    <div class="chips" role="group" aria-label="빠른 금액 선택">
+      <button type="button" class="chip" data-amount="2000000">200만원</button>
+      <button type="button" class="chip is-active" data-amount="3000000">300만원</button>
+      <button type="button" class="chip" data-amount="4000000">400만원</button>
+      <button type="button" class="chip" data-amount="5000000">500만원</button>
+    </div>
+
+    <div class="money-field">
+      <label class="sr-only" for="wage">통상임금</label>
+      <input id="wage" type="text" inputmode="numeric" autocomplete="off" placeholder="통상임금 입력" value="3,000,000">
+      <span class="unit">원</span>
+    </div>
+    <p class="field-echo" id="wage-echo"><strong>300만원</strong></p>
+
+    <h3 class="q-sub" id="q-months">육아휴직 기간이 몇 개월인가요?</h3>
+    <div class="chips" role="group" aria-label="빠른 기간 선택">
+      <button type="button" class="chip" data-months="3">3개월</button>
+      <button type="button" class="chip is-active" data-months="6">6개월</button>
+      <button type="button" class="chip" data-months="9">9개월</button>
+      <button type="button" class="chip" data-months="12">12개월</button>
+    </div>
+    <div class="year-field">
+      <label class="sr-only" for="months">육아휴직 기간</label>
+      <input id="months" type="text" inputmode="numeric" autocomplete="off" value="6">
+      <span class="unit">개월</span>
+    </div>
+    <div class="warn-box" id="warn" hidden></div>
+  </section>
+
+  <!-- 3. 결과 -->
+  <div id="result">
+    <div class="card result-card headline-card">
+      <p class="headline-label">총 지급 합계</p>
+      <p class="headline" id="headline">-</p>
+      <p class="headline-label" id="head-sub">-</p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">월별 지급액</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead>
+            <tr><th scope="col">개월차</th><th scope="col">지급률</th><th scope="col">지급액</th></tr>
+          </thead>
+          <tbody id="month-rows"></tbody>
+        </table>
+      </div>
+      <p class="table-note">단위: 원 · 하한액(70만원) 미만인 경우 70만원으로 계산됩니다.</p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        2025년 개편으로 <strong>사후지급금 제도가 폐지</strong>되어, 복직 후 6개월 근무 조건 없이 휴직 기간 중 매달 급여 전액을 받습니다. <strong>일반 육아휴직급여</strong>는 1~3개월차 통상임금 100%(상한 250만원), 4~6개월차 100%(상한 200만원), 7개월차부터 80%(상한 160만원)입니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        <strong>6+6 부모육아휴직제</strong>는 생후 18개월 이내 자녀를 부모가 함께(동시 또는 순차) 육아휴직할 때, 첫 6개월 동안 통상임금 100%를 상한액 계단식 인상(1~2개월 250만원, 3개월 300만원, 4개월 350만원, 5개월 400만원, 6개월 450만원)으로 받습니다. 7개월차부터는 일반 육아휴직급여 규정으로 전환됩니다.
+      </p>
+
+      <details class="fold">
+        <summary>6+6 부모육아휴직제, 나 혼자 신청해도 되나요?</summary>
+        <div class="fold-body">
+          <p>아니요, <strong>부모가 모두</strong> 육아휴직을 사용해야 적용됩니다(동시 사용도 되고, 번갈아 사용해도 됩니다). 부모 각자 육아휴직을 시작하는 날 기준으로 자녀가 <strong>생후 18개월 이내</strong>여야 합니다. 조건을 충족하지 못하면 처음부터 일반 육아휴직급여가 적용됩니다.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">함께 보면 좋아요</h2>
+      <div class="related">
+        <a href="unemployment.html">
+          <span class="r-name">실업급여 계산기</span>
+          <span class="r-why">육아휴직급여와 같은 고용보험 재원으로 지급되는 실업급여, 실직하면 얼마나 받는지 확인해보세요.</span>
+        </a>
+        <a href="salary-tax.html">
+          <span class="r-name">연봉 실수령액 계산기</span>
+          <span class="r-why">복직 후 실제로 통장에 들어오는 월급이 얼마인지 여기서 계산해보세요.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <p class="back-home" style="text-align:center; margin: 20px 0 0;">
+    <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
+  </p>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산이며 노무 자문이 아닙니다. 실제 지급액은 신청 시점의 제도와 개인별 자격 요건에 따라 달라질 수 있습니다.<br>
+    기준: 2025.1.1. 이후 육아휴직 개시자부터 적용된 사후지급금 폐지 개편, 2026년 기준 정리.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산입니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="parental-leave.js"></script>
+<script src="page-switcher.js"></script>
+</body>
+</html>
