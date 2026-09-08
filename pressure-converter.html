@@ -5,14 +5,14 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>단위 변환기 | 길이·무게·부피·온도·속도 한 번에</title>
-<meta name="description" content="길이·무게·부피·온도·속도 중 원하는 종류를 고르고 값 하나만 입력하면 그 종류의 모든 단위를 한 번에 변환합니다.">
+<title>압력 변환기 | Pa·kPa·bar·atm·psi·mmHg 한 번에 변환</title>
+<meta name="description" content="값 하나만 입력하면 파스칼·바·기압·psi·수은주밀리미터·kgf/cm²까지 주요 압력 단위를 한 번에 변환합니다. 타이어 공기압 계산에도 유용합니다.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/unit-converter.html">
+<link rel="canonical" href="https://moklyun.com/pressure-converter.html">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://moklyun.com/unit-converter.html">
-<meta property="og:title" content="단위 변환기 | moklyun">
-<meta property="og:description" content="길이·무게·부피·온도·속도를 한 번에 변환합니다.">
+<meta property="og:url" content="https://moklyun.com/pressure-converter.html">
+<meta property="og:title" content="압력 변환기 | moklyun">
+<meta property="og:description" content="Pa부터 psi, mmHg까지 압력 단위를 한 번에 변환합니다.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -72,39 +72,27 @@
       <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
       <a href="ovulation.html" data-cat="date">배란일 계산기</a>
       <a href="length-converter.html" data-cat="unit">길이 변환기</a>
-      <a href="unit-converter.html" data-cat="unit" class="is-current" aria-current="page">단위 변환기</a>
+      <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
       <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
-      <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
+      <a href="pressure-converter.html" data-cat="unit" class="is-current" aria-current="page">압력 변환기</a>
     </div>
-    <h1>단위 변환기</h1>
-    <p class="lede">길이·무게·부피·온도·속도 중 골라서 <strong>값 하나로 전체 단위</strong>를 한 번에 변환해드립니다.</p>
+    <h1>압력 변환기</h1>
+    <p class="lede">값 하나만 입력하면 <strong>Pa부터 psi, mmHg까지</strong> 주요 압력 단위를 한 번에 보여드립니다.</p>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="unit-converter.html" class="is-current" aria-current="page">계산기</a>
-      <a href="unit-converter-guide.html">이용법</a>
-      <a href="unit-converter-faq.html">FAQ</a>
-      <a href="unit-converter-about.html">소개</a>
+      <a href="pressure-converter.html" class="is-current" aria-current="page">계산기</a>
+      <a href="pressure-converter-guide.html">이용법</a>
+      <a href="pressure-converter-faq.html">FAQ</a>
+      <a href="pressure-converter-about.html">소개</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- 1. 카테고리 선택 -->
-  <section class="card" aria-labelledby="q-category">
-    <h2 class="q-title" id="q-category">어떤 종류를 변환할까요?</h2>
-    <select id="category" class="unit-select" style="width:100%;">
-      <option value="length">길이</option>
-      <option value="weight">무게</option>
-      <option value="volume">부피</option>
-      <option value="temperature">온도</option>
-      <option value="speed">속도</option>
-    </select>
-  </section>
-
-  <!-- 2. 값 입력 -->
+  <!-- 1. 값 입력 -->
   <section class="card" aria-labelledby="q-value">
     <h2 class="q-title" id="q-value">변환할 값을 입력하세요</h2>
-    <p class="q-help">숫자와 단위를 넣으면 <strong>같은 종류의 다른 모든 단위</strong>로 한 번에 변환해드립니다.</p>
+    <p class="q-help">숫자와 단위를 넣으면 <strong>다른 모든 단위로 한 번에</strong> 변환해드립니다.</p>
 
     <div class="unit-input-row">
       <div class="value-field">
@@ -112,12 +100,21 @@
         <input id="value" type="text" inputmode="decimal" autocomplete="off" value="1">
       </div>
       <label class="sr-only" for="unit">단위</label>
-      <select id="unit" class="unit-select"></select>
+      <select id="unit" class="unit-select">
+        <option value="Pa">Pa (파스칼)</option>
+        <option value="kPa" selected>kPa (킬로파스칼)</option>
+        <option value="MPa">MPa (메가파스칼)</option>
+        <option value="bar">bar (바)</option>
+        <option value="atm">atm (표준대기압)</option>
+        <option value="psi">psi (제곱인치당 파운드)</option>
+        <option value="mmHg">mmHg (수은주밀리미터)</option>
+        <option value="kgfcm2">kgf/cm² (평방센티당 킬로그램힘)</option>
+      </select>
     </div>
     <div class="warn-box" id="warn" hidden></div>
   </section>
 
-  <!-- 3. 결과 -->
+  <!-- 2. 결과 -->
   <div id="result">
     <div class="card result-card">
       <h2 class="section-title">환산 결과</h2>
@@ -134,16 +131,16 @@
     <div class="card result-card">
       <h2 class="section-title">이 계산에 대해</h2>
       <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
-        길이·무게·부피·속도는 각 단위의 <strong>정의된 배수 관계</strong>를 그대로 사용합니다(인치=2.54cm, 파운드=453.59237g, 갤런(미국)=3.785411784L 등 국제 정의 기준). 온도만 배수가 아니라 <strong>섭씨·화씨·켈빈 사이의 변환 공식</strong>(°F = °C×9/5+32, K = °C+273.15)을 사용합니다.
+        Pa·kPa·MPa은 국제단위계(SI) 정의에 따른 배수이고, <strong>bar(=100,000Pa)와 atm(표준대기압=101,325Pa)</strong>은 정의상 정확한 값입니다. <strong>psi</strong>는 1lbf/in²(=6894.757293168361Pa), <strong>mmHg</strong>는 관용 수은주밀리미터(=133.322387415Pa) 기준입니다.
       </p>
       <p style="margin:0; font-size:14.5px; line-height:1.7;">
-        <strong>근·되·컵</strong>처럼 한국에서 관행적으로 쓰는 단위도 참고용으로 포함했습니다.
+        <strong>kgf/cm²</strong>는 한국에서 타이어·산업용 압력계에 흔히 쓰이는 단위로, 1kgf/cm² = 98,066.5Pa(정확)입니다.
       </p>
 
       <details class="fold">
-        <summary>근(斤)이 왜 무게마다 다르다고 하나요?</summary>
+        <summary>타이어 공기압은 보통 어떤 단위로 표시하나요?</summary>
         <div class="fold-body">
-          <p>이 계산기의 <strong>근은 정육점 등에서 쓰는 "고기 기준"(600g)</strong>입니다. 다만 과일·채소를 잴 때는 관행적으로 <strong>1근 = 375g</strong>(한 관의 10분의 1)을 쓰는 경우가 있어, 품목에 따라 실제 근의 무게가 다를 수 있다는 점을 참고해주세요.</p>
+          <p>승용차 타이어는 보통 <strong>psi</strong>(운전석 문 안쪽 라벨에 흔히 32psi 등으로 표기) 또는 <strong>kPa·kgf/cm²</strong>로 표시됩니다. 이 계산기로 셋 사이를 바로 바꿔볼 수 있습니다.</p>
         </div>
       </details>
     </div>
@@ -151,9 +148,9 @@
     <div class="card result-card">
       <h2 class="section-title">함께 보면 좋아요</h2>
       <div class="related">
-        <a href="length-converter.html">
-          <span class="r-name">길이 변환기</span>
-          <span class="r-why">길이 단위만 더 크게, 자세히 보고 싶다면 여기서 확인해보세요.</span>
+        <a href="unit-converter.html">
+          <span class="r-name">단위 변환기</span>
+          <span class="r-why">길이·무게·부피·온도·속도 단위는 여기서 변환해보세요.</span>
         </a>
       </div>
     </div>
@@ -164,7 +161,7 @@
   </p>
 
   <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
-    * 참고용 계산입니다. 기준: 국제 야드-파운드 협약(1959), 대한민국 계량법, 국제단위계(SI).
+    * 참고용 계산입니다. 기준: 국제단위계(SI), 표준대기압 정의, NIST 압력 단위 정의.
   </p>
 
 </main>
@@ -180,7 +177,7 @@
   </div>
 </footer>
 
-<script src="unit-converter.js"></script>
+<script src="pressure-converter.js"></script>
 <script src="page-switcher.js"></script>
 </body>
 </html>
