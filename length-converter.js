@@ -56,7 +56,6 @@ var $ = function (id) { return document.getElementById(id); };
 
 var el = {
   value: $('value'), unit: $('unit'),
-  chips: document.querySelectorAll('.chips .chip'),
   warn: $('warn'),
   rows: $('result-rows')
 };
@@ -88,12 +87,5 @@ function render() {
 /* ---------- 시작 ---------- */
 el.value.addEventListener('input', render);
 el.unit.addEventListener('change', render);
-
-Array.prototype.forEach.call(el.chips, function (chip) {
-  chip.addEventListener('click', function () {
-    el.value.value = chip.dataset.value;
-    render();
-  });
-});
 
 render();
