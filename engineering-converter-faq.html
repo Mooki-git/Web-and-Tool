@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>소개 | 에너지 환산기</title>
-<meta name="description" content="에너지 환산기를 만든 이유와, 칼로리·BTU 등 에너지 단위 정의를 검증한 과정을 소개합니다.">
+<title>공학단위 변환기 FAQ | 자주 묻는 질문</title>
+<meta name="description" content="토크·점도·전류·자기 단위 변환에 대해 자주 묻는 질문을 모았습니다. 동점도와 동적점도 차이, 가우스·테슬라 기준 등.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/energy-converter-about.html">
+<link rel="canonical" href="https://moklyun.com/engineering-converter-faq.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -48,54 +48,60 @@
       <a href="ovulation.html" data-cat="date">배란일 계산기</a>
       <a href="length-converter.html" data-cat="unit">길이 변환기</a>
       <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
-      <a href="energy-converter.html" data-cat="unit" class="is-current" aria-current="page">에너지 환산기</a>
+      <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
       <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
-      <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
+      <a href="engineering-converter.html" data-cat="unit" class="is-current" aria-current="page">공학단위 변환기</a>
     </div>
-    <h1>이 계산기를 만든 이유</h1>
+    <h1>자주 묻는 질문</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="energy-converter.html">계산기</a>
-      <a href="energy-converter-guide.html">이용법</a>
-      <a href="energy-converter-faq.html">FAQ</a>
-      <a href="energy-converter-about.html" class="is-current" aria-current="page">소개</a>
+      <a href="engineering-converter.html">계산기</a>
+      <a href="engineering-converter-guide.html">이용법</a>
+      <a href="engineering-converter-faq.html" class="is-current" aria-current="page">FAQ</a>
+      <a href="engineering-converter-about.html">소개</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <article class="card article">
+  <section class="card faq-card" aria-label="자주 묻는 질문 목록">
 
-    <p>안녕하세요, Mooki입니다.</p>
+    <details class="faq">
+      <summary>토크(kgf·m)는 어디에 쓰이나요?</summary>
+      <div class="faq-body">
+        <p>자동차·오토바이 엔진 스펙이나 볼트 조임 규정 토크(N·m 또는 kgf·m)에 흔히 표기됩니다. 국내 자료는 kgf·m, 해외 자료는 N·m이나 lbf·ft를 쓰는 경우가 많아 서로 바꿔볼 일이 자주 생깁니다.</p>
+      </div>
+    </details>
 
-    <p><a href="length-converter.html">길이 변환기</a>, <a href="unit-converter.html">단위 변환기</a>에 이어 단위 환산 카테고리의 세 번째 계산기입니다. 식품 칼로리, 전기요금 kWh, 물리 수업의 줄(J)처럼 <strong>같은 "에너지"를 서로 다른 단위로 표현</strong>하는 경우가 많아서, 이번엔 에너지 단위만 따로 모아 만들었습니다.</p>
+    <details class="faq">
+      <summary>동점도와 동적점도는 다른 건가요?</summary>
+      <div class="faq-body">
+        <p>네, 다릅니다. 이 계산기는 <strong>동적점도(Pa·s, cP 등)</strong>만 다룹니다. 동점도(㎟/s, cSt 등)는 동적점도를 유체의 밀도로 나눈 값이라, 유체마다 밀도가 달라서 동적점도와 직접 환산할 수 없습니다. 엔진오일 등급(예: 5W-30)에 쓰이는 점도는 보통 동점도(cSt) 기준이니 혼동하지 않도록 주의해주세요.</p>
+      </div>
+    </details>
 
-    <h2>가장 신경 쓴 부분 — 칼로리 정의의 함정</h2>
+    <details class="faq">
+      <summary>가우스(G)와 테슬라(T)는 왜 이렇게 배수 차이가 큰가요?</summary>
+      <div class="faq-body">
+        <p>가우스는 옛 CGS(센티미터-그램-초) 단위계, 테슬라는 현재 SI(국제단위계) 단위입니다. <strong>1테슬라 = 10,000가우스</strong>로 정의돼 있어 배수 차이가 커 보이지만, 정의상 정확한 값이라 오차는 없습니다. 지구 자기장은 대략 25~65µT(0.25~0.65G) 정도입니다.</p>
+      </div>
+    </details>
 
-    <p>에너지 단위 중 가장 헷갈리는 게 <strong>칼로리(cal)</strong>였습니다. 역사적으로 열화학 칼로리(4.184J)와 국제단위표 칼로리(4.1868J), 두 가지 정의가 따로 존재한다는 걸 확인했고, 어느 쪽을 쓸지 고민하다 <strong>식품·영양 계산에 가장 널리 쓰이는 열화학 칼로리(4.184J)</strong>를 기준으로 정했습니다. 두 정의 차이는 1000kcal 기준 1kcal(0.07%) 미만이라 일상 계산에서는 사실상 차이가 없다는 것도 함께 확인했습니다.</p>
+    <details class="faq">
+      <summary>입력한 정보가 저장되나요?</summary>
+      <div class="faq-body">
+        <p>저장되지 않습니다. 모든 계산은 여러분의 브라우저 안에서만 이루어지고, 입력하신 값은 서버로 전송되지 않습니다. 페이지를 닫으면 그대로 사라집니다.</p>
+      </div>
+    </details>
 
-    <p>또한 식품 영양표시의 "칼로리"가 실제로는 <strong>kcal을 의미</strong>한다는 점을 헷갈리지 않도록 FAQ에 명확히 안내했습니다.</p>
+  </section>
 
-    <h2>수치를 확정하면서 있었던 일</h2>
-
-    <p><strong>BTU</strong>는 에어컨·보일러 용량 표시에 흔히 쓰이는데, 이것도 역사적으로 국제단위표(IT) BTU와 열화학 BTU 두 정의가 있다는 걸 확인했습니다. 일반적으로 더 널리 쓰이는 <strong>국제단위표(IT) 기준 1BTU = 1055.05585262J</strong>를 채택했습니다.</p>
-
-    <p><strong>Wh·kWh</strong>는 전력(W)과 시간(초)의 곱으로 정의되는 값이라 배수 관계가 명확했고, 별도 검증 없이 정의식 그대로(1Wh = 3600J) 반영했습니다.</p>
-
-    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
-    <ul>
-      <li>J·kJ·Wh·kWh·BTU 사이의 환산은 <strong>정의상 정확한 값</strong>이라 오차가 없습니다.</li>
-      <li>cal·kcal은 <strong>열화학 칼로리 정의</strong>를 기준으로 하며, 극히 정밀한 과학 계산에는 다른 정의(4.1868J)를 쓰는 경우가 있다는 점을 참고해주세요.</li>
-      <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
-    </ul>
-
-    <p>단위 환산 카테고리는 앞으로 압력 변환기, 공학단위 변환기로 계속 늘려갈 예정입니다.</p>
-
-    <p class="meta">최종 검토: 2026년 9월</p>
-  </article>
   <p class="back-home" style="text-align:center; margin: 20px 0 0;">
     <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
   </p>
 
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산입니다. 기준: 국제단위계(SI), 국제 야드-파운드 협약(1959), CGS-SI 단위 관계.
+  </p>
 </main>
 
 <footer class="site-footer">
