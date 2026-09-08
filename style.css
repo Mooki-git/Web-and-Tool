@@ -575,4 +575,34 @@ body {
   background: var(--brand-bg); padding: 6px 12px; border-radius: 999px;
   text-decoration: none;
 }
+
+/* ===== 단위 변환 입력 (길이·단위·에너지·압력·공학단위 변환기 공용) ===== */
+.unit-input-row { display: flex; gap: 8px; align-items: stretch; flex-wrap: wrap; }
+.value-field { flex: 1 1 160px; }
+.value-field input {
+  width: 100%;
+  padding: 14px;
+  font: inherit; font-size: 19px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  transition: .15s;
+}
+.value-field input:focus {
+  outline: none; border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-bg);
+}
+.unit-select {
+  flex: 1 1 140px; min-width: 0;
+  padding: 0 10px;
+  font: inherit; font-size: 15px; font-weight: 600;
+  color: var(--text);
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  transition: .15s;
+}
+.unit-select:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-bg); }
 .tool-card-sub:hover { background: var(--brand); color: #fff; }

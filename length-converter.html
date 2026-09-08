@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7031447366404868"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>길이 변환기 | mm·cm·m·km·인치·피트·마일 한 번에 변환</title>
+<meta name="description" content="값 하나만 입력하면 mm·cm·m·km부터 인치·피트·야드·마일, 한국 전통단위 자(尺)까지 주요 길이 단위를 한 번에 변환합니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/length-converter.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moklyun.com/length-converter.html">
+<meta property="og:title" content="길이 변환기 | moklyun">
+<meta property="og:description" content="mm부터 마일까지 길이 단위를 한 번에 변환합니다.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .fold { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }
+  .fold summary { cursor: pointer; padding: 10px 0; font-size: 14.5px; font-weight: 700; color: var(--brand); list-style: none; }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary::after { content: ' ▾'; font-size: 12px; }
+  .fold[open] summary::after { content: ' ▴'; }
+  .fold-body { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 6px; }
+  .fold-body p { margin: 0 0 10px; }
+  .fold-body p:last-child { margin-bottom: 0; }
+  .fold-body strong { color: var(--text); }
+
+  .warn-box {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff4e5; color: #7a4a12; font-size: 14px; line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
+  }
+  .warn-box[hidden] { display: none; }
+  .warn-box p { margin: 0; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">Mook 계산기 &amp; Tool</a></p>
+    <nav class="hub-sidebar" aria-label="카테고리 선택">
+      <div class="hub-cat-list">
+        <button type="button" class="hub-cat" data-cat="all">전체</button>
+        <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+        <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
+        <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+        <button type="button" class="hub-cat is-active" data-cat="unit">단위 환산</button>
+      </div>
+    </nav>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="unit">
+      <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
+      <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
+      <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
+      <a href="pension.html" data-cat="tax">연금저축·IRP 계산기</a>
+      <a href="comprehensive-tax.html" data-cat="tax">종합소득세 계산기</a>
+      <a href="salary-tax.html" data-cat="salary">연봉 실수령액 계산기</a>
+      <a href="insurance.html" data-cat="salary">4대보험 계산기</a>
+      <a href="severance.html" data-cat="salary">퇴직금 계산기</a>
+      <a href="unemployment.html" data-cat="salary">실업급여 계산기</a>
+      <a href="loan-repayment.html" data-cat="salary">대출 상환 계산기</a>
+      <a href="parental-leave.html" data-cat="salary">육아휴직급여 계산기</a>
+      <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
+      <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
+      <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
+      <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
+      <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
+      <a href="ovulation.html" data-cat="date">배란일 계산기</a>
+      <a href="length-converter.html" data-cat="unit" class="is-current" aria-current="page">길이 변환기</a>
+    </div>
+    <h1>길이 변환기</h1>
+    <p class="lede">값 하나만 입력하면 <strong>mm부터 마일까지</strong> 주요 길이 단위를 한 번에 보여드립니다.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="length-converter.html" class="is-current" aria-current="page">계산기</a>
+      <a href="length-converter-guide.html">이용법</a>
+      <a href="length-converter-faq.html">FAQ</a>
+      <a href="length-converter-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 값 입력 -->
+  <section class="card" aria-labelledby="q-value">
+    <h2 class="q-title" id="q-value">변환할 값을 입력하세요</h2>
+    <p class="q-help">숫자와 단위를 넣으면 <strong>다른 모든 단위로 한 번에</strong> 변환해드립니다.</p>
+
+    <div class="unit-input-row">
+      <div class="value-field">
+        <label class="sr-only" for="value">변환할 값</label>
+        <input id="value" type="text" inputmode="decimal" autocomplete="off" value="1">
+      </div>
+      <label class="sr-only" for="unit">단위</label>
+      <select id="unit" class="unit-select">
+        <option value="mm">mm (밀리미터)</option>
+        <option value="cm">cm (센티미터)</option>
+        <option value="m" selected>m (미터)</option>
+        <option value="km">km (킬로미터)</option>
+        <option value="inch">in (인치)</option>
+        <option value="ft">ft (피트)</option>
+        <option value="yd">yd (야드)</option>
+        <option value="mile">mile (마일)</option>
+        <option value="ja">자 (한국 전통단위)</option>
+      </select>
+    </div>
+
+    <div class="chips" role="group" aria-label="빠른 값 선택" style="margin-top:12px;">
+      <button type="button" class="chip" data-value="1">1</button>
+      <button type="button" class="chip" data-value="10">10</button>
+      <button type="button" class="chip" data-value="100">100</button>
+      <button type="button" class="chip" data-value="1000">1000</button>
+    </div>
+    <div class="warn-box" id="warn" hidden></div>
+  </section>
+
+  <!-- 2. 결과 -->
+  <div id="result">
+    <div class="card result-card">
+      <h2 class="section-title">환산 결과</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead>
+            <tr><th scope="col" style="text-align:left;">단위</th><th scope="col">값</th></tr>
+          </thead>
+          <tbody id="result-rows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        mm·cm·m·km은 미터법(SI) 정의에 따른 정확한 배수이고, 인치·피트·야드·마일은 <strong>1959년 국제 야드-파운드 협약</strong> 기준(1인치 = 2.54cm)으로 계산해 오차 없이 정확합니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        <strong>자(尺)</strong>는 대한민국 계량법 기준 <strong>1자 = 10/33m(약 30.303cm)</strong>로 환산했습니다.
+      </p>
+
+      <details class="fold">
+        <summary>자(尺) 단위는 지금도 공식적으로 쓰이나요?</summary>
+        <div class="fold-body">
+          <p>아니요. 1963년 계량법 제정 이후 <strong>거래·증명용 공식 단위로는 미터법만 사용</strong>하도록 정해져 있습니다. 다만 건축·인테리어·한의학 등 일부 분야에서 여전히 관행적으로 언급되는 경우가 있어 참고용으로 함께 표시해드립니다.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <p class="back-home" style="text-align:center; margin: 20px 0 0;">
+    <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
+  </p>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산입니다. 기준: 국제 야드-파운드 협약(1959), 대한민국 계량법.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산입니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="length-converter.js"></script>
+<script src="page-switcher.js"></script>
+</body>
+</html>

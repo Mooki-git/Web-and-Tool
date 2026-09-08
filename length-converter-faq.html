@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>날짜 계산기 FAQ | 자주 묻는 질문</title>
-<meta name="description" content="두 날짜 사이 일수 계산, N일 후·전 날짜 계산에 대해 자주 묻는 질문을 모았습니다. 초일 불산입, 윤년 계산 방식 등.">
+<title>길이 변환기 FAQ | 자주 묻는 질문</title>
+<meta name="description" content="길이 단위 변환에 대해 자주 묻는 질문을 모았습니다. 인치·cm 환산, 자(尺) 단위, 소수점 정확도 등.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/date-calculator-faq.html">
+<link rel="canonical" href="https://moklyun.com/length-converter-faq.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -24,11 +24,11 @@
         <button type="button" class="hub-cat" data-cat="all">전체</button>
         <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
         <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
-        <button type="button" class="hub-cat is-active" data-cat="date">날짜 도구</button>
-        <button type="button" class="hub-cat" data-cat="unit">단위 환산</button>
+        <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+        <button type="button" class="hub-cat is-active" data-cat="unit">단위 환산</button>
       </div>
     </nav>
-    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="date">
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="unit">
       <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
       <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
       <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
@@ -43,17 +43,17 @@
       <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
       <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
       <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
-      <a href="date-calculator.html" data-cat="date" class="is-current" aria-current="page">날짜 계산기</a>
+      <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
       <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
       <a href="ovulation.html" data-cat="date">배란일 계산기</a>
-      <a href="length-converter.html" data-cat="unit">길이 변환기</a>
+      <a href="length-converter.html" data-cat="unit" class="is-current" aria-current="page">길이 변환기</a>
     </div>
     <h1>자주 묻는 질문</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="date-calculator.html">계산기</a>
-      <a href="date-calculator-guide.html">이용법</a>
-      <a href="date-calculator-faq.html" class="is-current" aria-current="page">FAQ</a>
-      <a href="date-calculator-about.html">소개</a>
+      <a href="length-converter.html">계산기</a>
+      <a href="length-converter-guide.html">이용법</a>
+      <a href="length-converter-faq.html" class="is-current" aria-current="page">FAQ</a>
+      <a href="length-converter-about.html">소개</a>
     </nav>
   </div>
 </header>
@@ -62,51 +62,37 @@
   <section class="card faq-card" aria-label="자주 묻는 질문 목록">
 
     <details class="faq">
-      <summary>두 날짜 사이 일수는 어떻게 계산하나요?</summary>
+      <summary>1인치는 정확히 몇 cm인가요?</summary>
       <div class="faq-body">
-        <p>끝일에서 시작일을 뺀 <strong>순수한 날짜 차이</strong>로 계산합니다. 예를 들어 1월 1일부터 1월 2일까지는 <strong>1일</strong>입니다. 시작일 당일은 계산에 포함하지 않는 "초일 불산입" 방식으로, 계약 기간이나 D-day를 셀 때 흔히 쓰는 방식과 같습니다.</p>
+        <p><strong>정확히 2.54cm</strong>입니다. 1959년 미국·영국·호주 등이 맺은 국제 야드-파운드 협약에서 1인치를 정확히 2.54cm로 정의했기 때문에, 반올림 오차 없이 딱 떨어지는 값입니다.</p>
       </div>
     </details>
 
     <details class="faq">
-      <summary>"초일 산입" 방식(양쪽 날짜를 모두 포함)으로 계산할 수도 있나요?</summary>
+      <summary>자(尺)는 왜 포함되어 있나요? 지금도 쓰이는 단위인가요?</summary>
       <div class="faq-body">
-        <p>이 계산기는 초일 불산입(끝일 − 시작일) 방식만 제공합니다. 양쪽 날짜를 모두 포함해서 세고 싶다면(초일 산입), 표시된 일수에 <strong>1을 더하면</strong> 됩니다. 예를 들어 1월 1일부터 1월 2일까지 이 계산기는 1일로 표시하지만, 양쪽 날짜를 모두 세면 2일입니다.</p>
+        <p>공식적으로는 <strong>1963년 계량법 제정 이후 거래·증명용 단위로 쓸 수 없습니다.</strong> 다만 건축·인테리어(평·자 단위 도면), 한의학 등 일부 분야에서 관행적으로 여전히 언급되는 경우가 있어, 참고할 수 있도록 함께 표시했습니다. 대한민국 계량법 기준 1자 = 10/33m(약 30.303cm)로 계산합니다.</p>
       </div>
     </details>
 
     <details class="faq">
-      <summary>시작일과 끝일 순서를 반대로 넣으면 어떻게 되나요?</summary>
+      <summary>피트(ft)와 인치(in)를 같이 쓰는 표기(예: 5'7")는 어떻게 계산하나요?</summary>
       <div class="faq-body">
-        <p>순서와 상관없이 <strong>항상 양수(절댓값)</strong>로 일수를 보여드립니다. 다만 어느 날짜가 더 빠른지는 결과 화면의 화살표(→)로 표시되니, 순서를 반대로 넣어도 걱정하지 않으셔도 됩니다.</p>
+        <p>이 계산기는 <strong>피트 또는 인치 중 하나만</strong> 입력받습니다. 5피트 7인치처럼 혼합 표기는 먼저 인치로 통일해서(5×12+7=67인치) 입력해주시면 됩니다.</p>
       </div>
     </details>
 
     <details class="faq">
-      <summary>N일 후·전 날짜 계산에 윤년이 반영되나요?</summary>
+      <summary>결과값이 소수점 몇 자리까지 정확한가요?</summary>
       <div class="faq-body">
-        <p>네, 반영됩니다. 2월 29일이 있는 윤년과 월별 일수 차이(28~31일)를 모두 계산에 포함해서, 몇 년을 건너뛰더라도 정확한 날짜와 요일을 계산합니다.</p>
+        <p>소수점 <strong>6자리까지</strong> 계산한 뒤 뒤에 붙는 불필요한 0은 생략해서 보여드립니다. mm·cm·m·km 사이, 그리고 인치·피트·야드·마일 사이의 환산은 정의상 정확한 값이라 오차가 없습니다.</p>
       </div>
     </details>
 
     <details class="faq">
-      <summary>몇 년 전이나 몇 년 후까지 계산할 수 있나요?</summary>
+      <summary>입력한 정보가 저장되나요?</summary>
       <div class="faq-body">
-        <p>연도 선택 목록은 현재 연도 기준 <strong>과거 100년부터 미래 20년</strong>까지 제공합니다. 이 범위를 벗어나는 날짜는 이 계산기로 계산할 수 없습니다.</p>
-      </div>
-    </details>
-
-    <details class="faq">
-      <summary>토요일·일요일(주말)만 세는 계산도 가능한가요?</summary>
-      <div class="faq-body">
-        <p>아니요, 이 계산기는 <strong>달력상의 전체 일수</strong>만 계산합니다. 공휴일이나 주말을 제외한 영업일(근무일) 계산은 지원하지 않습니다.</p>
-      </div>
-    </details>
-
-    <details class="faq">
-      <summary>입력한 날짜가 저장되나요?</summary>
-      <div class="faq-body">
-        <p>저장되지 않습니다. 모든 계산은 여러분의 브라우저 안에서만 이루어지고, 입력하신 날짜는 서버로 전송되지 않습니다. 페이지를 닫으면 그대로 사라집니다.</p>
+        <p>저장되지 않습니다. 모든 계산은 여러분의 브라우저 안에서만 이루어지고, 입력하신 값은 서버로 전송되지 않습니다. 페이지를 닫으면 그대로 사라집니다.</p>
       </div>
     </details>
 
@@ -117,7 +103,7 @@
   </p>
 
   <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
-    * 참고용 정보입니다. 기준: 그레고리력, 2026년 기준 정리.
+    * 참고용 계산입니다. 기준: 국제 야드-파운드 협약(1959), 대한민국 계량법.
   </p>
 </main>
 
