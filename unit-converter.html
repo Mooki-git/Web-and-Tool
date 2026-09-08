@@ -5,14 +5,14 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>길이 변환기 | mm·cm·m·km·인치·피트·마일 한 번에 변환</title>
-<meta name="description" content="값 하나만 입력하면 mm·cm·m·km부터 인치·피트·야드·마일, 한국 전통단위 자(尺)까지 주요 길이 단위를 한 번에 변환합니다.">
+<title>단위 변환기 | 길이·무게·부피·온도·속도 한 번에</title>
+<meta name="description" content="길이·무게·부피·온도·속도 중 원하는 종류를 고르고 값 하나만 입력하면 그 종류의 모든 단위를 한 번에 변환합니다.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/length-converter.html">
+<link rel="canonical" href="https://moklyun.com/unit-converter.html">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://moklyun.com/length-converter.html">
-<meta property="og:title" content="길이 변환기 | moklyun">
-<meta property="og:description" content="mm부터 마일까지 길이 단위를 한 번에 변환합니다.">
+<meta property="og:url" content="https://moklyun.com/unit-converter.html">
+<meta property="og:title" content="단위 변환기 | moklyun">
+<meta property="og:description" content="길이·무게·부피·온도·속도를 한 번에 변환합니다.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -71,26 +71,38 @@
       <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
       <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
       <a href="ovulation.html" data-cat="date">배란일 계산기</a>
-      <a href="length-converter.html" data-cat="unit" class="is-current" aria-current="page">길이 변환기</a>
-      <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
+      <a href="length-converter.html" data-cat="unit">길이 변환기</a>
+      <a href="unit-converter.html" data-cat="unit" class="is-current" aria-current="page">단위 변환기</a>
     </div>
-    <h1>길이 변환기</h1>
-    <p class="lede">값 하나만 입력하면 <strong>mm부터 마일까지</strong> 주요 길이 단위를 한 번에 보여드립니다.</p>
+    <h1>단위 변환기</h1>
+    <p class="lede">길이·무게·부피·온도·속도 중 골라서 <strong>값 하나로 전체 단위</strong>를 한 번에 변환해드립니다.</p>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="length-converter.html" class="is-current" aria-current="page">계산기</a>
-      <a href="length-converter-guide.html">이용법</a>
-      <a href="length-converter-faq.html">FAQ</a>
-      <a href="length-converter-about.html">소개</a>
+      <a href="unit-converter.html" class="is-current" aria-current="page">계산기</a>
+      <a href="unit-converter-guide.html">이용법</a>
+      <a href="unit-converter-faq.html">FAQ</a>
+      <a href="unit-converter-about.html">소개</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- 1. 값 입력 -->
+  <!-- 1. 카테고리 선택 -->
+  <section class="card" aria-labelledby="q-category">
+    <h2 class="q-title" id="q-category">어떤 종류를 변환할까요?</h2>
+    <select id="category" class="unit-select" style="width:100%;">
+      <option value="length">길이</option>
+      <option value="weight">무게</option>
+      <option value="volume">부피</option>
+      <option value="temperature">온도</option>
+      <option value="speed">속도</option>
+    </select>
+  </section>
+
+  <!-- 2. 값 입력 -->
   <section class="card" aria-labelledby="q-value">
     <h2 class="q-title" id="q-value">변환할 값을 입력하세요</h2>
-    <p class="q-help">숫자와 단위를 넣으면 <strong>다른 모든 단위로 한 번에</strong> 변환해드립니다.</p>
+    <p class="q-help">숫자와 단위를 넣으면 <strong>같은 종류의 다른 모든 단위</strong>로 한 번에 변환해드립니다.</p>
 
     <div class="unit-input-row">
       <div class="value-field">
@@ -98,23 +110,12 @@
         <input id="value" type="text" inputmode="decimal" autocomplete="off" value="1">
       </div>
       <label class="sr-only" for="unit">단위</label>
-      <select id="unit" class="unit-select">
-        <option value="mm">mm (밀리미터)</option>
-        <option value="cm">cm (센티미터)</option>
-        <option value="m" selected>m (미터)</option>
-        <option value="km">km (킬로미터)</option>
-        <option value="inch">in (인치)</option>
-        <option value="ft">ft (피트)</option>
-        <option value="yd">yd (야드)</option>
-        <option value="mile">mile (마일)</option>
-        <option value="ja">자 (한국 전통단위)</option>
-      </select>
+      <select id="unit" class="unit-select"></select>
     </div>
-
     <div class="warn-box" id="warn" hidden></div>
   </section>
 
-  <!-- 2. 결과 -->
+  <!-- 3. 결과 -->
   <div id="result">
     <div class="card result-card">
       <h2 class="section-title">환산 결과</h2>
@@ -131,18 +132,28 @@
     <div class="card result-card">
       <h2 class="section-title">이 계산에 대해</h2>
       <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
-        mm·cm·m·km은 미터법(SI) 정의에 따른 정확한 배수이고, 인치·피트·야드·마일은 <strong>1959년 국제 야드-파운드 협약</strong> 기준(1인치 = 2.54cm)으로 계산해 오차 없이 정확합니다.
+        길이·무게·부피·속도는 각 단위의 <strong>정의된 배수 관계</strong>를 그대로 사용합니다(인치=2.54cm, 파운드=453.59237g, 갤런(미국)=3.785411784L 등 국제 정의 기준). 온도만 배수가 아니라 <strong>섭씨·화씨·켈빈 사이의 변환 공식</strong>(°F = °C×9/5+32, K = °C+273.15)을 사용합니다.
       </p>
       <p style="margin:0; font-size:14.5px; line-height:1.7;">
-        <strong>자(尺)</strong>는 대한민국 계량법 기준 <strong>1자 = 10/33m(약 30.303cm)</strong>로 환산했습니다.
+        <strong>근·되·컵</strong>처럼 한국에서 관행적으로 쓰는 단위도 참고용으로 포함했습니다.
       </p>
 
       <details class="fold">
-        <summary>자(尺) 단위는 지금도 공식적으로 쓰이나요?</summary>
+        <summary>근(斤)이 왜 무게마다 다르다고 하나요?</summary>
         <div class="fold-body">
-          <p>아니요. 1963년 계량법 제정 이후 <strong>거래·증명용 공식 단위로는 미터법만 사용</strong>하도록 정해져 있습니다. 다만 건축·인테리어·한의학 등 일부 분야에서 여전히 관행적으로 언급되는 경우가 있어 참고용으로 함께 표시해드립니다.</p>
+          <p>이 계산기의 <strong>근은 정육점 등에서 쓰는 "고기 기준"(600g)</strong>입니다. 다만 과일·채소를 잴 때는 관행적으로 <strong>1근 = 375g</strong>(한 관의 10분의 1)을 쓰는 경우가 있어, 품목에 따라 실제 근의 무게가 다를 수 있다는 점을 참고해주세요.</p>
         </div>
       </details>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">함께 보면 좋아요</h2>
+      <div class="related">
+        <a href="length-converter.html">
+          <span class="r-name">길이 변환기</span>
+          <span class="r-why">길이 단위만 더 크게, 자세히 보고 싶다면 여기서 확인해보세요.</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -151,7 +162,7 @@
   </p>
 
   <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
-    * 참고용 계산입니다. 기준: 국제 야드-파운드 협약(1959), 대한민국 계량법.
+    * 참고용 계산입니다. 기준: 국제 야드-파운드 협약(1959), 대한민국 계량법, 국제단위계(SI).
   </p>
 
 </main>
@@ -167,7 +178,7 @@
   </div>
 </footer>
 
-<script src="length-converter.js"></script>
+<script src="unit-converter.js"></script>
 <script src="page-switcher.js"></script>
 </body>
 </html>

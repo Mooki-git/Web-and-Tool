@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>소개 | 길이 변환기</title>
-<meta name="description" content="길이 변환기를 만든 이유와, 야드-파운드 협약·계량법 기준 환산값을 검증한 과정을 소개합니다.">
+<title>단위 변환기 사용법 | 카테고리별 변환하는 법</title>
+<meta name="description" content="단위 변환기 사용법을 단계별로 안내합니다. 종류(길이·무게·부피·온도·속도) 선택부터 값 입력, 결과 확인까지.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/length-converter-about.html">
+<link rel="canonical" href="https://moklyun.com/unit-converter-guide.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -46,15 +46,15 @@
       <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
       <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
       <a href="ovulation.html" data-cat="date">배란일 계산기</a>
-      <a href="length-converter.html" data-cat="unit" class="is-current" aria-current="page">길이 변환기</a>
-      <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
+      <a href="length-converter.html" data-cat="unit">길이 변환기</a>
+      <a href="unit-converter.html" data-cat="unit" class="is-current" aria-current="page">단위 변환기</a>
     </div>
-    <h1>이 계산기를 만든 이유</h1>
+    <h1>단위 변환기 사용법 | 카테고리별 변환하는 법</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="length-converter.html">계산기</a>
-      <a href="length-converter-guide.html">이용법</a>
-      <a href="length-converter-faq.html">FAQ</a>
-      <a href="length-converter-about.html" class="is-current" aria-current="page">소개</a>
+      <a href="unit-converter.html">계산기</a>
+      <a href="unit-converter-guide.html" class="is-current" aria-current="page">이용법</a>
+      <a href="unit-converter-faq.html">FAQ</a>
+      <a href="unit-converter-about.html">소개</a>
     </nav>
   </div>
 </header>
@@ -62,28 +62,39 @@
 <main class="wrap">
   <article class="card article">
 
-    <p>안녕하세요, Mooki입니다.</p>
+    <p>길이뿐 아니라 무게·부피·온도·속도까지, 일상에서 자주 마주치는 단위를 한 곳에서 변환할 수 있습니다. 쓰는 법은 아래와 같습니다.</p>
 
-    <p>이번에 <strong>단위 환산</strong>이라는 새 카테고리를 시작하면서, 그 첫 번째로 <strong>길이 변환기</strong>를 만들었습니다. 세금·급여·날짜 계산기와는 결이 다르지만, "이 값을 다른 단위로는 얼마인지" 궁금할 때 자주 찾게 되는 실용적인 도구라고 생각해서 새 카테고리를 열게 됐습니다.</p>
+    <ol class="step-list">
+      <li class="step">
+        <p class="step-title">변환할 종류 선택</p>
+        <p><strong>길이·무게·부피·온도·속도</strong> 중 변환하고 싶은 종류를 드롭다운에서 골라주세요. 종류를 바꾸면 아래 단위 목록도 자동으로 바뀝니다.</p>
+        <img class="step-shot" src="unit-guide-1-category.png" alt="변환 종류 선택 화면" loading="lazy" width="448" height="103">
+        <p class="step-caption">변환 종류 선택 화면</p>
+      </li>
 
-    <h2>가장 신경 쓴 부분 — 값 하나로 모든 단위를 한 번에</h2>
+      <li class="step">
+        <p class="step-title">값과 단위 입력</p>
+        <p>변환하고 싶은 <strong>숫자</strong>를 넣고, 오른쪽 드롭다운에서 그 숫자의 <strong>단위</strong>를 골라주세요. 온도는 영하 값(예: -40)도 입력할 수 있습니다.</p>
+        <img class="step-shot" src="unit-guide-2-input.png" alt="값과 단위 입력 화면" loading="lazy" width="448" height="196">
+        <p class="step-caption">값·단위 입력 화면</p>
+      </li>
 
-    <p>보통의 단위 변환기는 "이 단위에서 저 단위로" 1:1로만 바꿔주는 경우가 많은데, 그러면 mm로도 보고 싶고 인치로도 보고 싶을 때 단위를 계속 바꿔가며 여러 번 계산해야 합니다. 그래서 이 계산기는 <strong>값과 기준 단위 하나만 넣으면 mm부터 마일까지 9개 단위를 표 하나에 전부</strong> 보여주도록 만들었습니다.</p>
+      <li class="step">
+        <p class="step-title">결과 확인 — 같은 종류 단위 동시 변환</p>
+        <p>아래 표에 선택한 종류에 속한 <strong>모든 단위로 변환된 값</strong>이 한 번에 나옵니다. 예를 들어 온도에서 100°C를 입력하면 화씨·켈빈으로는 얼마인지 바로 확인할 수 있습니다.</p>
+        <img class="step-shot" src="unit-guide-3-result.png" alt="온도 변환 결과 화면" loading="lazy" width="448" height="249">
+        <p class="step-caption">결과 화면 (온도 100°C 입력 예시)</p>
+      </li>
+    </ol>
 
-    <h2>수치를 확정하면서 있었던 일</h2>
+    <h2>변환 기준</h2>
+    <p>길이·무게·부피·속도는 각 단위의 정의된 배수 관계를 그대로 사용합니다(인치=2.54cm, 파운드=453.59237g, 갤런(미국)=3.785411784L 등 국제 정의 기준). 온도만 배수가 아니라 섭씨·화씨·켈빈 사이의 변환 공식(°F = °C×9/5+32, K = °C+273.15)을 사용합니다. 근·되·컵처럼 한국에서 관행적으로 쓰는 단위도 참고용으로 포함했습니다.</p>
 
-    <p>인치·피트·야드·마일 같은 영미 단위는 <strong>1959년 국제 야드-파운드 협약</strong>에서 1인치 = 정확히 2.54cm로 정의된 이후 전 세계가 같은 값을 쓰고 있다는 걸 확인하고, 그 정의값을 그대로 사용했습니다(반올림 오차 없음).</p>
+    <p>계산은 참고용입니다. 기준: 국제 야드-파운드 협약(1959), 대한민국 계량법, 국제단위계(SI).</p>
 
-    <p>한국 전통단위인 <strong>자(尺)</strong>를 넣을지 고민했는데, 실제로 "1자가 몇 cm인지" 검색이 꽤 있다는 걸 알게 되어 포함하기로 했습니다. 다만 자의 정확한 길이가 시대·지역별로 여러 차례 바뀌어온 역사가 있어서, <strong>현재 대한민국 계량법 기준값(10/33m, 약 30.303cm)</strong>을 정확히 확인한 뒤에야 반영했습니다. 이 단위가 1963년 계량법 제정 이후 공식 거래·증명용으로는 쓰이지 않는다는 점도 화면에 함께 안내했습니다.</p>
-
-    <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
-    <ul>
-      <li>mm·cm·m·km·인치·피트·야드·마일 사이의 환산은 <strong>정의상 정확한 값</strong>이라 오차가 없습니다.</li>
-      <li>자(尺)는 앞서 설명드린 것처럼 <strong>참고용 단위</strong>이며, 공식 문서나 계약에는 사용할 수 없습니다.</li>
-      <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
-    </ul>
-
-    <p>단위 환산 카테고리는 앞으로 단위 변환기, 에너지 환산기, 압력 변환기, 공학단위 변환기로 계속 늘려갈 예정입니다.</p>
+    <p style="text-align:center; margin: 24px 0 8px;">
+      <a class="btn btn-primary" href="unit-converter.html" style="display:inline-flex; padding: 12px 28px;">moklyun.com에서 바로 계산해보기 →</a>
+    </p>
 
     <p class="meta">최종 검토: 2026년 9월</p>
   </article>
