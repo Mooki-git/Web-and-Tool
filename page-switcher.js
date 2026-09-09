@@ -17,12 +17,31 @@
     });
   }
 
+  function firstLinkHref(cat) {
+    var found = null;
+    Array.prototype.some.call(links, function (a) {
+      if (cat === 'all' || a.getAttribute('data-cat') === cat) {
+        found = a.getAttribute('href');
+        return true;
+      }
+      return false;
+    });
+    return found;
+  }
+
   // 기본값: 이 페이지가 속한 카테고리만 표시 (기존 화면과 동일하게 시작)
   applyFilter(defaultCat);
 
   Array.prototype.forEach.call(buttons, function (btn) {
     btn.addEventListener('click', function () {
-      applyFilter(btn.getAttribute('data-cat'));
+      var cat = btn.getAttribute('data-cat');
+      var target = firstLinkHref(cat);
+      var current = location.pathname.split('/').pop();
+      if (target && target !== current) {
+        window.location.href = target;
+        return;
+      }
+      applyFilter(cat);
     });
   });
 })();
