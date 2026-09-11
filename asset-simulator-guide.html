@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>주식 물타기 계산기 사용법 | 평단가 계산하는 법</title>
-<meta name="description" content="주식 물타기 계산기 사용법을 단계별로 안내합니다. 현재 보유 정보·추가 매수 입력부터 새 평단가, 본전 탈출 상승률, 목표 평단가 역산 결과 확인까지.">
+<title>자산 시뮬레이터 사용법 | 미래 자산 계산하는 법</title>
+<meta name="description" content="자산 시뮬레이터 사용법을 단계별로 안내합니다. 초기 투자금·월 적립금·수익률·기간 입력부터 세전·세후 미래 자산 결과 확인까지.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/averaging-calculator-guide.html">
+<link rel="canonical" href="https://moklyun.com/asset-simulator-guide.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -52,16 +52,16 @@
       <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
       <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
       <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
-      <a href="averaging-calculator.html" data-cat="invest" class="is-current" aria-current="page">물타기 계산기</a>
+      <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
       <a href="compound-interest.html" data-cat="invest">복리 계산기</a>
-      <a href="asset-simulator.html" data-cat="invest">자산 시뮬레이터</a>
+      <a href="asset-simulator.html" data-cat="invest" class="is-current" aria-current="page">자산 시뮬레이터</a>
     </div>
-    <h1>주식 물타기 계산기 사용법 | 평단가 계산하는 법</h1>
+    <h1>자산 시뮬레이터 사용법 | 미래 자산 계산하는 법</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="averaging-calculator.html">계산기</a>
-      <a href="averaging-calculator-guide.html" class="is-current" aria-current="page">이용법</a>
-      <a href="averaging-calculator-faq.html">FAQ</a>
-      <a href="averaging-calculator-about.html">소개</a>
+      <a href="asset-simulator.html">계산기</a>
+      <a href="asset-simulator-guide.html" class="is-current" aria-current="page">이용법</a>
+      <a href="asset-simulator-faq.html">FAQ</a>
+      <a href="asset-simulator-about.html">소개</a>
     </nav>
   </div>
 </header>
@@ -69,45 +69,38 @@
 <main class="wrap">
   <article class="card article">
 
-    <p>주가가 떨어졌을 때 추가로 매수(물타기)하거나, 반대로 오르는 중에 더 매수(불타기)하면 평단가가 어떻게 바뀌는지 궁금할 때가 있습니다. 물타기 계산기는 <strong>현재 보유 정보와 추가 매수 정보</strong>만 입력하면 새 평단가와 본전까지 필요한 상승률을 바로 계산해드립니다. 쓰는 법은 아래와 같습니다.</p>
+    <p>"지금 목돈이 얼마 있고, 매달 얼마씩 더 넣으면 몇 년 뒤 자산이 얼마가 될까?" 자산 시뮬레이터는 <strong>초기 투자금과 매월 적립금을 함께</strong> 반영해 미래 자산을 계산해드립니다. 쓰는 법은 아래와 같습니다.</p>
 
     <ol class="step-list">
       <li class="step">
-        <p class="step-title">현재 보유 정보 입력</p>
-        <p>지금 계좌에 있는 <strong>평단가</strong>와 <strong>보유 수량</strong>을 입력하세요.</p>
-        <img class="step-shot" src="avg-guide-1-base.png" alt="현재 보유 평단가·수량 입력 화면" loading="lazy" width="448" height="320">
-        <p class="step-caption">현재 보유 정보 입력 화면</p>
+        <p class="step-title">초기 투자금·월 적립금·수익률·기간 입력</p>
+        <p><strong>초기 투자금</strong>과 <strong>월 적립금</strong>은 하나를 0으로 두어도 됩니다. <strong>예상 연 수익률</strong>과 <strong>투자 기간(개월)</strong>도 함께 입력하세요.</p>
+        <img class="step-shot" src="as-guide-1-input.png" alt="초기 투자금·월 적립금·수익률·기간 입력 화면" loading="lazy" width="448" height="594">
+        <p class="step-caption">입력 화면</p>
       </li>
 
       <li class="step">
-        <p class="step-title">추가 매수 정보 입력</p>
-        <p>추가로 살 <strong>단가</strong>와 <strong>수량</strong>을 입력하세요. "+ 매수 추가" 버튼을 누르면 2차, 3차까지 나눠서 살 계획도 한 번에 시뮬레이션할 수 있습니다. 매매수수료·거래세를 알고 있다면 "매매수수료·세금 반영" 항목을 펼쳐서 입력할 수도 있습니다(선택사항).</p>
-        <img class="step-shot" src="avg-guide-2-lots.png" alt="추가 매수 단가·수량 입력 화면" loading="lazy" width="448" height="425">
-        <p class="step-caption">추가 매수 입력 화면</p>
+        <p class="step-title">예상 미래 자산(세후) 확인</p>
+        <p>이자소득세 15.4%를 뗀 <strong>세후 미래 자산</strong>이 바로 나옵니다.</p>
+        <img class="step-shot" src="as-guide-2-headline.png" alt="예상 미래 자산 결과 화면" loading="lazy" width="448" height="139">
+        <p class="step-caption">결과 화면 (초기 1,000만원 + 월 50만원·연 6%·60개월 예시)</p>
       </li>
 
       <li class="step">
-        <p class="step-title">새 평단가와 본전 탈출 상승률 확인</p>
-        <p>추가 매수를 반영한 <strong>새 평단가</strong>와 총 투자금액·총 보유수량, 그리고 <strong>본전 탈출에 필요한 상승률</strong>이 바로 나옵니다. 이 상승률은 가장 마지막에 입력한 매수 단가(현재 주가로 가정)를 기준으로 계산됩니다.</p>
-        <img class="step-shot" src="avg-guide-3-result.png" alt="새 평단가 및 본전 탈출 상승률 결과 화면" loading="lazy" width="448" height="297">
-        <p class="step-caption">결과 화면 (70,000원 100주 → 50,000원 100주 추가매수 예시)</p>
-      </li>
-
-      <li class="step">
-        <p class="step-title">목표 평단가 역산 계산기 활용</p>
-        <p>원하는 평단가를 직접 입력하면, 현재 보유 정보와 마지막 매수 단가를 기준으로 <strong>몇 주를 더 사야 그 평단가에 도달하는지</strong>와 필요한 금액을 역산해서 보여줍니다.</p>
-        <img class="step-shot" src="avg-guide-4-target.png" alt="목표 평단가 역산 계산기 결과 화면" loading="lazy" width="448" height="414">
-        <p class="step-caption">목표 평단가 역산 결과 화면 (목표 58,000원 예시)</p>
+        <p class="step-title">세전·세후 상세 내역 확인</p>
+        <p>초기 투자금, 총 적립액, 총 원금, 세전·세후 이자(수익), 세전·세후 총액을 한눈에 비교할 수 있습니다.</p>
+        <img class="step-shot" src="as-guide-3-breakdown.png" alt="세전·세후 상세 내역 표" loading="lazy" width="448" height="462">
+        <p class="step-caption">세전·세후 상세 내역 화면</p>
       </li>
     </ol>
 
     <h2>계산 기준</h2>
-    <p>새 평단가는 <strong>가중평균</strong> 방식(기존 투자금액 + 추가 매수금액을 총 보유수량으로 나눈 값)으로 계산합니다. 매매수수료·세금은 기본값이 0%이며, 입력하면 더 정확한 본전 탈출 상승률을 계산할 수 있습니다.</p>
+    <p>초기 투자금은 <strong>원금 × (1+월수익률)^개월수</strong>로, 매월 적립금은 <strong>매월 초 납입을 가정한 연금(annuity-due) 공식</strong>으로 각각 계산한 뒤 더합니다. 둘 다 매월 복리로 고정 계산하며, 이자소득세는 일반과세 기준 15.4%를 적용했습니다.</p>
 
-    <p>계산은 참고용이며 투자 조언이 아닙니다.</p>
+    <p>계산은 참고용이며, 실제 투자 수익률은 원금 손실을 포함해 예측과 다를 수 있습니다.</p>
 
     <p style="text-align:center; margin: 24px 0 8px;">
-      <a class="btn btn-primary" href="averaging-calculator.html" style="display:inline-flex; padding: 12px 28px;">moklyun.com에서 바로 계산해보기 →</a>
+      <a class="btn btn-primary" href="asset-simulator.html" style="display:inline-flex; padding: 12px 28px;">moklyun.com에서 바로 계산해보기 →</a>
     </p>
 
     <p class="meta">최종 검토: 2026년 9월</p>

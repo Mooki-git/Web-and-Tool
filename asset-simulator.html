@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7031447366404868"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자산 시뮬레이터 | 목돈+매월 적립 미래 자산 계산기</title>
+<meta name="description" content="초기 투자금과 매월 적립금, 예상 연 수익률과 기간을 입력하면 미래 자산이 얼마가 될지 계산합니다. 이자소득세 15.4%를 뗀 세후 금액까지 함께 보여줍니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/asset-simulator.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moklyun.com/asset-simulator.html">
+<meta property="og:title" content="자산 시뮬레이터 | moklyun">
+<meta property="og:description" content="목돈과 매월 적립을 함께 굴렸을 때의 미래 자산을 세전·세후로 계산합니다.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .fold { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }
+  .fold summary { cursor: pointer; padding: 10px 0; font-size: 14.5px; font-weight: 700; color: var(--brand); list-style: none; }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary::after { content: ' ▾'; font-size: 12px; }
+  .fold[open] summary::after { content: ' ▴'; }
+  .fold-body { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 6px; }
+  .fold-body p { margin: 0 0 10px; }
+  .fold-body p:last-child { margin-bottom: 0; }
+  .fold-body strong { color: var(--text); }
+
+  .cmp tr.sum th, .cmp tr.sum td { border-top: 2px solid var(--line); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">Mook 계산기 &amp; Tool</a></p>
+    <nav class="hub-sidebar" aria-label="카테고리 선택">
+      <div class="hub-cat-list">
+        <button type="button" class="hub-cat" data-cat="all">전체</button>
+        <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+        <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
+        <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+        <button type="button" class="hub-cat" data-cat="unit">단위 환산</button>
+        <button type="button" class="hub-cat is-active" data-cat="invest">투자 도구</button>
+      </div>
+    </nav>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="invest">
+      <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
+      <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
+      <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
+      <a href="pension.html" data-cat="tax">연금저축·IRP 계산기</a>
+      <a href="comprehensive-tax.html" data-cat="tax">종합소득세 계산기</a>
+      <a href="salary-tax.html" data-cat="salary">연봉 실수령액 계산기</a>
+      <a href="insurance.html" data-cat="salary">4대보험 계산기</a>
+      <a href="severance.html" data-cat="salary">퇴직금 계산기</a>
+      <a href="unemployment.html" data-cat="salary">실업급여 계산기</a>
+      <a href="loan-repayment.html" data-cat="salary">대출 상환 계산기</a>
+      <a href="parental-leave.html" data-cat="salary">육아휴직급여 계산기</a>
+      <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
+      <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
+      <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
+      <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
+      <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
+      <a href="ovulation.html" data-cat="date">배란일 계산기</a>
+      <a href="length-converter.html" data-cat="unit">길이 변환기</a>
+      <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
+      <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
+      <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
+      <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
+      <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
+      <a href="compound-interest.html" data-cat="invest">복리 계산기</a>
+      <a href="asset-simulator.html" data-cat="invest" class="is-current" aria-current="page">자산 시뮬레이터</a>
+    </div>
+    <h1>자산 시뮬레이터</h1>
+    <p class="lede">초기 투자금과 매월 적립금을 함께 넣으면 <strong>몇 년 뒤 자산이 얼마가 될지</strong> 세전·세후로 계산해드립니다.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="asset-simulator.html" class="is-current" aria-current="page">계산기</a>
+      <a href="asset-simulator-guide.html">이용법</a>
+      <a href="asset-simulator-faq.html">FAQ</a>
+      <a href="asset-simulator-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 입력 -->
+  <section class="card" aria-labelledby="q-input">
+    <h2 class="q-title" id="q-input">초기 투자금·월 적립금·수익률·기간을 입력하세요</h2>
+    <p class="q-help">초기 투자금이나 월 적립금 중 하나는 0으로 두어도 됩니다.</p>
+
+    <h3 class="q-sub">초기 투자금</h3>
+    <div class="money-field">
+      <label class="sr-only" for="initial">초기 투자금</label>
+      <input id="initial" type="text" inputmode="numeric" autocomplete="off" value="10,000,000">
+      <span class="unit">원</span>
+    </div>
+
+    <h3 class="q-sub">월 적립금</h3>
+    <div class="money-field">
+      <label class="sr-only" for="monthly">월 적립금</label>
+      <input id="monthly" type="text" inputmode="numeric" autocomplete="off" value="500,000">
+      <span class="unit">원</span>
+    </div>
+
+    <h3 class="q-sub">예상 연 수익률</h3>
+    <p class="q-help">매월 복리로 계산합니다. 예금·적금은 확정금리를, 투자 상품은 예상 수익률을 넣어보세요.</p>
+    <div class="money-field">
+      <label class="sr-only" for="rate">예상 연 수익률</label>
+      <input id="rate" type="text" inputmode="decimal" autocomplete="off" value="6">
+      <span class="unit">%</span>
+    </div>
+
+    <h3 class="q-sub">투자 기간</h3>
+    <div class="money-field">
+      <label class="sr-only" for="months">투자 기간(개월)</label>
+      <input id="months" type="text" inputmode="numeric" autocomplete="off" value="60">
+      <span class="unit">개월</span>
+    </div>
+
+    <div class="warn-box" id="warn" hidden></div>
+  </section>
+
+  <!-- 2. 결과 -->
+  <div id="result">
+    <div class="card result-card headline-card">
+      <p class="headline-label">예상 미래 자산 (세후)</p>
+      <p class="headline" id="headline">0원</p>
+      <p class="headline-label" id="head-sub">-</p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">세전·세후 상세 내역</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead><tr><th scope="col">항목</th><th scope="col">금액</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">초기 투자금</th><td id="c-initial">-</td></tr>
+            <tr><th scope="row">총 적립액</th><td id="c-contribution">-</td></tr>
+            <tr><th scope="row">총 원금</th><td id="c-principal">-</td></tr>
+            <tr><th scope="row">세전 이자(수익)</th><td id="c-pretax-interest">-</td></tr>
+            <tr><th scope="row">세전 총액</th><td id="c-pretax-total">-</td></tr>
+            <tr><th scope="row">이자소득세 (15.4%)</th><td id="c-tax">-</td></tr>
+            <tr><th scope="row">세후 이자(수익)</th><td id="c-aftertax-interest">-</td></tr>
+            <tr class="sum"><th scope="row">세후 총액</th><td id="c-aftertax-total">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        초기 투자금은 <strong>원금 × (1 + 월수익률)^개월수</strong>로, 매월 적립금은 <strong>매월 초 납입을 가정한 연금(annuity-due) 공식</strong>으로 각각 계산한 뒤 더합니다. 둘 다 <strong>매월 복리</strong>로 고정 계산합니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        이자소득세는 일반과세 기준 <strong>15.4%</strong>(이자소득세 14% + 지방소득세 1.4%)를 적용했습니다. 주식·펀드처럼 이자소득세가 아닌 다른 과세 체계(배당소득세, 양도소득세 등)가 적용되는 상품은 실제 세후 금액이 다를 수 있습니다.
+      </p>
+
+      <details class="fold">
+        <summary>복리 계산기와는 뭐가 다른가요?</summary>
+        <div class="fold-body">
+          <p><a href="compound-interest.html">복리 계산기</a>는 거치식·적립식을 <strong>따로</strong> 계산합니다. 자산 시뮬레이터는 <strong>목돈과 매월 적립을 동시에</strong> 넣었을 때의 합산 결과를 한 번에 보여준다는 점이 다릅니다. 예를 들어 "지금 1천만원이 있고, 매달 50만원씩 더 넣으면 5년 뒤 얼마가 될까"처럼 실제 투자 계획에 더 가까운 질문에 답합니다.</p>
+        </div>
+      </details>
+
+      <details class="fold">
+        <summary>월 적립금이 매년 늘어나는 경우도 계산할 수 있나요?</summary>
+        <div class="fold-body">
+          <p>이 계산기는 <strong>월 적립금이 기간 내내 동일하다고 가정</strong>합니다. 연봉 인상 등으로 적립액을 늘려갈 계획이라면, 늘어난 시점부터를 새로운 초기 투자금으로 두고 다시 계산해보는 방식으로 나눠서 활용해보세요.</p>
+        </div>
+      </details>
+
+      <h2 class="section-title" style="margin-top:22px;">함께 보면 좋아요</h2>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        거치식·적립식을 따로 비교하고 싶다면 <a href="compound-interest.html">복리 계산기</a>를 확인해보세요.
+      </p>
+    </div>
+  </div>
+
+  <p class="back-home" style="text-align:center; margin: 20px 0 0;">
+    <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
+  </p>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산입니다. 실제 투자 수익률은 원금 손실을 포함해 예측과 다를 수 있습니다.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 투자 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="asset-simulator.js"></script>
+<script src="page-switcher.js"></script>
+</body>
+</html>
