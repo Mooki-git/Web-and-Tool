@@ -43,7 +43,7 @@
     gap: 8px; align-items: end; margin-top: 12px;
   }
   .lot-row:first-child { margin-top: 0; }
-  .lot-label { font-size: 12.5px; font-weight: 700; color: var(--muted); margin: 0 0 4px; }
+  .lot-label { display: block; font-size: 12.5px; font-weight: 700; color: var(--muted); margin: 0 0 4px; }
   .lot-remove {
     height: 48px; width: 48px; flex: none;
     display: flex; align-items: center; justify-content: center;
@@ -120,7 +120,7 @@
     <h3 class="q-sub">평단가</h3>
     <div class="money-field">
       <label class="sr-only" for="base-price">현재 평단가</label>
-      <input id="base-price" type="text" inputmode="decimal" autocomplete="off" value="70,000">
+      <input id="base-price" type="text" inputmode="numeric" autocomplete="off" value="70,000">
       <span class="unit">원</span>
     </div>
 
@@ -196,7 +196,7 @@
       <h3 class="q-sub">목표로 하는 평단가</h3>
       <div class="money-field">
         <label class="sr-only" for="target-avg">목표 평단가</label>
-        <input id="target-avg" type="text" inputmode="decimal" autocomplete="off" value="58,000">
+        <input id="target-avg" type="text" inputmode="numeric" autocomplete="off" value="58,000">
         <span class="unit">원</span>
       </div>
 

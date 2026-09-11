@@ -143,16 +143,18 @@ function addLotRow(price, qty) {
   var row = document.createElement('div');
   row.className = 'lot-row';
   row.setAttribute('data-lot-id', idx);
+  var priceId = 'lot-price-' + idx;
+  var qtyId = 'lot-qty-' + idx;
   row.innerHTML =
     '<div>' +
-      '<p class="lot-label">' + (el.lots.children.length + 1) + '차 매수 단가</p>' +
-      '<div class="money-field"><input type="text" inputmode="decimal" class="lot-price" autocomplete="off" value="' + (price != null ? comma(price) : '') + '"><span class="unit">원</span></div>' +
+      '<label class="lot-label" for="' + priceId + '">' + (el.lots.children.length + 1) + '차 매수 단가</label>' +
+      '<div class="money-field"><input id="' + priceId + '" type="text" inputmode="numeric" class="lot-price" autocomplete="off" value="' + (price != null ? comma(price) : '') + '"><span class="unit">원</span></div>' +
     '</div>' +
     '<div>' +
-      '<p class="lot-label">수량</p>' +
-      '<div class="money-field"><input type="text" inputmode="numeric" class="lot-qty" autocomplete="off" value="' + (qty != null ? comma(qty) : '') + '"><span class="unit">주</span></div>' +
+      '<label class="lot-label" for="' + qtyId + '">수량</label>' +
+      '<div class="money-field"><input id="' + qtyId + '" type="text" inputmode="numeric" class="lot-qty" autocomplete="off" value="' + (qty != null ? comma(qty) : '') + '"><span class="unit">주</span></div>' +
     '</div>' +
-    '<button type="button" class="lot-remove" aria-label="이 매수 삭제">✕</button>';
+    '<button type="button" class="lot-remove" aria-label="' + (el.lots.children.length + 1) + '차 매수 삭제">✕</button>';
   el.lots.appendChild(row);
 
   var priceInput = row.querySelector('.lot-price');
@@ -173,10 +175,9 @@ function relabelLots() {
   var rows = el.lots.querySelectorAll('.lot-row');
   rows.forEach(function (row, i) {
     row.querySelector('.lot-label').textContent = (i + 1) + '차 매수 단가';
-  });
-  // 최소 1개 행은 삭제 버튼 비활성화(전부 지우면 계산 불가)
-  rows.forEach(function (row) {
     var btn = row.querySelector('.lot-remove');
+    btn.setAttribute('aria-label', (i + 1) + '차 매수 삭제');
+    // 최소 1개 행은 삭제 버튼 비활성화(전부 지우면 계산 불가)
     btn.disabled = rows.length <= 1;
   });
 }
@@ -209,6 +210,9 @@ function render() {
   if (validLots.length === 0) {
     warnParts.push('추가 매수 단가와 수량을 최소 1건 입력해주세요.');
   }
+  if (sellCostRate >= 1) {
+    warnParts.push('매도 수수료+거래세율은 100% 미만으로 입력해주세요.');
+  }
   el.warn.innerHTML = warnParts.map(function (t) { return '<p>' + t + '</p>'; }).join('');
   el.warn.hidden = warnParts.length === 0;
 
@@ -234,7 +238,7 @@ function render() {
   el.mCost.textContent = formatInt(r.totalCost);
   el.mQty.textContent = formatQty(r.totalQty);
 
-  if (r.riseNeededPct === null) {
+  if (r.riseNeededPct === null || !isFinite(r.riseNeededPct)) {
     el.mRise.textContent = '-';
   } else if (r.riseNeededPct <= 0) {
     el.mRise.textContent = '이미 본전 초과';
