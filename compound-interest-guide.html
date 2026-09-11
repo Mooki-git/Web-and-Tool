@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>주식 물타기 계산기 사용법 | 평단가 계산하는 법</title>
-<meta name="description" content="주식 물타기 계산기 사용법을 단계별로 안내합니다. 현재 보유 정보·추가 매수 입력부터 새 평단가, 본전 탈출 상승률, 목표 평단가 역산 결과 확인까지.">
+<title>복리 계산기 사용법 | 거치식·적립식 이자 계산하는 법</title>
+<meta name="description" content="복리 계산기 사용법을 단계별로 안내합니다. 계산 방식(거치식·적립식) 선택부터 원금·이자율·기간 입력, 세전·세후 결과 확인까지.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/averaging-calculator-guide.html">
+<link rel="canonical" href="https://moklyun.com/compound-interest-guide.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -52,15 +52,15 @@
       <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
       <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
       <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
-      <a href="averaging-calculator.html" data-cat="invest" class="is-current" aria-current="page">물타기 계산기</a>
-      <a href="compound-interest.html" data-cat="invest">복리 계산기</a>
+      <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
+      <a href="compound-interest.html" data-cat="invest" class="is-current" aria-current="page">복리 계산기</a>
     </div>
-    <h1>주식 물타기 계산기 사용법 | 평단가 계산하는 법</h1>
+    <h1>복리 계산기 사용법 | 거치식·적립식 이자 계산하는 법</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="averaging-calculator.html">계산기</a>
-      <a href="averaging-calculator-guide.html" class="is-current" aria-current="page">이용법</a>
-      <a href="averaging-calculator-faq.html">FAQ</a>
-      <a href="averaging-calculator-about.html">소개</a>
+      <a href="compound-interest.html">계산기</a>
+      <a href="compound-interest-guide.html" class="is-current" aria-current="page">이용법</a>
+      <a href="compound-interest-faq.html">FAQ</a>
+      <a href="compound-interest-about.html">소개</a>
     </nav>
   </div>
 </header>
@@ -68,45 +68,52 @@
 <main class="wrap">
   <article class="card article">
 
-    <p>주가가 떨어졌을 때 추가로 매수(물타기)하거나, 반대로 오르는 중에 더 매수(불타기)하면 평단가가 어떻게 바뀌는지 궁금할 때가 있습니다. 물타기 계산기는 <strong>현재 보유 정보와 추가 매수 정보</strong>만 입력하면 새 평단가와 본전까지 필요한 상승률을 바로 계산해드립니다. 쓰는 법은 아래와 같습니다.</p>
+    <p>목돈을 한 번에 넣어두는 <strong>거치식</strong>과, 매달 조금씩 나눠 넣는 <strong>적립식</strong>은 이자가 붙는 방식이 다릅니다. 복리 계산기는 두 방식을 모두 지원하고, <strong>이자소득세 15.4%</strong>를 뗀 세후 금액까지 함께 계산해드립니다. 쓰는 법은 아래와 같습니다.</p>
 
     <ol class="step-list">
       <li class="step">
-        <p class="step-title">현재 보유 정보 입력</p>
-        <p>지금 계좌에 있는 <strong>평단가</strong>와 <strong>보유 수량</strong>을 입력하세요.</p>
-        <img class="step-shot" src="avg-guide-1-base.png" alt="현재 보유 평단가·수량 입력 화면" loading="lazy" width="448" height="320">
-        <p class="step-caption">현재 보유 정보 입력 화면</p>
+        <p class="step-title">계산 방식 선택</p>
+        <p><strong>거치식</strong>(원금을 한 번에 넣고 끝) 또는 <strong>적립식</strong>(매월 나눠 넣기) 중 하나를 선택하세요.</p>
+        <img class="step-shot" src="ci-guide-1-mode.png" alt="계산 방식 선택 화면" loading="lazy" width="448" height="183">
+        <p class="step-caption">계산 방식 선택 화면</p>
       </li>
 
       <li class="step">
-        <p class="step-title">추가 매수 정보 입력</p>
-        <p>추가로 살 <strong>단가</strong>와 <strong>수량</strong>을 입력하세요. "+ 매수 추가" 버튼을 누르면 2차, 3차까지 나눠서 살 계획도 한 번에 시뮬레이션할 수 있습니다. 매매수수료·거래세를 알고 있다면 "매매수수료·세금 반영" 항목을 펼쳐서 입력할 수도 있습니다(선택사항).</p>
-        <img class="step-shot" src="avg-guide-2-lots.png" alt="추가 매수 단가·수량 입력 화면" loading="lazy" width="448" height="425">
-        <p class="step-caption">추가 매수 입력 화면</p>
+        <p class="step-title">거치식: 원금·이자율·복리주기·기간 입력</p>
+        <p>거치식을 선택하면 <strong>원금, 연 이자율, 복리 주기(연·월·일), 투자 기간(개월)</strong>을 입력합니다.</p>
+        <img class="step-shot" src="ci-guide-2-lump.png" alt="거치식 입력 화면" loading="lazy" width="448" height="554">
+        <p class="step-caption">거치식 입력 화면</p>
       </li>
 
       <li class="step">
-        <p class="step-title">새 평단가와 본전 탈출 상승률 확인</p>
-        <p>추가 매수를 반영한 <strong>새 평단가</strong>와 총 투자금액·총 보유수량, 그리고 <strong>본전 탈출에 필요한 상승률</strong>이 바로 나옵니다. 이 상승률은 가장 마지막에 입력한 매수 단가(현재 주가로 가정)를 기준으로 계산됩니다.</p>
-        <img class="step-shot" src="avg-guide-3-result.png" alt="새 평단가 및 본전 탈출 상승률 결과 화면" loading="lazy" width="448" height="297">
-        <p class="step-caption">결과 화면 (70,000원 100주 → 50,000원 100주 추가매수 예시)</p>
+        <p class="step-title">적립식: 월 적립액·이자율·기간 입력</p>
+        <p>적립식을 선택하면 <strong>월 적립액, 연 이자율, 투자 기간(개월)</strong>을 입력합니다. 적립식은 매월 복리로 고정 계산됩니다.</p>
+        <img class="step-shot" src="ci-guide-5-recurring.png" alt="적립식 입력 화면" loading="lazy" width="448" height="474">
+        <p class="step-caption">적립식 입력 화면</p>
       </li>
 
       <li class="step">
-        <p class="step-title">목표 평단가 역산 계산기 활용</p>
-        <p>원하는 평단가를 직접 입력하면, 현재 보유 정보와 마지막 매수 단가를 기준으로 <strong>몇 주를 더 사야 그 평단가에 도달하는지</strong>와 필요한 금액을 역산해서 보여줍니다.</p>
-        <img class="step-shot" src="avg-guide-4-target.png" alt="목표 평단가 역산 계산기 결과 화면" loading="lazy" width="448" height="414">
-        <p class="step-caption">목표 평단가 역산 결과 화면 (목표 58,000원 예시)</p>
+        <p class="step-title">만기 예상 수령액(세후) 확인</p>
+        <p>이자소득세 15.4%를 뗀 <strong>세후 만기 예상 수령액</strong>이 바로 나옵니다.</p>
+        <img class="step-shot" src="ci-guide-3-headline.png" alt="만기 예상 수령액 결과 화면" loading="lazy" width="448" height="139">
+        <p class="step-caption">결과 화면 (거치식 1,000만원·연 4%·월복리·36개월 예시)</p>
+      </li>
+
+      <li class="step">
+        <p class="step-title">세전·세후 상세 내역 확인</p>
+        <p>원금, 세전 이자, 세전 총액, 이자소득세, 세후 이자, 세후 총액을 한눈에 비교할 수 있습니다.</p>
+        <img class="step-shot" src="ci-guide-4-breakdown.png" alt="세전·세후 상세 내역 표" loading="lazy" width="448" height="377">
+        <p class="step-caption">세전·세후 상세 내역 화면</p>
       </li>
     </ol>
 
     <h2>계산 기준</h2>
-    <p>새 평단가는 <strong>가중평균</strong> 방식(기존 투자금액 + 추가 매수금액을 총 보유수량으로 나눈 값)으로 계산합니다. 매매수수료·세금은 기본값이 0%이며, 입력하면 더 정확한 본전 탈출 상승률을 계산할 수 있습니다.</p>
+    <p>거치식은 <strong>원금 × (1 + 연이율/복리횟수)^(복리횟수 × 기간)</strong> 공식을 사용합니다. 적립식은 매월 초 납입을 가정해 <strong>첫 회차 납입금이 전체 기간, 마지막 회차가 1개월치</strong> 이자를 받는 방식으로 계산합니다. 이자소득세는 일반과세 기준 15.4%(이자소득세 14% + 지방소득세 1.4%)를 적용했습니다.</p>
 
-    <p>계산은 참고용이며 투자 조언이 아닙니다.</p>
+    <p>계산은 참고용이며, 실제 금융상품은 단리·우대금리 등으로 결과가 다를 수 있습니다.</p>
 
     <p style="text-align:center; margin: 24px 0 8px;">
-      <a class="btn btn-primary" href="averaging-calculator.html" style="display:inline-flex; padding: 12px 28px;">moklyun.com에서 바로 계산해보기 →</a>
+      <a class="btn btn-primary" href="compound-interest.html" style="display:inline-flex; padding: 12px 28px;">moklyun.com에서 바로 계산해보기 →</a>
     </p>
 
     <p class="meta">최종 검토: 2026년 9월</p>
