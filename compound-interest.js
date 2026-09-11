@@ -7,6 +7,7 @@
    ========================================================= */
 
 var TAX_RATE = 0.154;
+var MAX_MONTHS = 1200; // 100년 — 이보다 긴 기간은 복리 계산이 비현실적으로 커질 수 있어 상한을 둠
 
 function lumpSum(principal, annualRatePercent, compoundsPerYear, months) {
   if (!(principal > 0) || !(months > 0)) return { valid: false };
@@ -129,8 +130,9 @@ function render() {
 
     if (!(principal > 0)) warnParts.push('원금을 입력해주세요.');
     if (!(months > 0)) warnParts.push('투자 기간을 1개월 이상 입력해주세요.');
+    if (months > MAX_MONTHS) warnParts.push('투자 기간은 ' + comma(MAX_MONTHS) + '개월(100년) 이하로 입력해주세요.');
 
-    r = lumpSum(principal, rate, compound, months);
+    r = (months > 0 && months <= MAX_MONTHS) ? lumpSum(principal, rate, compound, months) : { valid: false };
   } else {
     var payment = readMoney(el.recPayment);
     var rate2 = readDecimal(el.recRate);
@@ -138,8 +140,15 @@ function render() {
 
     if (!(payment > 0)) warnParts.push('월 적립액을 입력해주세요.');
     if (!(months2 > 0)) warnParts.push('투자 기간을 1개월 이상 입력해주세요.');
+    if (months2 > MAX_MONTHS) warnParts.push('투자 기간은 ' + comma(MAX_MONTHS) + '개월(100년) 이하로 입력해주세요.');
 
-    r = recurring(payment, rate2, months2);
+    r = (months2 > 0 && months2 <= MAX_MONTHS) ? recurring(payment, rate2, months2) : { valid: false };
+  }
+
+  // 방어적 처리: 원금·이자율을 극단적으로 크게 입력해도 화면에 비정상적인 값이 보이지 않도록 확인
+  if (r && r.valid && (!isFinite(r.afterTaxTotal) || r.afterTaxTotal > 1e15)) {
+    warnParts.push('입력값이 너무 커서 계산할 수 없습니다. 원금·이자율·기간을 확인해주세요.');
+    r = { valid: false };
   }
 
   el.warn.innerHTML = warnParts.map(function (t) { return '<p>' + t + '</p>'; }).join('');
