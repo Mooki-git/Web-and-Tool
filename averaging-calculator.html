@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7031447366404868"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>주식 물타기 계산기 | 목표 평단가 시뮬레이터</title>
+<meta name="description" content="현재 평단가·수량과 추가 매수 단가·수량을 입력하면 물타기·불타기 후 최종 평단가와 본전 탈출에 필요한 상승률을 계산합니다. 목표 평단가를 맞추려면 몇 주를 더 사야 하는지도 역산해드립니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/averaging-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moklyun.com/averaging-calculator.html">
+<meta property="og:title" content="주식 물타기 계산기 | moklyun">
+<meta property="og:description" content="추가 매수 후 평단가와 본전 탈출 상승률을 한 번에 계산합니다.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .fold { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }
+  .fold summary { cursor: pointer; padding: 10px 0; font-size: 14.5px; font-weight: 700; color: var(--brand); list-style: none; }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary::after { content: ' ▾'; font-size: 12px; }
+  .fold[open] summary::after { content: ' ▴'; }
+  .fold-body { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 6px; }
+  .fold-body p { margin: 0 0 10px; }
+  .fold-body p:last-child { margin-bottom: 0; }
+  .fold-body strong { color: var(--text); }
+
+  .warn-box {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff4e5; color: #7a4a12; font-size: 14px; line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
+  }
+  .warn-box[hidden] { display: none; }
+  .warn-box p { margin: 0; }
+
+  .lot-row {
+    display: grid; grid-template-columns: 1fr 1fr auto;
+    gap: 8px; align-items: end; margin-top: 12px;
+  }
+  .lot-row:first-child { margin-top: 0; }
+  .lot-label { font-size: 12.5px; font-weight: 700; color: var(--muted); margin: 0 0 4px; }
+  .lot-remove {
+    height: 48px; width: 48px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: var(--muted);
+    background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px;
+    cursor: pointer; transition: .15s;
+  }
+  .lot-remove:hover { color: var(--danger); border-color: var(--danger); }
+  .lot-remove[disabled] { opacity: .35; cursor: not-allowed; }
+  @media (max-width: 480px) {
+    .lot-row { grid-template-columns: 1fr 1fr; }
+    .lot-remove { grid-column: 1 / -1; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">Mook 계산기 &amp; Tool</a></p>
+    <nav class="hub-sidebar" aria-label="카테고리 선택">
+      <div class="hub-cat-list">
+        <button type="button" class="hub-cat" data-cat="all">전체</button>
+        <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+        <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
+        <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+        <button type="button" class="hub-cat" data-cat="unit">단위 환산</button>
+        <button type="button" class="hub-cat is-active" data-cat="invest">투자 도구</button>
+      </div>
+    </nav>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="invest">
+      <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
+      <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
+      <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
+      <a href="pension.html" data-cat="tax">연금저축·IRP 계산기</a>
+      <a href="comprehensive-tax.html" data-cat="tax">종합소득세 계산기</a>
+      <a href="salary-tax.html" data-cat="salary">연봉 실수령액 계산기</a>
+      <a href="insurance.html" data-cat="salary">4대보험 계산기</a>
+      <a href="severance.html" data-cat="salary">퇴직금 계산기</a>
+      <a href="unemployment.html" data-cat="salary">실업급여 계산기</a>
+      <a href="loan-repayment.html" data-cat="salary">대출 상환 계산기</a>
+      <a href="parental-leave.html" data-cat="salary">육아휴직급여 계산기</a>
+      <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
+      <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
+      <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
+      <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
+      <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
+      <a href="ovulation.html" data-cat="date">배란일 계산기</a>
+      <a href="length-converter.html" data-cat="unit">길이 변환기</a>
+      <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
+      <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
+      <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
+      <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
+      <a href="averaging-calculator.html" data-cat="invest" class="is-current" aria-current="page">물타기 계산기</a>
+    </div>
+    <h1>주식 물타기 계산기</h1>
+    <p class="lede">현재 평단가와 추가 매수 정보만 입력하면 <strong>새 평단가와 본전 탈출 상승률</strong>을 바로 계산해드립니다.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="averaging-calculator.html" class="is-current" aria-current="page">계산기</a>
+      <a href="averaging-calculator-guide.html">이용법</a>
+      <a href="averaging-calculator-faq.html">FAQ</a>
+      <a href="averaging-calculator-about.html">소개</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 현재 보유 -->
+  <section class="card" aria-labelledby="q-base">
+    <h2 class="q-title" id="q-base">지금 보유 중인 평단가와 수량을 입력하세요</h2>
+    <p class="q-help">현재 계좌에 있는 평균 매입단가와 보유 수량입니다.</p>
+
+    <h3 class="q-sub">평단가</h3>
+    <div class="money-field">
+      <label class="sr-only" for="base-price">현재 평단가</label>
+      <input id="base-price" type="text" inputmode="decimal" autocomplete="off" value="70,000">
+      <span class="unit">원</span>
+    </div>
+
+    <h3 class="q-sub">보유 수량</h3>
+    <div class="money-field">
+      <label class="sr-only" for="base-qty">보유 수량</label>
+      <input id="base-qty" type="text" inputmode="numeric" autocomplete="off" value="100">
+      <span class="unit">주</span>
+    </div>
+  </section>
+
+  <!-- 2. 추가 매수 -->
+  <section class="card" aria-labelledby="q-lots">
+    <h2 class="q-title" id="q-lots">추가로 매수할 단가와 수량을 입력하세요</h2>
+    <p class="q-help">여러 번 나눠 살 계획이면 "매수 추가"로 2차, 3차까지 이어서 넣을 수 있습니다. <strong>가장 마지막에 넣은 매수 단가</strong>를 현재 주가로 보고 계산합니다.</p>
+
+    <div id="lots"></div>
+    <button type="button" class="btn btn-ghost" id="add-lot" style="width:100%; margin-top:14px;">+ 매수 추가</button>
+
+    <details class="fold" id="fee-fold">
+      <summary>매매수수료·세금 반영 (선택)</summary>
+      <div class="fold-body">
+        <p>기본값은 0%입니다. 내 증권사 수수료율을 알고 있다면 입력해서 본전 탈출 상승률을 더 정확히 계산해보세요.</p>
+
+        <h3 class="q-sub" style="margin-top:14px;">매수 수수료율</h3>
+        <div class="money-field">
+          <label class="sr-only" for="buy-fee">매수 수수료율</label>
+          <input id="buy-fee" type="text" inputmode="decimal" autocomplete="off" value="0">
+          <span class="unit">%</span>
+        </div>
+
+        <h3 class="q-sub">매도 수수료+거래세율</h3>
+        <div class="money-field">
+          <label class="sr-only" for="sell-cost">매도 수수료+거래세율</label>
+          <input id="sell-cost" type="text" inputmode="decimal" autocomplete="off" value="0">
+          <span class="unit">%</span>
+        </div>
+
+        <p class="q-help" style="margin-top:10px;">참고: 2026년 기준 국내 상장주식 매도 시 증권거래세는 코스피·코스닥 모두 약 <strong>0.20%</strong>입니다(코스피는 거래세 0.05%+농어촌특별세 0.15%). 매매수수료는 증권사·거래 채널마다 달라 0%에 가까운 이벤트 계좌부터 0.015% 안팎까지 다양하니 내 증권사 앱에서 확인해 입력하세요.</p>
+      </div>
+    </details>
+
+    <div class="warn-box" id="warn" hidden></div>
+  </section>
+
+  <!-- 3. 결과 -->
+  <div id="result">
+    <div class="card result-card headline-card">
+      <p class="headline-label">추가 매수 후 새 평단가</p>
+      <p class="headline" id="headline">0원</p>
+      <p class="headline-label" id="head-sub">-</p>
+
+      <div class="metrics">
+        <div class="metric">
+          <p class="metric-label">총 투자금액</p>
+          <p class="metric-value" id="m-cost">-</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">총 보유수량</p>
+          <p class="metric-value" id="m-qty">-</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">본전 탈출 필요 상승률</p>
+          <p class="metric-value" id="m-rise">-</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">🎯 목표 평단가 맞춤 역산 계산기</h2>
+      <p class="q-help">원하는 평단가를 입력하면, <strong>현재 보유 정보</strong>와 위에서 마지막으로 입력한 매수 단가를 기준으로 몇 주를 사야 그 평단가에 도달하는지 계산합니다. (위 시뮬레이션에 입력한 매수 수량과는 별개로 계산됩니다.)</p>
+
+      <h3 class="q-sub">목표로 하는 평단가</h3>
+      <div class="money-field">
+        <label class="sr-only" for="target-avg">목표 평단가</label>
+        <input id="target-avg" type="text" inputmode="decimal" autocomplete="off" value="58,000">
+        <span class="unit">원</span>
+      </div>
+
+      <div class="metrics" style="grid-template-columns: repeat(2, 1fr); margin-top: 16px;">
+        <div class="metric">
+          <p class="metric-label">필요 추가 매수 수량</p>
+          <p class="metric-value" id="t-qty">-</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">필요 매수 금액</p>
+          <p class="metric-value" id="t-amount">-</p>
+        </div>
+      </div>
+
+      <div class="warn-box" id="target-warn" hidden></div>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        <strong>새 평단가</strong>는 기존 보유금액과 추가 매수금액을 합친 총 투자금액을 총 보유수량으로 나눈 값입니다. 추가 매수가 기존 평단가보다 낮으면 "물타기"(평단가 하락), 높으면 "불타기"(평단가 상승)가 됩니다 — 계산 방식은 동일합니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        <strong>본전 탈출 필요 상승률</strong>은 가장 마지막에 입력한 매수 단가(현재 주가로 가정)를 기준으로, 총 투자금액을 회수하는 데 필요한 매도가까지 얼마나 올라야 하는지를 나타냅니다. 수수료·세금을 반영하면 실제로 필요한 상승률이 조금 더 높게 나옵니다.
+      </p>
+
+      <details class="fold">
+        <summary>왜 "본전"인데 상승률이 0%가 아닌가요?</summary>
+        <div class="fold-body">
+          <p>본전 탈출 상승률은 <strong>새 평단가 기준이 아니라 마지막 매수가(현재 주가) 기준</strong>으로 계산됩니다. 물타기를 하면 새 평단가는 마지막 매수가보다 항상 높기 때문에, 지금 주가에서 새 평단가까지 오르는 데 필요한 상승률이 0%보다 크게 나옵니다. 반대로 불타기를 하면 마지막 매수가(현재 주가)가 새 평단가보다 높은 경우가 많아 상승률이 음수(이미 본전 초과)로 나올 수 있습니다.</p>
+        </div>
+      </details>
+
+      <details class="fold">
+        <summary>매매수수료·세금을 꼭 입력해야 하나요?</summary>
+        <div class="fold-body">
+          <p>아니요, 선택사항입니다. 비워두면(0%) 수수료·세금 없이 순수하게 가중평균 방식으로만 평단가를 계산합니다. 실제 계좌와 맞춰보고 싶다면 증권사 앱의 수수료율과 매도 시 증권거래세율을 입력해보세요.</p>
+        </div>
+      </details>
+
+      <h2 class="section-title" style="margin-top:22px;">함께 보면 좋아요</h2>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        매도해서 실제로 수익이 났다면 <a href="stock-tax.html">주식 양도세 계산기</a>로 세금까지 확인해보세요.
+      </p>
+    </div>
+  </div>
+
+  <p class="back-home" style="text-align:center; margin: 20px 0 0;">
+    <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
+  </p>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산입니다. 투자 조언이 아니며, 실제 매매는 본인 판단과 책임하에 진행하세요.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 투자 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="averaging-calculator.js"></script>
+<script src="page-switcher.js"></script>
+</body>
+</html>

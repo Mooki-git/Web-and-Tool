@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>소개 | 길이 변환기</title>
-<meta name="description" content="길이 변환기를 만든 이유와, 야드-파운드 협약·계량법 기준 환산값을 검증한 과정을 소개합니다.">
+<title>소개 | 주식 물타기 계산기</title>
+<meta name="description" content="주식 물타기 계산기를 만든 이유와, 본전 탈출 상승률·목표 평단가 역산 계산 방식을 검증한 과정을 소개합니다.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/length-converter-about.html">
+<link rel="canonical" href="https://moklyun.com/averaging-calculator-about.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -25,11 +25,11 @@
         <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
         <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
         <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
-        <button type="button" class="hub-cat is-active" data-cat="unit">단위 환산</button>
-        <button type="button" class="hub-cat" data-cat="invest">투자 도구</button>
+        <button type="button" class="hub-cat" data-cat="unit">단위 환산</button>
+        <button type="button" class="hub-cat is-active" data-cat="invest">투자 도구</button>
       </div>
     </nav>
-    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="unit">
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="invest">
       <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
       <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
       <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
@@ -47,19 +47,19 @@
       <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
       <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
       <a href="ovulation.html" data-cat="date">배란일 계산기</a>
-      <a href="length-converter.html" data-cat="unit" class="is-current" aria-current="page">길이 변환기</a>
+      <a href="length-converter.html" data-cat="unit">길이 변환기</a>
       <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
       <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
       <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
       <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
-      <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
+      <a href="averaging-calculator.html" data-cat="invest" class="is-current" aria-current="page">물타기 계산기</a>
     </div>
     <h1>이 계산기를 만든 이유</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="length-converter.html">계산기</a>
-      <a href="length-converter-guide.html">이용법</a>
-      <a href="length-converter-faq.html">FAQ</a>
-      <a href="length-converter-about.html" class="is-current" aria-current="page">소개</a>
+      <a href="averaging-calculator.html">계산기</a>
+      <a href="averaging-calculator-guide.html">이용법</a>
+      <a href="averaging-calculator-faq.html">FAQ</a>
+      <a href="averaging-calculator-about.html" class="is-current" aria-current="page">소개</a>
     </nav>
   </div>
 </header>
@@ -69,26 +69,23 @@
 
     <p>안녕하세요, Mooki입니다.</p>
 
-    <p>이번에 <strong>단위 환산</strong>이라는 새 카테고리를 시작하면서, 그 첫 번째로 <strong>길이 변환기</strong>를 만들었습니다. 세금·급여·날짜 계산기와는 결이 다르지만, "이 값을 다른 단위로는 얼마인지" 궁금할 때 자주 찾게 되는 실용적인 도구라고 생각해서 새 카테고리를 열게 됐습니다.</p>
+    <p>세금·급여 계산기에 이어 <a href="length-converter.html">단위 환산 계산기</a> 5종까지 만들고 나니, 이번엔 투자 관련 도구를 만들어보고 싶었습니다. 그중 가장 먼저 떠오른 건 "물타기"였습니다. 주가가 떨어지면 다들 머릿속으로 "얼마에 몇 주를 더 사면 평단가가 얼마가 될까"를 계산해보는데, 암산으로는 헷갈리기 쉽고 여러 번 나눠 사는 경우엔 더 어려워지기 때문입니다.</p>
 
-    <h2>가장 신경 쓴 부분 — 값 하나로 모든 단위를 한 번에</h2>
+    <p>처음엔 단순히 "평단가 계산기"만 만들려고 했는데, 만들다 보니 두 가지를 더 넣고 싶어졌습니다. 하나는 <strong>"본전까지 얼마나 더 올라야 하는지"</strong>였습니다. 평단가만 보면 감이 잘 안 오는데, 지금 가격에서 몇 % 올라야 본전인지 보여주면 훨씬 직관적이겠다는 생각이었습니다. 다른 하나는 <strong>"목표 평단가를 맞추려면 얼마나 사야 하는지"</strong>를 거꾸로 계산하는 기능이었습니다. "평단가를 5만 8천원까지만 낮추고 싶은데 몇 주를 더 사야 하지?"라는 질문에 바로 답할 수 있게요.</p>
 
-    <p>보통의 단위 변환기는 "이 단위에서 저 단위로" 1:1로만 바꿔주는 경우가 많은데, 그러면 mm로도 보고 싶고 인치로도 보고 싶을 때 단위를 계속 바꿔가며 여러 번 계산해야 합니다. 그래서 이 계산기는 <strong>값과 기준 단위 하나만 넣으면 mm부터 마일까지 9개 단위를 표 하나에 전부</strong> 보여주도록 만들었습니다.</p>
+    <p>계산 자체는 가중평균이라 어렵지 않지만, <strong>"본전 탈출 상승률을 어느 가격 기준으로 잡을 것인가"</strong>는 고민이 필요했습니다. 새 평단가를 기준으로 잡으면 상승률이 0%가 나와서 의미가 없기 때문에, "가장 마지막에 산 가격(=지금 주가로 가정)"을 기준으로 삼았습니다. 이렇게 하면 "지금부터 몇 % 올라야 본전"이라는, 실제로 궁금해하는 질문에 답이 됩니다.</p>
 
-    <h2>수치를 확정하면서 있었던 일</h2>
-
-    <p>인치·피트·야드·마일 같은 영미 단위는 <strong>1959년 국제 야드-파운드 협약</strong>에서 1인치 = 정확히 2.54cm로 정의된 이후 전 세계가 같은 값을 쓰고 있다는 걸 확인하고, 그 정의값을 그대로 사용했습니다(반올림 오차 없음).</p>
-
-    <p>한국 전통단위인 <strong>자(尺)</strong>를 넣을지 고민했는데, 실제로 "1자가 몇 cm인지" 검색이 꽤 있다는 걸 알게 되어 포함하기로 했습니다. 다만 자의 정확한 길이가 시대·지역별로 여러 차례 바뀌어온 역사가 있어서, <strong>현재 대한민국 계량법 기준값(10/33m, 약 30.303cm)</strong>을 정확히 확인한 뒤에야 반영했습니다. 이 단위가 1963년 계량법 제정 이후 공식 거래·증명용으로는 쓰이지 않는다는 점도 화면에 함께 안내했습니다.</p>
+    <p>매매수수료와 증권거래세는 선택 입력으로 넣었습니다. 2026년 기준 국내 상장주식 증권거래세(코스피·코스닥 약 0.20%)는 공개 자료로 확인했지만, 매매수수료는 증권사·계좌 종류마다 천차만별이라 기본값은 0%로 두고 원하는 분만 입력하도록 설계했습니다.</p>
 
     <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
     <ul>
-      <li>mm·cm·m·km·인치·피트·야드·마일 사이의 환산은 <strong>정의상 정확한 값</strong>이라 오차가 없습니다.</li>
-      <li>자(尺)는 앞서 설명드린 것처럼 <strong>참고용 단위</strong>이며, 공식 문서나 계약에는 사용할 수 없습니다.</li>
+      <li>저는 투자 전문가가 아닙니다. 이 계산기는 <strong>단순 산술 계산 도구</strong>이며, 매수·매도를 권유하거나 투자 조언을 제공하지 않습니다.</li>
+      <li>본전 탈출 상승률은 <strong>가장 마지막에 입력한 매수 단가</strong>를 현재 주가로 가정해 계산합니다. 실제 시세와 다르면 결과도 달라집니다.</li>
+      <li>매매수수료·세금을 입력하지 않으면 0%로 계산되며, 실제 계좌의 수수료율과 다를 수 있습니다.</li>
       <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
     </ul>
 
-    <p>단위 환산 카테고리는 앞으로 단위 변환기, 에너지 환산기, 압력 변환기, 공학단위 변환기로 계속 늘려갈 예정입니다.</p>
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 물타기·불타기 고민할 때 계산기 켜서 숫자로 확인하는 데 도움이 되었으면 합니다.</p>
 
     <p class="meta">최종 검토: 2026년 9월</p>
   </article>
@@ -105,7 +102,7 @@
       <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
       <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
     </div>
-    <p class="disclaimer">참고용 계산입니다. 기준: 2026년 공개 자료 교차검증</p>
+    <p class="disclaimer">참고용 계산이며 투자 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
   </div>
 </footer>
 
