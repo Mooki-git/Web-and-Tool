@@ -96,8 +96,9 @@ function render() {
   el.warn.innerHTML = warnParts.map(function (t) { return '<p>' + t + '</p>'; }).join('');
   el.warn.hidden = warnParts.length === 0;
 
-  el.headLabel.textContent = years > 0 ? years + '년 후 실질가치 (오늘 화폐가치 기준)' : 'N년 후 실질가치 (오늘 화폐가치 기준)';
-  el.mNominalLabel.textContent = years > 0 ? years + '년 후 필요한 명목금액' : 'N년 후 필요한 명목금액';
+  var yearsValid = years > 0 && years <= MAX_YEARS;
+  el.headLabel.textContent = yearsValid ? years + '년 후 실질가치 (오늘 화폐가치 기준)' : 'N년 후 실질가치 (오늘 화폐가치 기준)';
+  el.mNominalLabel.textContent = yearsValid ? years + '년 후 필요한 명목금액' : 'N년 후 필요한 명목금액';
 
   if (!r || !r.valid) {
     el.headline.textContent = '0원';
