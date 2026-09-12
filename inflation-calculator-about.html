@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>소개 | ISA 절세 효과 계산기</title>
-<meta name="description" content="ISA 절세 효과 계산기를 만든 이유와, 일반형·서민형 세율을 검증한 과정을 소개합니다.">
+<title>소개 | 인플레이션 계산기</title>
+<meta name="description" content="인플레이션 계산기를 만든 이유와, 실질가치·명목금액 계산 방식을 검증한 과정을 소개합니다.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/about.html">
+<link rel="canonical" href="https://moklyun.com/inflation-calculator-about.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -22,15 +22,15 @@
     <nav class="hub-sidebar" aria-label="카테고리 선택">
       <div class="hub-cat-list">
         <button type="button" class="hub-cat" data-cat="all">전체</button>
-        <button type="button" class="hub-cat is-active" data-cat="tax">절세 · 세금</button>
+        <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
         <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
         <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
         <button type="button" class="hub-cat" data-cat="unit">단위 환산</button>
-        <button type="button" class="hub-cat" data-cat="invest">투자 도구</button>
+        <button type="button" class="hub-cat is-active" data-cat="invest">투자 도구</button>
       </div>
     </nav>
-    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="tax">
-      <a href="isa.html" data-cat="tax" class="is-current" aria-current="page">ISA 절세 계산기</a>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="invest">
+      <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
       <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
       <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
       <a href="pension.html" data-cat="tax">연금저축·IRP 계산기</a>
@@ -55,14 +55,14 @@
       <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
       <a href="compound-interest.html" data-cat="invest">복리 계산기</a>
       <a href="asset-simulator.html" data-cat="invest">자산 시뮬레이터</a>
-      <a href="inflation-calculator.html" data-cat="invest">인플레이션 계산기</a>
+      <a href="inflation-calculator.html" data-cat="invest" class="is-current" aria-current="page">인플레이션 계산기</a>
     </div>
     <h1>이 계산기를 만든 이유</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="isa.html">계산기</a>
-      <a href="guide.html">이용법</a>
-      <a href="faq.html">FAQ</a>
-      <a href="about.html" class="is-current" aria-current="page">소개</a>
+      <a href="inflation-calculator.html">계산기</a>
+      <a href="inflation-calculator-guide.html">이용법</a>
+      <a href="inflation-calculator-faq.html">FAQ</a>
+      <a href="inflation-calculator-about.html" class="is-current" aria-current="page">소개</a>
     </nav>
   </div>
 </header>
@@ -72,26 +72,23 @@
 
     <p>안녕하세요, Mooki입니다.</p>
 
-    <p>재테크는 원래 제 관심 분야였습니다. 남는 시간에 이것저것 찾아보다가 ISA 계좌 앞에서 한참을 멈췄습니다. "세금을 아껴준다"는 말은 어디서나 들리는데, 정작 <strong>나한테는 얼마가 남는 건지</strong>를 알려주는 곳이 없었습니다.</p>
+    <p><a href="compound-interest.html">복리 계산기</a>와 <a href="asset-simulator.html">자산 시뮬레이터</a>를 만들고 나니, 두 계산기가 보여주는 "미래에 얼마가 된다"는 숫자에 숨어있는 함정이 마음에 걸렸습니다. 명목 금액은 늘어나 보여도, 물가가 함께 오르면 <strong>실제로 살 수 있는 것의 양은 그만큼 늘지 않을 수 있기 때문</strong>입니다. 그래서 투자 도구 마지막으로 이 부분을 짚어주는 계산기를 만들었습니다.</p>
 
-    <p>검색해보면 대부분 이런 식이었습니다. 비과세 한도가 200만원이고 서민형은 400만원이며 초과분은 9.9% 분리과세, 일반계좌는 15.4%… 틀린 말은 하나도 없는데, 그래서 제 경우엔 얼마냐는 질문에는 아무도 답을 안 해줍니다. 결국 계산기를 켜고 직접 두드려봤고, 그러다 생각했습니다. 이걸 매번 손으로 계산하는 사람이 나 말고도 많겠구나.</p>
+    <p>계산기를 만들면서 "미래 예측"과 "과거 회고"를 따로 만들지, 하나로 합칠지 고민했습니다. 두 질문—"지금 돈이 나중엔 얼마의 가치로 줄어드는가"와 "과거의 돈이 지금 얼마의 가치인가"—이 사실 <strong>같은 공식을 반대 방향으로 쓴 것</strong>이라는 걸 확인하고, 하나의 입력값으로 두 결과를 동시에 보여주는 지금 형태로 만들었습니다. 토글을 따로 두지 않아 더 단순해졌습니다.</p>
 
-    <p>그래서 만들었습니다. 소득 형태와 올해 예상 투자수익만 넣으면, 서민형인지 일반형인지 자동으로 판정하고 실제 절세액이 바로 나오는 계산기입니다.</p>
-
-    <p>만들면서 가장 신경 쓴 건 <strong>숫자의 정확성</strong>이었습니다. 실제로 제작 중에 "2026년부터 비과세 한도가 500만원으로 오른다"는 정보를 여러 곳에서 접했는데, 원문을 추적해보니 2024년에 나왔다가 무산된 초안이었습니다. 최종 확정된 2026년 세법에는 그 내용이 없었습니다. 이런 걸 그대로 계산에 넣었으면 완전히 틀린 금액을 보여줬을 겁니다. 그래서 모든 수치는 조세특례제한법 제91조의18과 기획재정부 최종 발표 자료를 직접 확인한 것만 반영했고, 근거는 계산기 화면 하단에 항상 적어두었습니다.</p>
-
-    <p>ISA 계산기를 만들고 나니, 비슷하게 "검색해도 내 경우엔 얼마인지 안 나오는" 다른 세금들도 눈에 들어왔습니다. 그래서 <a href="dividend-tax.html">해외주식 배당소득세 계산기</a>도 이어서 만들었고, 앞으로도 필요한 계산기를 하나씩 늘려갈 계획입니다.</p>
+    <p>물가상승률 기본값(2.5%)은 한국은행의 물가안정목표(연 2%)와 최근 실제 소비자물가상승률(연 2~3% 안팎)을 참고해 정했습니다. 다만 이건 어디까지나 참고용 가정치라, 계산기에서 언제든 원하는 값으로 바꿀 수 있게 했습니다.</p>
 
     <h2>몇 가지 미리 말씀드리고 싶은 점이 있습니다</h2>
     <ul>
-      <li>저는 세무사나 금융 전문가가 아닙니다. 이 계산기는 공개된 세법과 세율을 기준으로 만든 <strong>참고용 도구</strong>이며, 투자 조언이나 세무 자문이 아닙니다. 실제 가입·세액은 은행이나 증권사에서 다시 확인해 주세요.</li>
-      <li>세율이나 제도가 바뀌면 계산기도 함께 고칩니다. 마지막으로 검토한 날짜는 각 페이지 하단에 적어둡니다.</li>
+      <li>저는 경제 전문가가 아닙니다. 이 계산기는 <strong>수학 공식에 기반한 계산 도구</strong>이며, 실제 물가 전망이나 투자 조언을 제공하지 않습니다.</li>
+      <li>이 계산기는 <strong>매년 동일한 물가상승률</strong>을 가정합니다. 실제 물가상승률은 해마다, 품목마다 다르게 움직입니다.</li>
+      <li>정확한 과거 물가상승률이 필요하다면 통계청 소비자물가지수 원자료를 확인하시길 권해드립니다.</li>
       <li>계산이 이상하거나 틀린 곳을 발견하시면 <a href="contact.html">알려주세요</a>. 지적해주시는 게 가장 도움이 됩니다.</li>
     </ul>
 
-    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 필요한 계산을 빠르게 끝내는 데 도움이 되었으면 합니다.</p>
+    <p>혼자 만드는 작은 사이트라 부족한 점이 많겠지만, 명목 금액 뒤에 숨은 실질 가치를 한 번 더 확인하는 데 도움이 되었으면 합니다.</p>
 
-    <p class="meta">최종 검토: 2026년 8월</p>
+    <p class="meta">최종 검토: 2026년 9월</p>
   </article>
   <p class="back-home" style="text-align:center; margin: 20px 0 0;">
     <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
@@ -106,7 +103,7 @@
       <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
       <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
     </div>
-    <p class="disclaimer">참고용 계산이며 투자 조언이 아닙니다. 계산 기준: 조세특례제한법 제91조의18 (2026.08 확정)</p>
+    <p class="disclaimer">참고용 계산이며 투자 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
   </div>
 </footer>
 

@@ -5,14 +5,14 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>자산 시뮬레이터 | 목돈+매월 적립 미래 자산 계산기</title>
-<meta name="description" content="초기 투자금과 매월 적립금, 예상 연 수익률과 기간을 입력하면 미래 자산이 얼마가 될지 계산합니다. 이자소득세 15.4%를 뗀 세후 금액까지 함께 보여줍니다.">
+<title>인플레이션 계산기 | 물가상승률 반영 화폐가치 계산</title>
+<meta name="description" content="지금 금액이 물가상승률을 반영하면 몇 년 후 실질적으로 얼마의 가치인지, 그때 가서 지금과 같은 구매력을 가지려면 얼마가 필요한지 계산합니다. 과거 금액을 현재 가치로 환산할 때도 그대로 쓸 수 있습니다.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/asset-simulator.html">
+<link rel="canonical" href="https://moklyun.com/inflation-calculator.html">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://moklyun.com/asset-simulator.html">
-<meta property="og:title" content="자산 시뮬레이터 | moklyun">
-<meta property="og:description" content="목돈과 매월 적립을 함께 굴렸을 때의 미래 자산을 세전·세후로 계산합니다.">
+<meta property="og:url" content="https://moklyun.com/inflation-calculator.html">
+<meta property="og:title" content="인플레이션 계산기 | moklyun">
+<meta property="og:description" content="물가상승률을 반영한 화폐가치 변화를 계산합니다.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -28,7 +28,15 @@
   .fold-body p:last-child { margin-bottom: 0; }
   .fold-body strong { color: var(--text); }
 
-  .cmp tr.sum th, .cmp tr.sum td { border-top: 2px solid var(--line); font-weight: 700; }
+  .warn-box {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff4e5; color: #7a4a12; font-size: 14px; line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
+  }
+  .warn-box[hidden] { display: none; }
+  .warn-box p { margin: 0; }
 </style>
 </head>
 <body>
@@ -71,16 +79,16 @@
       <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
       <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
       <a href="compound-interest.html" data-cat="invest">복리 계산기</a>
-      <a href="asset-simulator.html" data-cat="invest" class="is-current" aria-current="page">자산 시뮬레이터</a>
-      <a href="inflation-calculator.html" data-cat="invest">인플레이션 계산기</a>
+      <a href="asset-simulator.html" data-cat="invest">자산 시뮬레이터</a>
+      <a href="inflation-calculator.html" data-cat="invest" class="is-current" aria-current="page">인플레이션 계산기</a>
     </div>
-    <h1>자산 시뮬레이터</h1>
-    <p class="lede">초기 투자금과 매월 적립금을 함께 넣으면 <strong>몇 년 뒤 자산이 얼마가 될지</strong> 세전·세후로 계산해드립니다.</p>
+    <h1>인플레이션 계산기</h1>
+    <p class="lede">지금 금액과 물가상승률, 기간만 입력하면 <strong>실질가치 변화</strong>를 바로 계산해드립니다.</p>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="asset-simulator.html" class="is-current" aria-current="page">계산기</a>
-      <a href="asset-simulator-guide.html">이용법</a>
-      <a href="asset-simulator-faq.html">FAQ</a>
-      <a href="asset-simulator-about.html">소개</a>
+      <a href="inflation-calculator.html" class="is-current" aria-current="page">계산기</a>
+      <a href="inflation-calculator-guide.html">이용법</a>
+      <a href="inflation-calculator-faq.html">FAQ</a>
+      <a href="inflation-calculator-about.html">소개</a>
     </nav>
   </div>
 </header>
@@ -89,36 +97,29 @@
 
   <!-- 1. 입력 -->
   <section class="card" aria-labelledby="q-input">
-    <h2 class="q-title" id="q-input">초기 투자금·월 적립금·수익률·기간을 입력하세요</h2>
-    <p class="q-help">초기 투자금이나 월 적립금 중 하나는 0으로 두어도 됩니다.</p>
+    <h2 class="q-title" id="q-input">기준 금액·물가상승률·기간을 입력하세요</h2>
+    <p class="q-help">과거 금액을 지금 가치로 환산하고 싶다면, 기준 금액에 그 과거 금액을, 기간에 그때부터 지금까지의 연수를 넣어보세요. "필요한 명목금액" 결과가 바로 지금 가치입니다.</p>
 
-    <h3 class="q-sub">초기 투자금</h3>
+    <h3 class="q-sub">기준 금액</h3>
     <div class="money-field">
-      <label class="sr-only" for="initial">초기 투자금</label>
-      <input id="initial" type="text" inputmode="numeric" autocomplete="off" value="10,000,000">
+      <label class="sr-only" for="amount">기준 금액</label>
+      <input id="amount" type="text" inputmode="numeric" autocomplete="off" value="100,000,000">
       <span class="unit">원</span>
     </div>
 
-    <h3 class="q-sub">월 적립금</h3>
+    <h3 class="q-sub">연 물가상승률</h3>
+    <p class="q-help">한국은행의 물가안정목표는 연 2%이며, 최근 실제 소비자물가상승률은 대체로 연 2~3% 안팎입니다. 원하는 가정치를 넣어보세요.</p>
     <div class="money-field">
-      <label class="sr-only" for="monthly">월 적립금</label>
-      <input id="monthly" type="text" inputmode="numeric" autocomplete="off" value="500,000">
-      <span class="unit">원</span>
-    </div>
-
-    <h3 class="q-sub">예상 연 수익률</h3>
-    <p class="q-help">매월 복리로 계산합니다. 예금·적금은 확정금리를, 투자 상품은 예상 수익률을 넣어보세요.</p>
-    <div class="money-field">
-      <label class="sr-only" for="rate">예상 연 수익률</label>
-      <input id="rate" type="text" inputmode="decimal" autocomplete="off" value="6">
+      <label class="sr-only" for="rate">연 물가상승률</label>
+      <input id="rate" type="text" inputmode="decimal" autocomplete="off" value="2.5">
       <span class="unit">%</span>
     </div>
 
-    <h3 class="q-sub">투자 기간</h3>
+    <h3 class="q-sub">기간</h3>
     <div class="money-field">
-      <label class="sr-only" for="months">투자 기간(개월)</label>
-      <input id="months" type="text" inputmode="numeric" autocomplete="off" value="60">
-      <span class="unit">개월</span>
+      <label class="sr-only" for="years">기간</label>
+      <input id="years" type="text" inputmode="numeric" autocomplete="off" value="10">
+      <span class="unit">년</span>
     </div>
 
     <div class="warn-box" id="warn" hidden></div>
@@ -127,56 +128,52 @@
   <!-- 2. 결과 -->
   <div id="result">
     <div class="card result-card headline-card">
-      <p class="headline-label">예상 미래 자산 (세후)</p>
+      <p class="headline-label" id="head-label">N년 후 실질가치 (오늘 화폐가치 기준)</p>
       <p class="headline" id="headline">0원</p>
       <p class="headline-label" id="head-sub">-</p>
-    </div>
 
-    <div class="card result-card">
-      <h2 class="section-title">세전·세후 상세 내역</h2>
-      <div class="table-scroll">
-        <table class="cmp">
-          <thead><tr><th scope="col">항목</th><th scope="col">금액</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">초기 투자금</th><td id="c-initial">-</td></tr>
-            <tr><th scope="row">총 적립액</th><td id="c-contribution">-</td></tr>
-            <tr><th scope="row">총 원금</th><td id="c-principal">-</td></tr>
-            <tr><th scope="row">세전 이자(수익)</th><td id="c-pretax-interest">-</td></tr>
-            <tr><th scope="row">세전 총액</th><td id="c-pretax-total">-</td></tr>
-            <tr><th scope="row">이자소득세 (15.4%)</th><td id="c-tax">-</td></tr>
-            <tr><th scope="row">세후 이자(수익)</th><td id="c-aftertax-interest">-</td></tr>
-            <tr class="sum"><th scope="row">세후 총액</th><td id="c-aftertax-total">-</td></tr>
-          </tbody>
-        </table>
+      <div class="metrics">
+        <div class="metric">
+          <p class="metric-label" id="m-nominal-label">N년 후 필요한 명목금액</p>
+          <p class="metric-value" id="m-nominal">-</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">누적 물가상승률</p>
+          <p class="metric-value" id="m-total-inflation">-</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">실질가치 감소율</p>
+          <p class="metric-value" id="m-loss">-</p>
+        </div>
       </div>
     </div>
 
     <div class="card result-card">
       <h2 class="section-title">이 계산에 대해</h2>
       <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
-        초기 투자금은 <strong>원금 × (1 + 월수익률)^개월수</strong>로, 매월 적립금은 <strong>매월 초 납입을 가정한 연금(annuity-due) 공식</strong>으로 각각 계산한 뒤 더합니다. 둘 다 <strong>매월 복리</strong>로 고정 계산합니다.
+        <strong>실질가치</strong>는 기준 금액을 <strong>(1+물가상승률)^기간</strong>으로 나눈 값으로, "오늘 이 돈을 그대로 들고만 있으면 N년 후엔 지금 얼마어치의 물건을 살 수 있는가"를 보여줍니다. <strong>필요한 명목금액</strong>은 반대로 곱한 값으로, "N년 후에도 지금과 같은 구매력을 가지려면 얼마가 있어야 하는가"를 보여줍니다.
       </p>
       <p style="margin:0; font-size:14.5px; line-height:1.7;">
-        이자소득세는 일반과세 기준 <strong>15.4%</strong>(이자소득세 14% + 지방소득세 1.4%)를 적용했습니다. 주식·펀드처럼 이자소득세가 아닌 다른 과세 체계(배당소득세, 양도소득세 등)가 적용되는 상품은 실제 세후 금액이 다를 수 있습니다.
+        같은 계산을 <strong>과거→현재 환산</strong>에도 쓸 수 있습니다. 기준 금액에 과거의 금액을, 기간에 그때부터 지금까지의 연수를 넣으면 "필요한 명목금액" 결과가 바로 그 돈의 지금 가치입니다.
       </p>
 
       <details class="fold">
-        <summary>복리 계산기와는 뭐가 다른가요?</summary>
+        <summary>물가상승률은 몇 %로 넣어야 하나요?</summary>
         <div class="fold-body">
-          <p><a href="compound-interest.html">복리 계산기</a>는 거치식·적립식을 <strong>따로</strong> 계산합니다. 자산 시뮬레이터는 <strong>목돈과 매월 적립을 동시에</strong> 넣었을 때의 합산 결과를 한 번에 보여준다는 점이 다릅니다. 예를 들어 "지금 1천만원이 있고, 매달 50만원씩 더 넣으면 5년 뒤 얼마가 될까"처럼 실제 투자 계획에 더 가까운 질문에 답합니다.</p>
+          <p>정해진 값은 없습니다. 한국은행의 <strong>물가안정목표는 연 2%</strong>이고, 최근 실제 소비자물가상승률은 연 2~3% 안팎에서 움직였습니다. 장기 평균을 가정할 땐 2~3% 사이 값을 많이 씁니다. 과거 특정 기간의 정확한 물가상승률을 알고 싶다면 통계청 소비자물가지수를 확인해 그 기간의 평균값을 넣어보세요.</p>
         </div>
       </details>
 
       <details class="fold">
-        <summary>월 적립금이 매년 늘어나는 경우도 계산할 수 있나요?</summary>
+        <summary>실질가치와 필요한 명목금액은 왜 항상 같이 나오나요?</summary>
         <div class="fold-body">
-          <p>이 계산기는 <strong>월 적립금이 기간 내내 동일하다고 가정</strong>합니다. 연봉 인상 등으로 적립액을 늘려갈 계획이라면, 늘어난 시점부터를 새로운 초기 투자금으로 두고 다시 계산해보는 방식으로 나눠서 활용해보세요.</p>
+          <p>두 값은 <strong>같은 공식의 역수 관계</strong>이기 때문입니다. "지금 돈을 들고만 있으면 얼마의 가치로 줄어드는가"(실질가치)와 "그때 가서 지금과 같은 가치를 가지려면 얼마가 필요한가"(필요한 명목금액)는 사실 하나의 질문을 양쪽에서 본 것이라, 한 번의 계산으로 함께 얻을 수 있습니다.</p>
         </div>
       </details>
 
       <h2 class="section-title" style="margin-top:22px;">함께 보면 좋아요</h2>
       <p style="margin:0; font-size:14.5px; line-height:1.7;">
-        거치식·적립식을 따로 비교하고 싶다면 <a href="compound-interest.html">복리 계산기</a>를 확인해보세요.
+        목돈을 굴렸을 때 실제로 얼마가 되는지는 <a href="compound-interest.html">복리 계산기</a>로, 초기 투자금과 매월 적립을 함께 계산하려면 <a href="asset-simulator.html">자산 시뮬레이터</a>로 확인해보세요.
       </p>
     </div>
   </div>
@@ -186,7 +183,7 @@
   </p>
 
   <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
-    * 참고용 계산입니다. 실제 투자 수익률은 원금 손실을 포함해 예측과 다를 수 있습니다.
+    * 참고용 계산입니다. 실제 물가상승률은 연도·품목에 따라 다르며 예측과 차이가 날 수 있습니다.
   </p>
 
 </main>
@@ -202,7 +199,7 @@
   </div>
 </footer>
 
-<script src="asset-simulator.js"></script>
+<script src="inflation-calculator.js"></script>
 <script src="page-switcher.js"></script>
 </body>
 </html>

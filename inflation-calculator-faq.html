@@ -5,10 +5,10 @@
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>자산 시뮬레이터 사용법 | 미래 자산 계산하는 법</title>
-<meta name="description" content="자산 시뮬레이터 사용법을 단계별로 안내합니다. 초기 투자금·월 적립금·수익률·기간 입력부터 세전·세후 미래 자산 결과 확인까지.">
+<title>인플레이션 계산기 FAQ | 자주 묻는 질문</title>
+<meta name="description" content="인플레이션 계산기에 대해 자주 묻는 질문. 물가상승률 기본값 근거, 과거 금액 환산 방법, 실질가치와 명목금액의 관계를 안내합니다.">
 <meta name="theme-color" content="#2f6df6">
-<link rel="canonical" href="https://moklyun.com/asset-simulator-guide.html">
+<link rel="canonical" href="https://moklyun.com/inflation-calculator-faq.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -54,62 +54,66 @@
       <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
       <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
       <a href="compound-interest.html" data-cat="invest">복리 계산기</a>
-      <a href="asset-simulator.html" data-cat="invest" class="is-current" aria-current="page">자산 시뮬레이터</a>
-      <a href="inflation-calculator.html" data-cat="invest">인플레이션 계산기</a>
+      <a href="asset-simulator.html" data-cat="invest">자산 시뮬레이터</a>
+      <a href="inflation-calculator.html" data-cat="invest" class="is-current" aria-current="page">인플레이션 계산기</a>
     </div>
-    <h1>자산 시뮬레이터 사용법 | 미래 자산 계산하는 법</h1>
+    <h1>자주 묻는 질문</h1>
     <nav class="site-nav" aria-label="사이트 메뉴">
-      <a href="asset-simulator.html">계산기</a>
-      <a href="asset-simulator-guide.html" class="is-current" aria-current="page">이용법</a>
-      <a href="asset-simulator-faq.html">FAQ</a>
-      <a href="asset-simulator-about.html">소개</a>
+      <a href="inflation-calculator.html">계산기</a>
+      <a href="inflation-calculator-guide.html">이용법</a>
+      <a href="inflation-calculator-faq.html" class="is-current" aria-current="page">FAQ</a>
+      <a href="inflation-calculator-about.html">소개</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <article class="card article">
+  <section class="card faq-card" aria-label="자주 묻는 질문 목록">
 
-    <p>"지금 목돈이 얼마 있고, 매달 얼마씩 더 넣으면 몇 년 뒤 자산이 얼마가 될까?" 자산 시뮬레이터는 <strong>초기 투자금과 매월 적립금을 함께</strong> 반영해 미래 자산을 계산해드립니다. 쓰는 법은 아래와 같습니다.</p>
+    <details class="faq">
+      <summary>물가상승률 기본값 2.5%는 어디서 나온 숫자인가요?</summary>
+      <div class="faq-body">
+        <p>한국은행의 <strong>물가안정목표는 연 2%</strong>이고, 최근 실제 소비자물가상승률은 연 2~3% 안팎에서 움직였습니다. 2.5%는 이 범위의 중간값을 참고용 기본값으로 넣어둔 것일 뿐, 정해진 법정 수치가 아닙니다. 원하는 가정치로 자유롭게 바꿔서 계산해보세요.</p>
+      </div>
+    </details>
 
-    <ol class="step-list">
-      <li class="step">
-        <p class="step-title">초기 투자금·월 적립금·수익률·기간 입력</p>
-        <p><strong>초기 투자금</strong>과 <strong>월 적립금</strong>은 하나를 0으로 두어도 됩니다. <strong>예상 연 수익률</strong>과 <strong>투자 기간(개월)</strong>도 함께 입력하세요.</p>
-        <img class="step-shot" src="as-guide-1-input.png" alt="초기 투자금·월 적립금·수익률·기간 입력 화면" loading="lazy" width="448" height="594">
-        <p class="step-caption">입력 화면</p>
-      </li>
+    <details class="faq">
+      <summary>과거 금액을 지금 가치로 환산하려면 어떻게 입력하나요?</summary>
+      <div class="faq-body">
+        <p>기준 금액에 <strong>과거의 금액</strong>을, 기간에 <strong>그때부터 지금까지의 연수</strong>를 넣으세요. "N년 후 필요한 명목금액" 결과가 바로 그 돈의 지금 가치입니다. 예를 들어 "10년 전 1,000만원"의 지금 가치를 알고 싶다면 기준 금액 1,000만원, 기간 10년을 넣으면 됩니다.</p>
+      </div>
+    </details>
 
-      <li class="step">
-        <p class="step-title">예상 미래 자산(세후) 확인</p>
-        <p>이자소득세 15.4%를 뗀 <strong>세후 미래 자산</strong>이 바로 나옵니다.</p>
-        <img class="step-shot" src="as-guide-2-headline.png" alt="예상 미래 자산 결과 화면" loading="lazy" width="448" height="139">
-        <p class="step-caption">결과 화면 (초기 1,000만원 + 월 50만원·연 6%·60개월 예시)</p>
-      </li>
+    <details class="faq">
+      <summary>실질가치와 필요한 명목금액은 왜 항상 같이 나오나요?</summary>
+      <div class="faq-body">
+        <p>두 값은 <strong>같은 공식의 역수 관계</strong>이기 때문입니다. "지금 돈을 들고만 있으면 얼마의 가치로 줄어드는가"(실질가치)와 "그때 가서 지금과 같은 가치를 가지려면 얼마가 필요한가"(필요한 명목금액)는 하나의 질문을 양쪽에서 본 것이라, 한 번의 계산으로 함께 얻을 수 있습니다.</p>
+      </div>
+    </details>
 
-      <li class="step">
-        <p class="step-title">세전·세후 상세 내역 확인</p>
-        <p>초기 투자금, 총 적립액, 총 원금, 세전·세후 이자(수익), 세전·세후 총액을 한눈에 비교할 수 있습니다.</p>
-        <img class="step-shot" src="as-guide-3-breakdown.png" alt="세전·세후 상세 내역 표" loading="lazy" width="448" height="462">
-        <p class="step-caption">세전·세후 상세 내역 화면</p>
-      </li>
-    </ol>
+    <details class="faq">
+      <summary>정확한 과거 물가상승률로 계산하고 싶으면 어떻게 하나요?</summary>
+      <div class="faq-body">
+        <p>이 계산기는 <strong>매년 동일한 물가상승률</strong>을 가정합니다. 실제 특정 기간의 정확한 누적 물가상승률을 알고 싶다면 통계청 소비자물가지수(CPI) 자료에서 그 기간의 평균 상승률을 확인해 입력해보세요.</p>
+      </div>
+    </details>
 
-    <h2>계산 기준</h2>
-    <p>초기 투자금은 <strong>원금 × (1+월수익률)^개월수</strong>로, 매월 적립금은 <strong>매월 초 납입을 가정한 연금(annuity-due) 공식</strong>으로 각각 계산한 뒤 더합니다. 둘 다 매월 복리로 고정 계산하며, 이자소득세는 일반과세 기준 15.4%를 적용했습니다.</p>
+    <details class="faq">
+      <summary>입력한 정보가 저장되나요?</summary>
+      <div class="faq-body">
+        <p>저장되지 않습니다. 모든 계산은 여러분의 브라우저 안에서만 이루어지고, 입력하신 금액·물가상승률 등은 서버로 전송되지 않습니다. 페이지를 닫으면 그대로 사라집니다.</p>
+      </div>
+    </details>
 
-    <p>계산은 참고용이며, 실제 투자 수익률은 원금 손실을 포함해 예측과 다를 수 있습니다.</p>
+  </section>
 
-    <p style="text-align:center; margin: 24px 0 8px;">
-      <a class="btn btn-primary" href="asset-simulator.html" style="display:inline-flex; padding: 12px 28px;">moklyun.com에서 바로 계산해보기 →</a>
-    </p>
-
-    <p class="meta">최종 검토: 2026년 9월</p>
-  </article>
   <p class="back-home" style="text-align:center; margin: 20px 0 0;">
     <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
   </p>
 
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산입니다. 실제 물가상승률은 연도·품목에 따라 다릅니다.
+  </p>
 </main>
 
 <footer class="site-footer">
