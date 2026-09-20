@@ -162,6 +162,22 @@
     </div>
   </div>
 
+  <!-- 개념 설명 -->
+  <section class="card article" aria-labelledby="about-title">
+    <h2 class="section-title" id="about-title">타이어 압력계 숫자가 실제 압력의 전부는 아니라고요?</h2>
+    <p>타이어 공기압계나 대부분의 산업용 압력계는 <strong>게이지압(gauge pressure)</strong>을 표시합니다. 게이지압은 대기압을 "0"으로 놓고 그보다 얼마나 더 높은지를 재는 방식이라, 진짜 물리적인 압력인 <strong>절대압(absolute pressure)</strong>을 구하려면 여기에 대기압(약 101.3kPa, 14.7psi)을 더해야 합니다. 또한 이 계산기의 표준대기압(1atm=101,325Pa)은 <strong>해수면 기준의 정의값</strong>일 뿐, 실제 대기압은 고도가 높아질수록 낮아지고 날씨에 따라서도 조금씩 변합니다. 그래서 같은 타이어라도 고산지대에서 잰 압력계 숫자는 평지와 다르게 나올 수 있습니다.</p>
+
+    <h3 style="margin: 18px 0 6px; font-size: 15.5px;">계산 예시</h3>
+    <p>타이어 압력계가 32psi를 가리킨다면, 이는 대기압 위에 추가로 32psi가 더 걸려 있다는 뜻(게이지압)입니다. 실제 타이어 내부의 절대압은 여기에 대기압(약 14.7psi)을 더한 <strong>약 46.7psi</strong>입니다. 타이어 정비 매뉴얼이나 압력계 표시값은 거의 항상 게이지압 기준이므로, 32psi를 그대로 절대압으로 착각하면 안 됩니다.</p>
+
+    <h3 style="margin: 18px 0 6px; font-size: 15.5px;">자주 하는 오해</h3>
+    <ul>
+      <li><strong>"압력계에 표시된 숫자가 타이어 속 실제(절대) 압력이다"</strong> — 대부분의 압력계는 대기압을 0으로 놓는 게이지압을 표시합니다. 실제 절대압을 구하려면 대기압만큼을 더해야 합니다.</li>
+      <li><strong>"1atm(표준대기압)은 어디서나 실제 대기압과 똑같다"</strong> — 표준대기압은 해수면 기준으로 정의된 값일 뿐입니다. 실제 대기압은 고도가 높을수록 낮아져서, 고산지대에서는 1atm보다 훨씬 낮은 대기압을 경험하게 됩니다.</li>
+      <li><strong>"kgf/cm²의 'kg'는 질량 단위 킬로그램과 같은 의미다"</strong> — kgf(킬로그램힘)는 질량이 아니라 <strong>힘(무게)</strong>의 단위입니다. 편의상 "kg/cm²"로 줄여 부르는 경우가 많지만, 정확히는 질량 단위가 아닌 힘 단위입니다.</li>
+    </ul>
+  </section>
+
   <p class="back-home" style="text-align:center; margin: 20px 0 0;">
     <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
   </p>
