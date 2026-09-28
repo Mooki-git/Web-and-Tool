@@ -197,6 +197,7 @@ function render() {
     el.warn.hidden = warnParts.length === 0;
 
     if (!r || !r.valid) {
+      el.headLabel.textContent = '예상 월배당금 (세후, 마지막 달 기준)';
       el.headline.textContent = '0원';
       el.headSub.textContent = '-';
       el.cPrincipal.textContent = '-'; el.cBalance.textContent = '-'; el.cGrowth.textContent = '-';
@@ -240,6 +241,7 @@ function render() {
     el.warn.hidden = warnParts.length === 0;
 
     if (!t || !t.valid) {
+      el.headLabel.textContent = '필요한 투자원금';
       el.headline.textContent = '0원';
       el.headSub.textContent = '-';
       el.tAnnualAfter.textContent = '-'; el.tAnnualPre.textContent = '-'; el.tPrincipal.textContent = '-';
