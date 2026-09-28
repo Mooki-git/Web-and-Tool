@@ -252,8 +252,8 @@ function render() {
     el.headline.textContent = formatWon(t.requiredPrincipal);
     el.headSub.textContent = '세전 연배당금 ' + formatWon(t.targetAnnualPreTax) + ' 기준';
 
-    el.tAnnualAfter.textContent = formatWon(t.targetAnnualAfter);
-    el.tAnnualPre.textContent = formatWon(t.targetAnnualPre);
+    el.tAnnualAfter.textContent = formatWon(t.targetAnnualAfterTax);
+    el.tAnnualPre.textContent = formatWon(t.targetAnnualPreTax);
     el.tPrincipal.textContent = formatWon(t.requiredPrincipal);
   }
 }
