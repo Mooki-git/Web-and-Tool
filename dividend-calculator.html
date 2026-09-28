@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7031447366404868"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>배당금 계산기 | 월배당 ETF 재투자·목표 배당금 역산</title>
+<meta name="description" content="초기 투자금과 월 투자금, 배당수익률을 넣으면 몇 년 뒤 월배당금이 얼마가 될지 계산합니다. 목표 월배당금을 받으려면 얼마가 필요한지 역산도 가능합니다. SCHD 등 월배당 ETF 투자자를 위한 계산기입니다.">
+<meta name="theme-color" content="#2f6df6">
+<link rel="canonical" href="https://moklyun.com/dividend-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moklyun.com/dividend-calculator.html">
+<meta property="og:title" content="배당금 계산기 | moklyun">
+<meta property="og:description" content="월배당 ETF 재투자 시뮬레이션과 목표 배당금 역산을 한 번에 계산합니다.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .fold { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 4px; }
+  .fold summary { cursor: pointer; padding: 10px 0; font-size: 14.5px; font-weight: 700; color: var(--brand); list-style: none; }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary::after { content: ' ▾'; font-size: 12px; }
+  .fold[open] summary::after { content: ' ▴'; }
+  .fold-body { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 6px; }
+  .fold-body p { margin: 0 0 10px; }
+  .fold-body p:last-child { margin-bottom: 0; }
+  .fold-body strong { color: var(--ink); }
+
+  .warn-box {
+    margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+    background: #fff4e5; color: #7a4a12; font-size: 14px; line-height: 1.65;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .warn-box { background: #3a2a15; color: #f0c894; }
+  }
+  .warn-box[hidden] { display: none; }
+  .warn-box p { margin: 0; }
+
+  .q-sub { margin: 18px 0 4px; font-size: 15px; font-weight: 700; }
+  .cmp td { text-align: right; font-variant-numeric: tabular-nums; }
+  .cmp th[scope="row"] { font-weight: 500; }
+  .cmp tr.sum th, .cmp tr.sum td { border-top: 2px solid var(--line); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow"><a href="index.html">Mook 계산기 &amp; Tool</a></p>
+    <nav class="hub-sidebar" aria-label="카테고리 선택">
+      <div class="hub-cat-list">
+        <button type="button" class="hub-cat" data-cat="all">전체</button>
+        <button type="button" class="hub-cat" data-cat="tax">절세 · 세금</button>
+        <button type="button" class="hub-cat" data-cat="salary">급여 · 소득</button>
+        <button type="button" class="hub-cat" data-cat="date">날짜 도구</button>
+        <button type="button" class="hub-cat" data-cat="unit">단위 환산</button>
+        <button type="button" class="hub-cat is-active" data-cat="invest">투자 도구</button>
+      </div>
+    </nav>
+    <div class="calc-switcher" role="tablist" aria-label="계산기 선택" data-default-cat="invest">
+      <a href="isa.html" data-cat="tax">ISA 절세 계산기</a>
+      <a href="dividend-tax.html" data-cat="tax">배당세 계산기</a>
+      <a href="stock-tax.html" data-cat="tax">주식 양도세 계산기</a>
+      <a href="pension.html" data-cat="tax">연금저축·IRP 계산기</a>
+      <a href="comprehensive-tax.html" data-cat="tax">종합소득세 계산기</a>
+      <a href="salary-tax.html" data-cat="salary">연봉 실수령액 계산기</a>
+      <a href="insurance.html" data-cat="salary">4대보험 계산기</a>
+      <a href="severance.html" data-cat="salary">퇴직금 계산기</a>
+      <a href="unemployment.html" data-cat="salary">실업급여 계산기</a>
+      <a href="loan-repayment.html" data-cat="salary">대출 상환 계산기</a>
+      <a href="parental-leave.html" data-cat="salary">육아휴직급여 계산기</a>
+      <a href="age-calculator.html" data-cat="date">만 나이 계산기</a>
+      <a href="lunar-calendar.html" data-cat="date">양음력 계산기</a>
+      <a href="due-date.html" data-cat="date">출산예정일 계산기</a>
+      <a href="date-calculator.html" data-cat="date">날짜 계산기</a>
+      <a href="discharge-date.html" data-cat="date">전역일 계산기</a>
+      <a href="ovulation.html" data-cat="date">배란일 계산기</a>
+      <a href="length-converter.html" data-cat="unit">길이 변환기</a>
+      <a href="unit-converter.html" data-cat="unit">단위 변환기</a>
+      <a href="energy-converter.html" data-cat="unit">에너지 환산기</a>
+      <a href="pressure-converter.html" data-cat="unit">압력 변환기</a>
+      <a href="engineering-converter.html" data-cat="unit">공학단위 변환기</a>
+      <a href="averaging-calculator.html" data-cat="invest">물타기 계산기</a>
+      <a href="compound-interest.html" data-cat="invest">복리 계산기</a>
+      <a href="asset-simulator.html" data-cat="invest">자산 시뮬레이터</a>
+      <a href="inflation-calculator.html" data-cat="invest">인플레이션 계산기</a>
+      <a href="dividend-calculator.html" data-cat="invest" class="is-current" aria-current="page">배당금 계산기</a>
+    </div>
+    <h1>배당금 계산기</h1>
+    <p class="lede">초기 투자금·월 투자금·배당수익률만 넣으면 <strong>몇 년 뒤 월배당금이 얼마가 될지</strong> 계산하고,
+      <strong>목표 월배당금</strong>을 받으려면 얼마가 필요한지 역산도 해드립니다.</p>
+    <nav class="site-nav" aria-label="사이트 메뉴">
+      <a href="dividend-calculator.html" class="is-current" aria-current="page">계산기</a>
+      <a href="dividend-calculator-guide.html">이용법</a>
+      <a href="dividend-calculator-faq.html">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. 모드 선택 -->
+  <section class="card" aria-labelledby="q-mode">
+    <h2 class="q-title" id="q-mode">무엇을 계산할까요?</h2>
+    <div class="seg" role="radiogroup" aria-label="계산 모드 선택">
+      <label class="seg-item"><input type="radio" name="mode" value="reinvest" checked><span>배당 재투자 시뮬레이션</span></label>
+      <label class="seg-item"><input type="radio" name="mode" value="target"><span>목표 배당금 역산</span></label>
+    </div>
+  </section>
+
+  <!-- 2a. 재투자 시뮬레이션 입력 -->
+  <section class="card" id="panel-reinvest" aria-labelledby="q-reinvest">
+    <h2 class="q-title" id="q-reinvest">초기 투자금·월 투자금·배당수익률을 입력하세요</h2>
+    <p class="q-help">초기 투자금이나 월 투자금 중 하나는 0으로 두어도 됩니다. 주가는 변동 없다고 가정한 보수적인 계산입니다.</p>
+
+    <h3 class="q-sub">초기 투자금</h3>
+    <div class="money-field">
+      <label class="sr-only" for="initial">초기 투자금</label>
+      <input id="initial" type="text" inputmode="numeric" autocomplete="off" value="10,000,000">
+      <span class="unit">원</span>
+    </div>
+
+    <h3 class="q-sub">월 투자금</h3>
+    <div class="money-field">
+      <label class="sr-only" for="monthly">월 투자금</label>
+      <input id="monthly" type="text" inputmode="numeric" autocomplete="off" value="500,000">
+      <span class="unit">원</span>
+    </div>
+
+    <h3 class="q-sub">현재 배당수익률(연, 세전)</h3>
+    <p class="q-help">매입 시점 기준 연간 배당금 ÷ 주가입니다. SCHD는 약 3.5%, 고배당 ETF는 6~8%대인 경우가 많습니다.</p>
+    <div class="money-field">
+      <label class="sr-only" for="yield-rate">배당수익률</label>
+      <input id="yield-rate" type="text" inputmode="decimal" autocomplete="off" value="3.5">
+      <span class="unit">%</span>
+    </div>
+
+    <h3 class="q-sub">연 배당성장률 (선택)</h3>
+    <p class="q-help">주당 배당금이 매년 늘어나는 비율입니다. SCHD처럼 배당 성장형 ETF는 10~12%대, 배당이 거의 안 느는 고배당 ETF·리츠는 0%에 가깝습니다. 모르면 0으로 두세요.</p>
+    <div class="money-field">
+      <label class="sr-only" for="growth-rate">배당성장률</label>
+      <input id="growth-rate" type="text" inputmode="decimal" autocomplete="off" value="0">
+      <span class="unit">%</span>
+    </div>
+
+    <h3 class="q-sub">투자 기간</h3>
+    <div class="money-field">
+      <label class="sr-only" for="months">투자 기간(개월)</label>
+      <input id="months" type="text" inputmode="numeric" autocomplete="off" value="120">
+      <span class="unit">개월</span>
+    </div>
+
+    <h3 class="q-sub">받은 배당금을 재투자할까요?</h3>
+    <p class="q-help">재투자하면 배당금으로 추가 매수해 복리 효과가 더해집니다. 재투자하지 않으면 배당금은 현금으로만 쌓입니다.</p>
+    <div class="seg" role="radiogroup" aria-label="배당 재투자 여부">
+      <label class="seg-item"><input type="radio" name="reinvest" value="yes" checked><span>재투자함</span></label>
+      <label class="seg-item"><input type="radio" name="reinvest" value="no"><span>재투자 안 함</span></label>
+    </div>
+  </section>
+
+  <!-- 2b. 목표 배당금 역산 입력 -->
+  <section class="card" id="panel-target" aria-labelledby="q-target" hidden>
+    <h2 class="q-title" id="q-target">목표 월 배당금과 배당수익률을 입력하세요</h2>
+    <p class="q-help">목표 월 배당금은 세금(미국 원천징수 15%)을 뗀 <strong>실수령액 기준</strong>으로 입력하세요.</p>
+
+    <h3 class="q-sub">목표 월 배당금 (세후)</h3>
+    <div class="chips" role="group" aria-label="빠른 금액 선택">
+      <button type="button" class="chip" data-amount="500000">50만원</button>
+      <button type="button" class="chip is-active" data-amount="1000000">100만원</button>
+      <button type="button" class="chip" data-amount="2000000">200만원</button>
+      <button type="button" class="chip" data-amount="3000000">300만원</button>
+    </div>
+    <div class="money-field">
+      <label class="sr-only" for="target-monthly">목표 월 배당금</label>
+      <input id="target-monthly" type="text" inputmode="numeric" autocomplete="off" value="1,000,000">
+      <span class="unit">원</span>
+    </div>
+
+    <h3 class="q-sub">배당수익률(연, 세전)</h3>
+    <div class="money-field">
+      <label class="sr-only" for="target-yield">배당수익률</label>
+      <input id="target-yield" type="text" inputmode="decimal" autocomplete="off" value="3.5">
+      <span class="unit">%</span>
+    </div>
+  </section>
+
+  <div class="warn-box" id="warn" hidden></div>
+
+  <!-- 3. 결과 -->
+  <div id="result">
+    <div class="card result-card headline-card">
+      <p class="headline-label" id="head-label">예상 월배당금 (세후, 마지막 달 기준)</p>
+      <p class="headline" id="headline">0원</p>
+      <p class="headline-label" id="head-sub">-</p>
+    </div>
+
+    <!-- 재투자 시뮬레이션 결과 상세 -->
+    <div class="card result-card" id="result-reinvest">
+      <h2 class="section-title">배당금 상세 내역</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead><tr><th scope="col">항목</th><th scope="col">금액</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">총 투자원금</th><td id="c-principal">-</td></tr>
+            <tr><th scope="row">최종 평가금액</th><td id="c-balance">-</td></tr>
+            <tr><th scope="row">재투자 성장분 / 누적 현금배당</th><td id="c-growth">-</td></tr>
+            <tr><th scope="row">연간 배당금(세전)</th><td id="c-annual-pre">-</td></tr>
+            <tr><th scope="row">연간 배당금(세후)</th><td id="c-annual-after">-</td></tr>
+            <tr><th scope="row">월평균 배당금(세전)</th><td id="c-monthly-pre">-</td></tr>
+            <tr class="sum"><th scope="row">월평균 배당금(세후)</th><td id="c-monthly-after">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">단위: 원 · 마지막 달 기준 배당수익률 <strong id="c-final-yield">-</strong> (배당성장률 반영)</p>
+
+      <details class="fold">
+        <summary>연도별 배당금 스케줄 보기</summary>
+        <div class="fold-body">
+          <div class="table-scroll">
+            <table class="cmp">
+              <thead><tr><th scope="col">연차</th><th scope="col">누적 투자원금</th><th scope="col">평가금액</th><th scope="col">배당수익률</th></tr></thead>
+              <tbody id="schedule-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- 목표 배당금 역산 결과 상세 -->
+    <div class="card result-card" id="result-target" hidden>
+      <h2 class="section-title">필요한 투자원금 상세</h2>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead><tr><th scope="col">항목</th><th scope="col">금액</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">목표 연간 배당금(세후)</th><td id="t-annual-after">-</td></tr>
+            <tr><th scope="row">필요한 연간 배당금(세전)</th><td id="t-annual-pre">-</td></tr>
+            <tr class="sum"><th scope="row">필요한 투자원금</th><td id="t-principal">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">단위: 원 · 미국 배당 원천징수 15% 가정</p>
+    </div>
+
+    <div class="card result-card">
+      <h2 class="section-title">이 계산에 대해</h2>
+      <p style="margin:0 0 10px; font-size:14.5px; line-height:1.7;">
+        <strong>주가 변동은 반영하지 않은 보수적인 계산입니다.</strong> 실제로는 ETF 가격도 오르내리지만, 이 계산기는 주가가 그대로라고 가정하고 <strong>매입 좌수와 배당수익률·배당성장률</strong>만으로 미래 배당금을 추정합니다. 그래서 실제 총수익(주가 상승분 포함)보다는 보수적으로 나옵니다.
+      </p>
+      <p style="margin:0; font-size:14.5px; line-height:1.7;">
+        <strong>배당수익률·배당성장률은 과거 추세를 넣는 값</strong>이라 미래에도 그대로 유지된다는 보장은 없습니다. ETF마다 배당 정책이 바뀔 수 있으니, 여러 시나리오(배당성장률 0%·5%·10% 등)를 바꿔가며 참고용으로 확인해보세요.
+      </p>
+
+      <details class="fold">
+        <summary>왜 재투자 안 하면 배당금이 현금으로만 쌓이나요?</summary>
+        <div class="fold-body">
+          <p>배당금을 재투자하지 않으면 그 돈으로 추가 매수를 하지 않는다는 뜻이라, 원금 자체는 늘어나지 않고 매달 받는 배당금만 별도로 쌓입니다. 반면 재투자하면 배당금으로 산 만큼 다음 달부터 그 몫에서도 배당이 나오기 때문에 복리 효과가 생겨 장기적으로 최종 배당금이 훨씬 커집니다.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- 개념 설명 -->
+    <section class="card article" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title">배당수익률 3.5%인데 왜 13년 뒤엔 월 100만원을 넘어서나요?</h2>
+      <p>매달 일정 금액을 투자하면서 <strong>배당금을 재투자</strong>하면, 매입한 좌수 자체가 계속 늘어나 받는 배당금도 함께 불어납니다. 여기에 SCHD처럼 <strong>주당 배당금이 매년 늘어나는(배당 성장) ETF</strong>라면, 같은 좌수를 들고만 있어도 시간이 지날수록 받는 배당금이 커집니다. 두 효과(재투자 복리 + 배당 성장)가 겹치면, 처음 배당수익률이 3~4%대로 낮아 보여도 10년 넘게 꾸준히 투자하면 월배당금이 눈에 띄게 불어나는 경우가 많습니다. 다만 이 계산기는 <strong>주가 상승은 반영하지 않은 보수적 가정</strong>이라, 실제로는 주가까지 올랐을 때보다는 낮게 나옵니다.</p>
+
+      <h3 style="margin: 18px 0 6px; font-size: 15.5px;">계산 예시</h3>
+      <p>매달 50만원씩 배당수익률 3.5%, 배당성장률 10%인 ETF에 13년간 투자하고 배당을 재투자하면, 투자원금 7,800만원이 평가금액 약 1억 3,444만원으로 불어나고, 세후 월배당금은 <strong>약 104만원</strong>으로 100만원을 넘어섭니다. 같은 조건에서 배당을 재투자하지 않으면 원금은 그대로 7,800만원이고, 세후 월배당금도 약 61만원에 그칩니다.</p>
+
+      <h3 style="margin: 18px 0 6px; font-size: 15.5px;">자주 하는 오해</h3>
+      <ul>
+        <li><strong>"배당수익률 3~4%면 큰 의미가 없다"</strong> — 배당수익률은 지금 이 순간의 스냅샷일 뿐입니다. 재투자와 배당 성장이 겹치면 시간이 지날수록 원금 대비 배당수익률(이른바 "배당 온 코스트")이 계속 올라가, 낮은 수익률로 시작해도 장기적으로는 체감 수익률이 훨씬 커질 수 있습니다.</li>
+        <li><strong>"이 계산기 결과가 실제 계좌 잔고와 똑같이 나온다"</strong> — 이 계산기는 주가가 변하지 않는다고 가정한 보수적 계산입니다. 실제로는 ETF 가격도 오르내리기 때문에, 주가가 오르면 이 계산기 결과보다 더 많이, 주가가 떨어지면 더 적게 나올 수 있습니다.</li>
+        <li><strong>"배당성장률은 한 번 정해지면 계속 유지되는 값이다"</strong> — 배당성장률은 그 ETF의 과거 몇 년간 추세일 뿐입니다. 기업 실적이나 ETF 운용 정책이 바뀌면 배당성장률도 얼마든지 달라질 수 있어, 장기 예측일수록 참고용으로만 봐야 합니다.</li>
+      </ul>
+    </section>
+
+    <div class="card result-card">
+      <h2 class="section-title">함께 보면 좋아요</h2>
+      <div class="related">
+        <a href="dividend-tax.html">
+          <span class="r-name">해외주식 배당소득세 계산기</span>
+          <span class="r-why">실제로 배당금을 받았을 때 세금이 얼마나 붙는지, 금융소득종합과세 대상인지 여기서 확인해보세요.</span>
+        </a>
+        <a href="compound-interest.html">
+          <span class="r-name">복리 계산기</span>
+          <span class="r-why">배당이 아닌 예금·적금처럼 확정금리 상품의 복리 효과를 비교하고 싶다면 여기서 확인해보세요.</span>
+        </a>
+        <a href="asset-simulator.html">
+          <span class="r-name">자산 시뮬레이터</span>
+          <span class="r-why">배당 외에 주가 상승까지 포함한 전체 수익률 기준으로 미래 자산을 계산하고 싶다면 여기서 확인해보세요.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <p class="back-home" style="text-align:center; margin: 20px 0 0;">
+    <a class="btn btn-ghost" href="index.html" style="display:inline-flex; padding: 10px 24px; min-height:auto;">← 메인화면으로 돌아가기</a>
+  </p>
+
+  <p class="disclaimer" style="margin: 20px 0 0; text-align:center;">
+    * 참고용 계산이며 투자 조언이 아닙니다. 주가 변동은 반영하지 않으며, 실제 배당수익률·배당성장률은 ETF·기업 상황에 따라 달라질 수 있습니다.<br>
+    기준: 미국 배당 원천징수 15% 가정, 2026년 공개 자료 교차검증.
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a class="footer-badge" href="site-about.html">ℹ️ 사이트 소개</a>
+      <a class="footer-badge" href="contact.html">✉️ 문의하기</a>
+      <a class="footer-badge" href="privacy.html">개인정보처리방침</a>
+      <a class="footer-badge" href="https://blog.moklyun.com/" target="_blank" rel="noopener">📝 지원금·정책 노트</a>
+    </div>
+    <p class="disclaimer">참고용 계산이며 투자 조언이 아닙니다. 기준: 2026년 공개 자료 교차검증</p>
+  </div>
+</footer>
+
+<script src="dividend-calculator.js"></script>
+<script src="page-switcher.js"></script>
+</body>
+</html>
